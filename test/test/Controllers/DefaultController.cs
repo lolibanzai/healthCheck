@@ -11,7 +11,7 @@ namespace test.Controllers
         // GET: Default
         public ActionResult Index()
         {
-            int lolibanai = 6;
+            int lolibanai = 7;
             return Content(lolibanai.ToString());
         }
 
