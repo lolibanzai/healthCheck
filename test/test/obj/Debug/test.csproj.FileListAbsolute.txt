@@ -47,6 +47,5 @@ D:\gitHeathCheck\healthCheck\test\test\bin\zh-Hant\System.Web.Webpages.Deploymen
 D:\gitHeathCheck\healthCheck\test\test\bin\zh-Hant\System.Web.Webpages.Razor.resources.dll
 D:\gitHeathCheck\healthCheck\test\test\bin\zh-Hant\System.Web.Helpers.resources.dll
 D:\gitHeathCheck\healthCheck\test\test\bin\zh-Hant\System.Web.Mvc.resources.dll
-D:\gitHeathCheck\healthCheck\test\test\obj\Debug\test.csprojResolveAssemblyReference.cache
 D:\gitHeathCheck\healthCheck\test\test\obj\Debug\test.dll
 D:\gitHeathCheck\healthCheck\test\test\obj\Debug\test.pdb
