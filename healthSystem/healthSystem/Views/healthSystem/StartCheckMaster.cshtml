@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "StartCheckMaster";
+}
+
+<h2>StartCheckMaster</h2>
+
+<div class="col-md-6">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">條件查詢</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group row">
+                <div class="col-xs-4">
+                    <label for="ex6">年度</label>
+                    <select class="form-control" id="ex6">
+                        <option>2015</option>
+                        <option>2016</option>
+                    </select>
+                </div>
+                <div class="col-xs-4">
+                    <label for="ex6">啟用狀態</label>
+                    <select class="form-control" id="ex6">
+                        <option>處理中</option>
+                        <option>健檢收集</option>
+                        <option>結案</option>
+                    </select>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-success  pull-right" value="送出查詢">
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">查詢結果</h3>
+        </div>
+        <div class="panel-body">
+
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#firstTab">主檔</a></li>
+        <li><a data-toggle="tab" href="#secondTab">明細檔-受檢單位</a></li>
+        <li><a data-toggle="tab" href="#thirdTab">明細檔-附件管理</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="firstTab">@Html.Action("StartCheckMain")</div>
+        <div class="tab-pane fade in " id="secondTab">@Html.Action("StartPlace")</div>
+        <div class="tab-pane fade in " id="thirdTab">@Html.Action("StartFile")</div>
+    </div>
+</div>
+

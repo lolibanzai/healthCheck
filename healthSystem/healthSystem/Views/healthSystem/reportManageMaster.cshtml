@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "reportManageMaster";
+}
+
+<h2>reportManageMaster</h2>
+
+<div class="col-md-6">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">條件查詢</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group row">
+                <div class="col-xs-4">
+                    <label for="ex6">年度</label>
+                    <select class="form-control" id="ex6">
+                        <option>2015</option>
+                        <option>2016</option>
+                    </select>
+                </div>
+                <div class="col-xs-4">
+                    <label for="ex6">廠別</label>
+                    <select class="form-control" id="ex6">
+                        <option>K0</option>
+                        <option>K1</option>
+                        <option>K2</option>
+                        <option>K3</option>
+                    </select>
+                </div>
+                <div class="col-xs-4">
+                    <label for="ex6">健檢類別</label>
+                    <select class="form-control" id="ex6">
+                        <option>一般健檢</option>
+                        <option>高級健檢</option>
+                    </select>
+                </div>
+                <div class="col-xs-4">
+                    <label for="ex2">報告編號</label>
+                    <input class="form-control" id="ex2" type="text">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-4">
+                    <label for="ex3">姓名</label>
+                    <input class="form-control" id="ex3" type="text">
+                </div>
+                <div class="col-xs-4">
+                    <label for="ex3">工號</label>
+                    <input class="form-control" id="ex3" type="text">
+                </div>
+                <div class="col-xs-4">
+                    <label for="ex5">身分證字號</label>
+                    <input class="form-control" id="ex5" type="text">
+                </div>
+                <div class="col-xs-4">
+                    <label for="ex6">停用註記</label>
+                    <select class="form-control" id="ex6">
+                        <option>Y</option>
+                        <option>N</option>
+                    </select>
+                </div>
+
+            </div>
+            <input type="submit" class="btn btn-success  pull-right" value="送出查詢">
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">查詢結果</h3>
+        </div>
+        <div class="panel-body">
+
+        </div>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#firstTab">主檔</a></li>
+        <li><a data-toggle="tab" href="#secondTab">明細檔-健檢項目</a></li>
+        <li><a data-toggle="tab" href="#thirdTab">明細檔-複檢項目</a></li>
+        <li><a data-toggle="tab" href="#fourthTab">明細檔-附件管理</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="firstTab">@Html.Action("reportManageMain")</div>
+        <div class="tab-pane fade in " id="secondTab">@Html.Action("checkItem")</div>
+        <div class="tab-pane fade in " id="thirdTab">@Html.Action("doubleCheck")</div>
+        <div class="tab-pane fade in " id="fourthTab">@Html.Action("reportFile")</div>
+    </div>
+</div>
+
+
+

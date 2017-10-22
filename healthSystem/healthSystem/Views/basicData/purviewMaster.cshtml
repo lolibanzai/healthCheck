@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "purviewMaster";
+}
+
+<h2>purviewMaster</h2>
+
+<div class="col-md-6">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">條件查詢</h3>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="panel-body">
+            <div class="form-group row">
+                <div class="col-xs-4">
+                    <label for="ex1">姓名:</label>
+                    <input class="form-control" id="ex1" type="text">
+                </div>
+                <div class="col-xs-4">
+                    <label for="ex2">帳號:</label>
+                    <input class="form-control" id="ex2" type="text">
+                </div>
+                <div class="col-xs-4">
+                    <label for="ex3">Email:</label>
+                    <input class="form-control" id="ex3" type="text">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-xs-4">
+                    <label for="ex4">廠別權限代碼:</label>
+                    <input class="form-control" id="ex4" type="text">
+                </div>
+                <div class="col-xs-4">
+                    <label for="ex1">停用註記</label>
+                    <select class="form-control" id="exampleSelect1">
+                        <option>Y</option>
+                        <option>N</option>
+                    </select>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-success  pull-right" value="送出查詢">
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">查詢結果</h3>
+        </div>
+        <div class="panel-body">
+
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#firstTab">主檔</a></li>
+        <li><a data-toggle="tab" href="#secondTab">明細檔-廠別權限</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="firstTab">@Html.Action("purviewMain")</div>
+        <div class="tab-pane fade in " id="secondTab">@Html.Action("employeeFactory")</div>
+    </div>
+</div>
+
