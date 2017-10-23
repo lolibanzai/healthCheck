@@ -176,6 +176,9 @@
     <Content Include="Views\healthSystem\checkItem.cshtml" />
     <Content Include="Views\healthSystem\doubleCheck.cshtml" />
     <Content Include="Views\healthSystem\reportFile.cshtml" />
+    <Content Include="Views\healthSystem\newStart.cshtml" />
+    <Content Include="Views\healthSystem\bookMaster.cshtml" />
+    <Content Include="Views\healthSystem\bookMain.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,10 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "reportManageMaster";
+    ViewBag.Title = "bookMaster";
 }
 
-<h2>reportManageMaster</h2>
-
+<h2>bookMaster</h2>
 <div class="col-md-6">
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -20,36 +19,33 @@
                     </select>
                 </div>
                 <div class="col-xs-4">
-                    <label for="ex6">廠別</label>
+                    <label for="ex1">預約日期迄時</label>
+                    <input class="form-control" id="ex1" type="date">
+                </div>
+                <div class="col-xs-4">
+                    <label for="ex1">預約日期結束</label>
+                    <input class="form-control" id="ex1" type="date">
+                </div>
+                <div class="col-xs-4">
+                    <label for="ex6">處理狀態</label>
                     <select class="form-control" id="ex6">
-                        <option>K0</option>
-                        <option>K1</option>
-                        <option>K2</option>
-                        <option>K3</option>
+                        <option>自取</option>
+                        <option>廠內窗口寄送</option>
+                        <option>寄送</option>
                     </select>
                 </div>
                 <div class="col-xs-4">
-                    <label for="ex6">健檢類別</label>
-                    <select class="form-control" id="ex6">
-                        <option>一般健檢</option>
-                        <option>高級健檢</option>
-                    </select>
+                    <label for="ex1">廠別</label>
+                    <input class="form-control" id="ex1" type="text">
                 </div>
+
                 <div class="col-xs-4">
-                    <label for="ex2">報告編號</label>
+                    <label for="ex2">姓名</label>
                     <input class="form-control" id="ex2" type="text">
-                </div>
-                <div class="col-xs-4">
-                    <label for="ex3">姓名</label>
-                    <input class="form-control" id="ex3" type="text">
                 </div>
                 <div class="col-xs-4">
                     <label for="ex3">工號</label>
                     <input class="form-control" id="ex3" type="text">
-                </div>
-                <div class="col-xs-4">
-                    <label for="ex5">身分證字號</label>
-                    <input class="form-control" id="ex5" type="text">
                 </div>
                 <div class="col-xs-4">
                     <label for="ex6">停用註記</label>
@@ -58,7 +54,6 @@
                         <option>N</option>
                     </select>
                 </div>
-
             </div>
             <input type="submit" class="btn btn-success  pull-right" value="送出查詢">
         </div>
@@ -76,17 +71,8 @@
 <div class="col-md-6">
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#firstTab">主檔</a></li>
-        <li><a data-toggle="tab" href="#secondTab">明細檔-健檢項目</a></li>
-        <li><a data-toggle="tab" href="#thirdTab">明細檔-複檢項目</a></li>
-        <li><a data-toggle="tab" href="#fourthTab">明細檔-附件管理</a></li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane fade in active" id="firstTab">@Html.Action("reportManageMain")</div>
-        <div class="tab-pane fade in " id="secondTab">@Html.Action("checkItem")</div>
-        <div class="tab-pane fade in " id="thirdTab">@Html.Action("doubleCheck")</div>
-        <div class="tab-pane fade in " id="fourthTab">@Html.Action("reportFile")</div>
+        <div class="tab-pane fade in active" id="firstTab">@Html.Action("bookMain")</div>
     </div>
 </div>
-
-
-

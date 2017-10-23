@@ -16,7 +16,7 @@ namespace healthSystem
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "member", action = "welcomePage", id = UrlParameter.Optional }
+                defaults: new { controller = "member", action = "login", id = UrlParameter.Optional }
             );
         }
     }

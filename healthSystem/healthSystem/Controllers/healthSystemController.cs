@@ -13,7 +13,7 @@ namespace healthSystem.Controllers
         {
             return View();
         }
-        public ActionResult StartCheckMain() //啟動作業主主檔
+        public ActionResult StartCheckMain() //啟動作業主檔
         {
             return View();
         }
@@ -25,6 +25,21 @@ namespace healthSystem.Controllers
         {
             return View();
         }
+        //----------------------------------------------------------
+        public ActionResult newStart() //啟動作業-新增的畫面
+        {
+            return View();
+        }
+        //----------------------------------------------------------
+        public ActionResult bookMaster() //預約健檢主頁
+        {
+            return View();
+        }
+        public ActionResult bookMain() //預約健檢主檔
+        {
+            return View();
+        }
+
         //----------------------------------------------------------
         public ActionResult reportManageMaster() //健檢報告主頁
         {

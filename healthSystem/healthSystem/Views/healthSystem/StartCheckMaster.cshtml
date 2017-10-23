@@ -4,7 +4,6 @@
 }
 
 <h2>StartCheckMaster</h2>
-
 <div class="col-md-6">
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -28,6 +27,16 @@
                     </select>
                 </div>
             </div>
+            <input type="button" class="btn btn-success" value="新增健檢方案" onclick="newStart()">
+
+
+            <script>
+                function newStart() {
+                    window.location.href = "/healthSystem/newStart";
+                }
+            </script>
+
+
             <input type="submit" class="btn btn-success  pull-right" value="送出查詢">
         </div>
     </div>
