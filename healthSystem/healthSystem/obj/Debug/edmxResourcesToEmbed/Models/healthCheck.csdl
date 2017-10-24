@@ -1,0 +1,807 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HealthCheckModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Authority">
+    <Key>
+      <PropertyRef Name="authority_Id" />
+    </Key>
+    <Property Name="authority_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="authority_workNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="authority_factoryId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="authority_IsDisable" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="authority_role" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="authority_updateuser" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="authority_updateTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Authority_Employee" FromRole="Authority" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="book">
+    <Key>
+      <PropertyRef Name="book_id" />
+    </Key>
+    <Property Name="book_id" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="book_workNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="book_mobile" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="book_state" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="book_hospitalId" Type="Int32" Nullable="false" />
+    <Property Name="book_ProgramId" Type="Int32" Nullable="false" />
+    <Property Name="book_special" Type="Int32" />
+    <Property Name="book_exceptDate" Type="DateTime" Precision="0" />
+    <Property Name="book_healthDate" Type="DateTime" Precision="0" />
+    <Property Name="book_costDate" Type="DateTime" Precision="0" />
+    <Property Name="book_cost" Type="Int32" />
+    <Property Name="book_note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="book_Notice" Type="Int32" />
+    <Property Name="book_medicalHistory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="book_EatAspririn" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="book_IsAllergy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="book_IsDisable" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="book_updateUser" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="book_updateDate" Type="DateTime" Precision="0" />
+    <Property Name="book_welfare" Type="Int32" />
+    <Property Name="book_host" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="book_hostTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Hospital" Relationship="Self.FK__book__book_hospi__178D7CA5" FromRole="book" ToRole="Hospital" />
+    <NavigationProperty Name="HealthNotice" Relationship="Self.FK__book__book_Notic__1A69E950" FromRole="book" ToRole="HealthNotice" />
+    <NavigationProperty Name="Program" Relationship="Self.FK__book__book_Progr__1881A0DE" FromRole="book" ToRole="Program" />
+    <NavigationProperty Name="Program1" Relationship="Self.FK__book__book_speci__1975C517" FromRole="book" ToRole="Program" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK__book__book_workN__1699586C" FromRole="book" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="CheckCollect">
+    <Key>
+      <PropertyRef Name="checkCollect_CollectId" />
+    </Key>
+    <Property Name="checkCollect_CollectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="checkCollect_StartId" Type="Int32" />
+    <Property Name="checkCollect_factoryId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="checkCollect_cancel" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="checkCollect_comfirm" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="checkCollect_confirmTime" Type="DateTime" Precision="3" />
+    <Property Name="checkCollect_mail" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="checkCollect_mailTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="StartCheck" Relationship="Self.FK__CheckColl__check__7DCDAAA2" FromRole="CheckCollect" ToRole="StartCheck" />
+    <NavigationProperty Name="Factory" Relationship="Self.FK__CheckColl__check__7EC1CEDB" FromRole="CheckCollect" ToRole="Factory" />
+  </EntityType>
+  <EntityType Name="CheckItem">
+    <Key>
+      <PropertyRef Name="checkItem_itemId" />
+    </Key>
+    <Property Name="checkItem_itemId" Type="Int32" Nullable="false" />
+    <Property Name="checkItem_reportId" Type="Int32" />
+    <Property Name="checkItem_itemCode" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="checkItem_itemName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="checkItem_itemValue" Type="Double" />
+    <Property Name="checkItem_IsOK" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="checkItem_description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="checkItem_updateUser" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="checkItem_updateDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ReportManage" Relationship="Self.FK__CheckItem__check__7814D14C" FromRole="CheckItem" ToRole="ReportManage" />
+  </EntityType>
+  <EntityType Name="DoubleCheck">
+    <Key>
+      <PropertyRef Name="doubleCheck_itemId" />
+    </Key>
+    <Property Name="doubleCheck_itemId" Type="Int32" Nullable="false" />
+    <Property Name="doubleCheck_reportId" Type="Int32" />
+    <Property Name="doubleCheck_itemCode" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="doubleCheck_itemName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="doubleCheck_itemValue" Type="Double" />
+    <Property Name="doubleCheck_IsOK" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="doubleCheck_description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="doubleCheck_date" Type="DateTime" Precision="3" />
+    <Property Name="doubleCheck_updateUser" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="doubleCheck_updateDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ReportManage" Relationship="Self.FK__DoubleChe__doubl__7AF13DF7" FromRole="DoubleCheck" ToRole="ReportManage" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="employee_workNumber" />
+    </Key>
+    <Property Name="employee_workNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="employee_workId" Type="Int32" Nullable="false" />
+    <Property Name="employee_name" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="employee_identityCard" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="employee_blood" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="employee_gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="employee_dateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="employee_age" Type="Int32" Nullable="false" />
+    <Property Name="employee_groupId" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="employee_corporation" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="employee_team" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="employee_factoryId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="employee_jobTitle" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="employee_department" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="employee_managerDate" Type="DateTime" Precision="0" />
+    <Property Name="employee_homeSite" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="employee_IsAbroad" Type="String" MaxLength="2" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="employee_IaborId" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="employee_laborInsurance" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="employee_comingDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="employee_quitDate" Type="DateTime" Precision="0" />
+    <Property Name="employee_accFactory" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="employee_mailingAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="employee_cellphone" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="employee_home" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="employee_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="employee_reportAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="employee_reportMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="employee_note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="employee_changedDate" Type="DateTime" Precision="3" />
+    <Property Name="employee_isDisabled" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="employee_username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="employee_password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="employee_role" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="Authority" Relationship="Self.FK_Authority_Employee" FromRole="Employee" ToRole="Authority" />
+    <NavigationProperty Name="book" Relationship="Self.FK__book__book_workN__1699586C" FromRole="Employee" ToRole="book" />
+    <NavigationProperty Name="WorkInfo" Relationship="Self.FK__Employee__employ__61316BF4" FromRole="Employee" ToRole="WorkInfo" />
+    <NavigationProperty Name="Factory" Relationship="Self.FK__Employee__employ__6225902D" FromRole="Employee" ToRole="Factory" />
+    <NavigationProperty Name="Factory1" Relationship="Self.FK__Employee__employ__6319B466" FromRole="Employee" ToRole="Factory" />
+    <NavigationProperty Name="InspectPerson" Relationship="Self.FK__InspectPe__inspe__047AA831" FromRole="Employee" ToRole="InspectPerson" />
+    <NavigationProperty Name="ReportManage" Relationship="Self.FK__ReportMan__Repor__6F7F8B4B" FromRole="Employee" ToRole="ReportManage" />
+    <NavigationProperty Name="StartHand" Relationship="Self.FK__StartHand__start__13BCEBC1" FromRole="Employee" ToRole="StartHand" />
+  </EntityType>
+  <EntityType Name="Factory">
+    <Key>
+      <PropertyRef Name="factory_id" />
+    </Key>
+    <Property Name="factory_id" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="factory_area" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="factory_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="factory_contract" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="factory_address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CheckCollect" Relationship="Self.FK__CheckColl__check__7EC1CEDB" FromRole="Factory" ToRole="CheckCollect" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK__Employee__employ__6225902D" FromRole="Factory" ToRole="Employee" />
+    <NavigationProperty Name="Employee1" Relationship="Self.FK__Employee__employ__6319B466" FromRole="Factory" ToRole="Employee" />
+    <NavigationProperty Name="StartPlace" Relationship="Self.FK__StartPlac__start__093F5D4E" FromRole="Factory" ToRole="StartPlace" />
+  </EntityType>
+  <EntityType Name="HealthNotice">
+    <Key>
+      <PropertyRef Name="notice_id" />
+    </Key>
+    <Property Name="notice_id" Type="Int32" Nullable="false" />
+    <Property Name="notice_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="book" Relationship="Self.FK__book__book_Notic__1A69E950" FromRole="HealthNotice" ToRole="book" />
+  </EntityType>
+  <EntityType Name="Hospital">
+    <Key>
+      <PropertyRef Name="hospital_hospitalId" />
+    </Key>
+    <Property Name="hospital_hospitalId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="hospital_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="hospital_address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="hospital_contact" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="hospital_phone" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="hospital_uniform" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="hospital_website" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="hospital_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="hospital_state" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="hospital_updateuser" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+    <Property Name="hospital_updatetime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="book" Relationship="Self.FK__book__book_hospi__178D7CA5" FromRole="Hospital" ToRole="book" />
+    <NavigationProperty Name="HospitalProgramFile" Relationship="Self.FK__HospitalP__file___0FEC5ADD" FromRole="Hospital" ToRole="HospitalProgramFile" />
+    <NavigationProperty Name="Program" Relationship="Self.FK__Program__program__6ABAD62E" FromRole="Hospital" ToRole="Program" />
+    <NavigationProperty Name="ReportManage" Relationship="Self.FK__ReportMan__Repor__7167D3BD" FromRole="Hospital" ToRole="ReportManage" />
+  </EntityType>
+  <EntityType Name="HospitalProgramFile">
+    <Key>
+      <PropertyRef Name="file_fileId" />
+    </Key>
+    <Property Name="file_fileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="file_hospitalId" Type="Int32" Nullable="false" />
+    <Property Name="hos_FileName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="file_content" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Hospital" Relationship="Self.FK__HospitalP__file___0FEC5ADD" FromRole="HospitalProgramFile" ToRole="Hospital" />
+  </EntityType>
+  <EntityType Name="InspectPerson">
+    <Key>
+      <PropertyRef Name="inspectPerson_listId" />
+    </Key>
+    <Property Name="inspectPerson_listId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="inspectPerson_WorkNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="inspectPerson_newWork" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="inspectPerson_role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="inspectPerson_bookNumber" Type="String" MaxLength="13" FixedLength="true" Unicode="false" />
+    <Property Name="inspectPerson_source" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="inspectPerson_updateUser" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="inspectPerson_updateTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK__InspectPe__inspe__047AA831" FromRole="InspectPerson" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Program">
+    <Key>
+      <PropertyRef Name="program_programId" />
+    </Key>
+    <Property Name="program_programId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="program_hospitalId" Type="Int32" Nullable="false" />
+    <Property Name="program_programName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="program_content" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="program_workid" Type="Int32" Nullable="false" />
+    <Property Name="program_state" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="program_updateuser" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+    <Property Name="program_updatetime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="book" Relationship="Self.FK__book__book_Progr__1881A0DE" FromRole="Program" ToRole="book" />
+    <NavigationProperty Name="book1" Relationship="Self.FK__book__book_speci__1975C517" FromRole="Program" ToRole="book" />
+    <NavigationProperty Name="Hospital" Relationship="Self.FK__Program__program__6ABAD62E" FromRole="Program" ToRole="Hospital" />
+    <NavigationProperty Name="WorkInfo" Relationship="Self.FK__Program__program__6BAEFA67" FromRole="Program" ToRole="WorkInfo" />
+    <NavigationProperty Name="ReportManage" Relationship="Self.FK__ReportMan__Repor__725BF7F6" FromRole="Program" ToRole="ReportManage" />
+  </EntityType>
+  <EntityType Name="ReportFile">
+    <Key>
+      <PropertyRef Name="reportFile_fileId" />
+    </Key>
+    <Property Name="reportFile_fileId" Type="Int32" Nullable="false" />
+    <Property Name="reportFile_reportId" Type="Int32" />
+    <Property Name="reportFile_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="reportFile_content" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ReportManage" Relationship="Self.FK__ReportFil__repor__753864A1" FromRole="ReportFile" ToRole="ReportManage" />
+  </EntityType>
+  <EntityType Name="ReportManage">
+    <Key>
+      <PropertyRef Name="ReportManage_id" />
+    </Key>
+    <Property Name="ReportManage_id" Type="Int32" Nullable="false" />
+    <Property Name="ReportManage_workNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ReportManage_startId" Type="Int32" />
+    <Property Name="ReportManage_hospitalId" Type="Int32" />
+    <Property Name="ReportManage_programId" Type="Int32" Nullable="false" />
+    <Property Name="ReportManage_medicalRecord" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="ReportManage_healthDate" Type="DateTime" Precision="0" />
+    <Property Name="ReportManage_corporation" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ReportManage_IsdoubleCheck" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="ReportManage_hw" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ReportManage_pastHistory" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ReportManage_symptoms" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ReportManage_notes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ReportManage_IsDisable" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="ReportManage_doubleId" Type="Int32" />
+    <Property Name="ReportManage_updateUser" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ReportManage_updateTime" Type="DateTime" Precision="3" />
+    <Property Name="generalComment_1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="generalComment_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="generalComment_3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="generalComment_4" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="generalComment_5" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="generalComment_6" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="generalComment_7" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="generalComment_8" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="generalComment_9" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="generalComment_10" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="generalComment_11" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="generalComment_12" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="generalComment_13" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="generalComment_14" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="generalComment_15" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="generalComment_16" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="generalComment_17" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CheckItem" Relationship="Self.FK__CheckItem__check__7814D14C" FromRole="ReportManage" ToRole="CheckItem" />
+    <NavigationProperty Name="DoubleCheck" Relationship="Self.FK__DoubleChe__doubl__7AF13DF7" FromRole="ReportManage" ToRole="DoubleCheck" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK__ReportMan__Repor__6F7F8B4B" FromRole="ReportManage" ToRole="Employee" />
+    <NavigationProperty Name="Hospital" Relationship="Self.FK__ReportMan__Repor__7167D3BD" FromRole="ReportManage" ToRole="Hospital" />
+    <NavigationProperty Name="Program" Relationship="Self.FK__ReportMan__Repor__725BF7F6" FromRole="ReportManage" ToRole="Program" />
+    <NavigationProperty Name="ReportFile" Relationship="Self.FK__ReportFil__repor__753864A1" FromRole="ReportManage" ToRole="ReportFile" />
+    <NavigationProperty Name="StartCheck" Relationship="Self.FK__ReportMan__Repor__7073AF84" FromRole="ReportManage" ToRole="StartCheck" />
+  </EntityType>
+  <EntityType Name="StartCheck">
+    <Key>
+      <PropertyRef Name="Start_id" />
+    </Key>
+    <Property Name="Start_id" Type="Int32" Nullable="false" />
+    <Property Name="start_year" Type="Int32" Nullable="false" />
+    <Property Name="start_startDate" Type="DateTime" Precision="0" />
+    <Property Name="start_CheckEndDate" Type="DateTime" Precision="0" />
+    <Property Name="start_principal" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+    <Property Name="start_state" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="start_note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="start_updateUser" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="start_updateDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="CheckCollect" Relationship="Self.FK__CheckColl__check__7DCDAAA2" FromRole="StartCheck" ToRole="CheckCollect" />
+    <NavigationProperty Name="ReportManage" Relationship="Self.FK__ReportMan__Repor__7073AF84" FromRole="StartCheck" ToRole="ReportManage" />
+    <NavigationProperty Name="StartFile" Relationship="Self.FK__StartFile__start__0D0FEE32" FromRole="StartCheck" ToRole="StartFile" />
+    <NavigationProperty Name="StartHand" Relationship="Self.FK__StartHand__start__12C8C788" FromRole="StartCheck" ToRole="StartHand" />
+    <NavigationProperty Name="StartPlace" Relationship="Self.FK__StartPlac__start__0A338187" FromRole="StartCheck" ToRole="StartPlace" />
+  </EntityType>
+  <EntityType Name="StartFile">
+    <Key>
+      <PropertyRef Name="startFile_fileId" />
+    </Key>
+    <Property Name="startFile_fileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="start_id" Type="Int32" Nullable="false" />
+    <Property Name="startFile_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="startFile_content" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="StartCheck" Relationship="Self.FK__StartFile__start__0D0FEE32" FromRole="StartFile" ToRole="StartCheck" />
+  </EntityType>
+  <EntityType Name="StartHand">
+    <Key>
+      <PropertyRef Name="startHand_id" />
+    </Key>
+    <Property Name="startHand_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="startHand_checkId" Type="Int32" />
+    <Property Name="startHand_workNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK__StartHand__start__13BCEBC1" FromRole="StartHand" ToRole="Employee" />
+    <NavigationProperty Name="StartCheck" Relationship="Self.FK__StartHand__start__12C8C788" FromRole="StartHand" ToRole="StartCheck" />
+  </EntityType>
+  <EntityType Name="StartPlace">
+    <Key>
+      <PropertyRef Name="startPlace_id" />
+    </Key>
+    <Property Name="startPlace_id" Type="Int32" Nullable="false" />
+    <Property Name="startPlace_factoryId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="startplace_startId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Factory" Relationship="Self.FK__StartPlac__start__093F5D4E" FromRole="StartPlace" ToRole="Factory" />
+    <NavigationProperty Name="StartCheck" Relationship="Self.FK__StartPlac__start__0A338187" FromRole="StartPlace" ToRole="StartCheck" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="WorkInfo">
+    <Key>
+      <PropertyRef Name="work_id" />
+    </Key>
+    <Property Name="work_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="work_name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="work_description" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="work_IsDiabled" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="work_updateUser" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="work_updateTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK__Employee__employ__61316BF4" FromRole="WorkInfo" ToRole="Employee" />
+    <NavigationProperty Name="Program" Relationship="Self.FK__Program__program__6BAEFA67" FromRole="WorkInfo" ToRole="Program" />
+  </EntityType>
+  <Association Name="FK_Authority_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Authority" Type="Self.Authority" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employee_workNumber" />
+      </Principal>
+      <Dependent Role="Authority">
+        <PropertyRef Name="authority_workNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__book__book_hospi__178D7CA5">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="book" Type="Self.book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="hospital_hospitalId" />
+      </Principal>
+      <Dependent Role="book">
+        <PropertyRef Name="book_hospitalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__book__book_Notic__1A69E950">
+    <End Role="HealthNotice" Type="Self.HealthNotice" Multiplicity="0..1" />
+    <End Role="book" Type="Self.book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HealthNotice">
+        <PropertyRef Name="notice_id" />
+      </Principal>
+      <Dependent Role="book">
+        <PropertyRef Name="book_Notice" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__book__book_Progr__1881A0DE">
+    <End Role="Program" Type="Self.Program" Multiplicity="1" />
+    <End Role="book" Type="Self.book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Program">
+        <PropertyRef Name="program_programId" />
+      </Principal>
+      <Dependent Role="book">
+        <PropertyRef Name="book_ProgramId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__book__book_speci__1975C517">
+    <End Role="Program" Type="Self.Program" Multiplicity="0..1" />
+    <End Role="book" Type="Self.book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Program">
+        <PropertyRef Name="program_programId" />
+      </Principal>
+      <Dependent Role="book">
+        <PropertyRef Name="book_special" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__book__book_workN__1699586C">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="book" Type="Self.book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employee_workNumber" />
+      </Principal>
+      <Dependent Role="book">
+        <PropertyRef Name="book_workNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CheckColl__check__7DCDAAA2">
+    <End Role="StartCheck" Type="Self.StartCheck" Multiplicity="0..1" />
+    <End Role="CheckCollect" Type="Self.CheckCollect" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StartCheck">
+        <PropertyRef Name="Start_id" />
+      </Principal>
+      <Dependent Role="CheckCollect">
+        <PropertyRef Name="checkCollect_StartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CheckColl__check__7EC1CEDB">
+    <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+    <End Role="CheckCollect" Type="Self.CheckCollect" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factory">
+        <PropertyRef Name="factory_id" />
+      </Principal>
+      <Dependent Role="CheckCollect">
+        <PropertyRef Name="checkCollect_factoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CheckItem__check__7814D14C">
+    <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="0..1" />
+    <End Role="CheckItem" Type="Self.CheckItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReportManage">
+        <PropertyRef Name="ReportManage_id" />
+      </Principal>
+      <Dependent Role="CheckItem">
+        <PropertyRef Name="checkItem_reportId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DoubleChe__doubl__7AF13DF7">
+    <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="0..1" />
+    <End Role="DoubleCheck" Type="Self.DoubleCheck" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReportManage">
+        <PropertyRef Name="ReportManage_id" />
+      </Principal>
+      <Dependent Role="DoubleCheck">
+        <PropertyRef Name="doubleCheck_reportId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Employee__employ__61316BF4">
+    <End Role="WorkInfo" Type="Self.WorkInfo" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkInfo">
+        <PropertyRef Name="work_id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="employee_workId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Employee__employ__6225902D">
+    <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factory">
+        <PropertyRef Name="factory_id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="employee_factoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Employee__employ__6319B466">
+    <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factory">
+        <PropertyRef Name="factory_id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="employee_accFactory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__InspectPe__inspe__047AA831">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="InspectPerson" Type="Self.InspectPerson" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employee_workNumber" />
+      </Principal>
+      <Dependent Role="InspectPerson">
+        <PropertyRef Name="inspectPerson_WorkNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ReportMan__Repor__6F7F8B4B">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employee_workNumber" />
+      </Principal>
+      <Dependent Role="ReportManage">
+        <PropertyRef Name="ReportManage_workNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StartHand__start__13BCEBC1">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="StartHand" Type="Self.StartHand" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employee_workNumber" />
+      </Principal>
+      <Dependent Role="StartHand">
+        <PropertyRef Name="startHand_workNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StartPlac__start__093F5D4E">
+    <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+    <End Role="StartPlace" Type="Self.StartPlace" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factory">
+        <PropertyRef Name="factory_id" />
+      </Principal>
+      <Dependent Role="StartPlace">
+        <PropertyRef Name="startPlace_factoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__HospitalP__file___0FEC5ADD">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="HospitalProgramFile" Type="Self.HospitalProgramFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="hospital_hospitalId" />
+      </Principal>
+      <Dependent Role="HospitalProgramFile">
+        <PropertyRef Name="file_hospitalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Program__program__6ABAD62E">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+    <End Role="Program" Type="Self.Program" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="hospital_hospitalId" />
+      </Principal>
+      <Dependent Role="Program">
+        <PropertyRef Name="program_hospitalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ReportMan__Repor__7167D3BD">
+    <End Role="Hospital" Type="Self.Hospital" Multiplicity="0..1" />
+    <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hospital">
+        <PropertyRef Name="hospital_hospitalId" />
+      </Principal>
+      <Dependent Role="ReportManage">
+        <PropertyRef Name="ReportManage_hospitalId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Program__program__6BAEFA67">
+    <End Role="WorkInfo" Type="Self.WorkInfo" Multiplicity="1" />
+    <End Role="Program" Type="Self.Program" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkInfo">
+        <PropertyRef Name="work_id" />
+      </Principal>
+      <Dependent Role="Program">
+        <PropertyRef Name="program_workid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ReportMan__Repor__725BF7F6">
+    <End Role="Program" Type="Self.Program" Multiplicity="1" />
+    <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Program">
+        <PropertyRef Name="program_programId" />
+      </Principal>
+      <Dependent Role="ReportManage">
+        <PropertyRef Name="ReportManage_programId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ReportFil__repor__753864A1">
+    <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="0..1" />
+    <End Role="ReportFile" Type="Self.ReportFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReportManage">
+        <PropertyRef Name="ReportManage_id" />
+      </Principal>
+      <Dependent Role="ReportFile">
+        <PropertyRef Name="reportFile_reportId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ReportMan__Repor__7073AF84">
+    <End Role="StartCheck" Type="Self.StartCheck" Multiplicity="0..1" />
+    <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StartCheck">
+        <PropertyRef Name="Start_id" />
+      </Principal>
+      <Dependent Role="ReportManage">
+        <PropertyRef Name="ReportManage_startId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StartFile__start__0D0FEE32">
+    <End Role="StartCheck" Type="Self.StartCheck" Multiplicity="1" />
+    <End Role="StartFile" Type="Self.StartFile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StartCheck">
+        <PropertyRef Name="Start_id" />
+      </Principal>
+      <Dependent Role="StartFile">
+        <PropertyRef Name="start_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StartHand__start__12C8C788">
+    <End Role="StartCheck" Type="Self.StartCheck" Multiplicity="0..1" />
+    <End Role="StartHand" Type="Self.StartHand" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StartCheck">
+        <PropertyRef Name="Start_id" />
+      </Principal>
+      <Dependent Role="StartHand">
+        <PropertyRef Name="startHand_checkId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StartPlac__start__0A338187">
+    <End Role="StartCheck" Type="Self.StartCheck" Multiplicity="1" />
+    <End Role="StartPlace" Type="Self.StartPlace" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StartCheck">
+        <PropertyRef Name="Start_id" />
+      </Principal>
+      <Dependent Role="StartPlace">
+        <PropertyRef Name="startplace_startId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HealthCheckEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Authority" EntityType="Self.Authority" />
+    <EntitySet Name="book" EntityType="Self.book" />
+    <EntitySet Name="CheckCollect" EntityType="Self.CheckCollect" />
+    <EntitySet Name="CheckItem" EntityType="Self.CheckItem" />
+    <EntitySet Name="DoubleCheck" EntityType="Self.DoubleCheck" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" />
+    <EntitySet Name="Factory" EntityType="Self.Factory" />
+    <EntitySet Name="HealthNotice" EntityType="Self.HealthNotice" />
+    <EntitySet Name="Hospital" EntityType="Self.Hospital" />
+    <EntitySet Name="HospitalProgramFile" EntityType="Self.HospitalProgramFile" />
+    <EntitySet Name="InspectPerson" EntityType="Self.InspectPerson" />
+    <EntitySet Name="Program" EntityType="Self.Program" />
+    <EntitySet Name="ReportFile" EntityType="Self.ReportFile" />
+    <EntitySet Name="ReportManage" EntityType="Self.ReportManage" />
+    <EntitySet Name="StartCheck" EntityType="Self.StartCheck" />
+    <EntitySet Name="StartFile" EntityType="Self.StartFile" />
+    <EntitySet Name="StartHand" EntityType="Self.StartHand" />
+    <EntitySet Name="StartPlace" EntityType="Self.StartPlace" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="WorkInfo" EntityType="Self.WorkInfo" />
+    <AssociationSet Name="FK_Authority_Employee" Association="Self.FK_Authority_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Authority" EntitySet="Authority" />
+    </AssociationSet>
+    <AssociationSet Name="FK__book__book_hospi__178D7CA5" Association="Self.FK__book__book_hospi__178D7CA5">
+      <End Role="Hospital" EntitySet="Hospital" />
+      <End Role="book" EntitySet="book" />
+    </AssociationSet>
+    <AssociationSet Name="FK__book__book_Notic__1A69E950" Association="Self.FK__book__book_Notic__1A69E950">
+      <End Role="HealthNotice" EntitySet="HealthNotice" />
+      <End Role="book" EntitySet="book" />
+    </AssociationSet>
+    <AssociationSet Name="FK__book__book_Progr__1881A0DE" Association="Self.FK__book__book_Progr__1881A0DE">
+      <End Role="Program" EntitySet="Program" />
+      <End Role="book" EntitySet="book" />
+    </AssociationSet>
+    <AssociationSet Name="FK__book__book_speci__1975C517" Association="Self.FK__book__book_speci__1975C517">
+      <End Role="Program" EntitySet="Program" />
+      <End Role="book" EntitySet="book" />
+    </AssociationSet>
+    <AssociationSet Name="FK__book__book_workN__1699586C" Association="Self.FK__book__book_workN__1699586C">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="book" EntitySet="book" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CheckColl__check__7DCDAAA2" Association="Self.FK__CheckColl__check__7DCDAAA2">
+      <End Role="StartCheck" EntitySet="StartCheck" />
+      <End Role="CheckCollect" EntitySet="CheckCollect" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CheckColl__check__7EC1CEDB" Association="Self.FK__CheckColl__check__7EC1CEDB">
+      <End Role="Factory" EntitySet="Factory" />
+      <End Role="CheckCollect" EntitySet="CheckCollect" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CheckItem__check__7814D14C" Association="Self.FK__CheckItem__check__7814D14C">
+      <End Role="ReportManage" EntitySet="ReportManage" />
+      <End Role="CheckItem" EntitySet="CheckItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DoubleChe__doubl__7AF13DF7" Association="Self.FK__DoubleChe__doubl__7AF13DF7">
+      <End Role="ReportManage" EntitySet="ReportManage" />
+      <End Role="DoubleCheck" EntitySet="DoubleCheck" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Employee__employ__61316BF4" Association="Self.FK__Employee__employ__61316BF4">
+      <End Role="WorkInfo" EntitySet="WorkInfo" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Employee__employ__6225902D" Association="Self.FK__Employee__employ__6225902D">
+      <End Role="Factory" EntitySet="Factory" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Employee__employ__6319B466" Association="Self.FK__Employee__employ__6319B466">
+      <End Role="Factory" EntitySet="Factory" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK__InspectPe__inspe__047AA831" Association="Self.FK__InspectPe__inspe__047AA831">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="InspectPerson" EntitySet="InspectPerson" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ReportMan__Repor__6F7F8B4B" Association="Self.FK__ReportMan__Repor__6F7F8B4B">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="ReportManage" EntitySet="ReportManage" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StartHand__start__13BCEBC1" Association="Self.FK__StartHand__start__13BCEBC1">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="StartHand" EntitySet="StartHand" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StartPlac__start__093F5D4E" Association="Self.FK__StartPlac__start__093F5D4E">
+      <End Role="Factory" EntitySet="Factory" />
+      <End Role="StartPlace" EntitySet="StartPlace" />
+    </AssociationSet>
+    <AssociationSet Name="FK__HospitalP__file___0FEC5ADD" Association="Self.FK__HospitalP__file___0FEC5ADD">
+      <End Role="Hospital" EntitySet="Hospital" />
+      <End Role="HospitalProgramFile" EntitySet="HospitalProgramFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Program__program__6ABAD62E" Association="Self.FK__Program__program__6ABAD62E">
+      <End Role="Hospital" EntitySet="Hospital" />
+      <End Role="Program" EntitySet="Program" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ReportMan__Repor__7167D3BD" Association="Self.FK__ReportMan__Repor__7167D3BD">
+      <End Role="Hospital" EntitySet="Hospital" />
+      <End Role="ReportManage" EntitySet="ReportManage" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Program__program__6BAEFA67" Association="Self.FK__Program__program__6BAEFA67">
+      <End Role="WorkInfo" EntitySet="WorkInfo" />
+      <End Role="Program" EntitySet="Program" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ReportMan__Repor__725BF7F6" Association="Self.FK__ReportMan__Repor__725BF7F6">
+      <End Role="Program" EntitySet="Program" />
+      <End Role="ReportManage" EntitySet="ReportManage" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ReportFil__repor__753864A1" Association="Self.FK__ReportFil__repor__753864A1">
+      <End Role="ReportManage" EntitySet="ReportManage" />
+      <End Role="ReportFile" EntitySet="ReportFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ReportMan__Repor__7073AF84" Association="Self.FK__ReportMan__Repor__7073AF84">
+      <End Role="StartCheck" EntitySet="StartCheck" />
+      <End Role="ReportManage" EntitySet="ReportManage" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StartFile__start__0D0FEE32" Association="Self.FK__StartFile__start__0D0FEE32">
+      <End Role="StartCheck" EntitySet="StartCheck" />
+      <End Role="StartFile" EntitySet="StartFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StartHand__start__12C8C788" Association="Self.FK__StartHand__start__12C8C788">
+      <End Role="StartCheck" EntitySet="StartCheck" />
+      <End Role="StartHand" EntitySet="StartHand" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StartPlac__start__0A338187" Association="Self.FK__StartPlac__start__0A338187">
+      <End Role="StartCheck" EntitySet="StartCheck" />
+      <End Role="StartPlace" EntitySet="StartPlace" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

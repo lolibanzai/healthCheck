@@ -102,3 +102,8 @@ C:\Users\lolibanzai-pc\Desktop\healthSystem\healthSystem\bin\zh-Hant\System.Web.
 C:\Users\lolibanzai-pc\Desktop\healthSystem\healthSystem\obj\Debug\healthSystem.csprojResolveAssemblyReference.cache
 C:\Users\lolibanzai-pc\Desktop\healthSystem\healthSystem\obj\Debug\healthSystem.dll
 C:\Users\lolibanzai-pc\Desktop\healthSystem\healthSystem\obj\Debug\healthSystem.pdb
+C:\Users\lolibanzai\Desktop\healthSystem\healthSystem\bin\EntityFramework.dll
+C:\Users\lolibanzai\Desktop\healthSystem\healthSystem\bin\EntityFramework.SqlServer.dll
+C:\Users\lolibanzai\Desktop\healthSystem\healthSystem\bin\EntityFramework.xml
+C:\Users\lolibanzai\Desktop\healthSystem\healthSystem\bin\EntityFramework.SqlServer.xml
+C:\Users\lolibanzai\Desktop\healthSystem\healthSystem\bin\zh-Hant\EntityFramework.resources.dll

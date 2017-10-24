@@ -39,19 +39,19 @@ namespace healthSystem.Controllers
             return View();
         }
         //------------------------------------------------------------------------------
-        public ActionResult hospitalMaster() //人事資料主頁
+        public ActionResult hospitalMaster() //醫院資料主頁
         {
             return View();
         }
-        public ActionResult hospitalMain() //人事資料主檔
+        public ActionResult hospitalMain() //醫院資料主檔
         {
             return View();
         }
-        public ActionResult hospitalFile() //人事資料明細檔-附件管理
+        public ActionResult hospitalFile() //醫院資料明細檔-附件管理
         {
             return View();
         }
-        public ActionResult hospitalProgram() //人事資料明細檔-健檢方案
+        public ActionResult hospitalProgram() //醫院資料明細檔-健檢方案
         {
             return View();
         }
