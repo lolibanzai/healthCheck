@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@{
+    healthSystem.Models.Emp emp = new healthSystem.Models.Emp();
+    string emp_name = "";
+    if (Session["Employee_workNumber"] != null) {
+        string emp_id = Session["Employee_workNumber"].ToString();
+        emp_name = emp.Name(emp_id);
+    }
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -39,8 +47,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> User</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>員工登出</a></li>
+                    @if (string.IsNullOrEmpty(emp_name)) {
+                        <li><a href="~/member/login"><span class="glyphicon glyphicon-user"></span>請登入</a></li>
+                    } else {<li><a href="#"><span class="glyphicon glyphicon-user"></span>@emp_name</a></li>}
+                    <li><a href="~/member/logout"><span class="glyphicon glyphicon-log-in"></span>員工登出</a></li>
                 </ul>
             </div>
         </div>

@@ -4,27 +4,26 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="425f47858e114b48b069808234c6c5b9" Name="Diagram1">
-        <EntityTypeShape EntityType="HealthCheckModel.Authority" Width="1.5" PointX="8.25" PointY="15.25" IsExpanded="true" />
+      <Diagram DiagramId="85e14ba7a28a44d88895f2427b59ea25" Name="Diagram1">
+        <EntityTypeShape EntityType="HealthCheckModel.Authority" Width="1.5" PointX="8.25" PointY="15.5" IsExpanded="true" />
         <EntityTypeShape EntityType="HealthCheckModel.book" Width="1.5" PointX="11.25" PointY="15.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.CheckCollect" Width="1.5" PointX="3" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.CheckItem" Width="1.5" PointX="16.5" PointY="13.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.DoubleCheck" Width="1.5" PointX="16.5" PointY="17.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.Employee" Width="1.5" PointX="6" PointY="13.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.Factory" Width="1.5" PointX="0.75" PointY="16.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.HealthNotice" Width="1.5" PointX="9" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.Hospital" Width="1.5" PointX="9" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.HospitalProgramFile" Width="1.5" PointX="11.25" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.InspectPerson" Width="1.5" PointX="8.25" PointY="25.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.Program" Width="1.5" PointX="9" PointY="28.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.ReportFile" Width="1.5" PointX="16.5" PointY="20.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.ReportManage" Width="1.5" PointX="14.25" PointY="13.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.StartCheck" Width="1.5" PointX="0.75" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.StartFile" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.StartHand" Width="1.5" PointX="8.25" PointY="19.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.StartPlace" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCheckModel.CheckCollect" Width="1.5" PointX="3" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCheckModel.CheckItem" Width="1.5" PointX="16.5" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCheckModel.DoubleCheck" Width="1.5" PointX="16.5" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCheckModel.Employee" Width="1.5" PointX="6" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCheckModel.Factory" Width="1.5" PointX="0.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCheckModel.HealthNotice" Width="1.5" PointX="9" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCheckModel.Hospital" Width="1.5" PointX="9" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCheckModel.InspectPerson" Width="1.5" PointX="8.25" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCheckModel.Program" Width="1.5" PointX="9" PointY="30" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCheckModel.ReportFile" Width="1.5" PointX="16.5" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCheckModel.ReportManage" Width="1.5" PointX="14.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCheckModel.StartCheck" Width="1.5" PointX="0.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCheckModel.StartFile" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCheckModel.StartHand" Width="1.5" PointX="8.25" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCheckModel.StartPlace" Width="1.5" PointX="3" PointY="13.5" IsExpanded="true" />
         <EntityTypeShape EntityType="HealthCheckModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HealthCheckModel.WorkInfo" Width="1.5" PointX="3.75" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthCheckModel.WorkInfo" Width="1.5" PointX="3.75" PointY="21.125" IsExpanded="true" />
         <AssociationConnector Association="HealthCheckModel.FK_Authority_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="HealthCheckModel.FK__book__book_hospi__178D7CA5" ManuallyRouted="false" />
         <AssociationConnector Association="HealthCheckModel.FK__book__book_Notic__1A69E950" ManuallyRouted="false" />
@@ -33,25 +32,24 @@
         <AssociationConnector Association="HealthCheckModel.FK__book__book_workN__1699586C" ManuallyRouted="false" />
         <AssociationConnector Association="HealthCheckModel.FK__CheckColl__check__7DCDAAA2" ManuallyRouted="false" />
         <AssociationConnector Association="HealthCheckModel.FK__CheckColl__check__7EC1CEDB" ManuallyRouted="false" />
-        <AssociationConnector Association="HealthCheckModel.FK__CheckItem__check__7814D14C" ManuallyRouted="false" />
-        <AssociationConnector Association="HealthCheckModel.FK__DoubleChe__doubl__7AF13DF7" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthCheckModel.FK_CheckItem_ReportManage" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthCheckModel.FK_DoubleCheck_ReportManage" ManuallyRouted="false" />
         <AssociationConnector Association="HealthCheckModel.FK__Employee__employ__61316BF4" ManuallyRouted="false" />
         <AssociationConnector Association="HealthCheckModel.FK__Employee__employ__6225902D" ManuallyRouted="false" />
         <AssociationConnector Association="HealthCheckModel.FK__Employee__employ__6319B466" ManuallyRouted="false" />
         <AssociationConnector Association="HealthCheckModel.FK__InspectPe__inspe__047AA831" ManuallyRouted="false" />
-        <AssociationConnector Association="HealthCheckModel.FK__ReportMan__Repor__6F7F8B4B" ManuallyRouted="false" />
         <AssociationConnector Association="HealthCheckModel.FK__StartHand__start__13BCEBC1" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthCheckModel.FK_ReportManage_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="HealthCheckModel.FK__StartPlac__start__093F5D4E" ManuallyRouted="false" />
-        <AssociationConnector Association="HealthCheckModel.FK__HospitalP__file___0FEC5ADD" ManuallyRouted="false" />
         <AssociationConnector Association="HealthCheckModel.FK__Program__program__6ABAD62E" ManuallyRouted="false" />
-        <AssociationConnector Association="HealthCheckModel.FK__ReportMan__Repor__7167D3BD" ManuallyRouted="false" />
         <AssociationConnector Association="HealthCheckModel.FK__Program__program__6BAEFA67" ManuallyRouted="false" />
-        <AssociationConnector Association="HealthCheckModel.FK__ReportMan__Repor__725BF7F6" ManuallyRouted="false" />
-        <AssociationConnector Association="HealthCheckModel.FK__ReportFil__repor__753864A1" ManuallyRouted="false" />
-        <AssociationConnector Association="HealthCheckModel.FK__ReportMan__Repor__7073AF84" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthCheckModel.FK_ReportFile_ReportManage" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthCheckModel.FK_ReportManage_StartCheck" ManuallyRouted="false" />
         <AssociationConnector Association="HealthCheckModel.FK__StartFile__start__0D0FEE32" ManuallyRouted="false" />
         <AssociationConnector Association="HealthCheckModel.FK__StartHand__start__12C8C788" ManuallyRouted="false" />
         <AssociationConnector Association="HealthCheckModel.FK__StartPlac__start__0A338187" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HealthCheckModel.HospitalProgramFile" Width="1.5" PointX="11.25" PointY="8.5" />
+        <AssociationConnector Association="HealthCheckModel.FK__HospitalP__file___0FEC5ADD" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

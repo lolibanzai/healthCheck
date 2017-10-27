@@ -18,6 +18,7 @@ namespace healthSystem.Models
         public int file_hospitalId { get; set; }
         public string hos_FileName { get; set; }
         public string file_content { get; set; }
+        public string file_url { get; set; }
     
         public virtual Hospital Hospital { get; set; }
     }

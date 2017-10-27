@@ -1,4 +1,5 @@
-﻿
+﻿@using healthSystem.ViewModel;
+@model basicDataEmployeeMaster
 @{
     ViewBag.Title = "employeeMaster";
 }
@@ -6,71 +7,88 @@
 <h2>employeeMaster</h2>
 
 
-    <div class="col-md-6">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3 class="panel-title">條件查詢</h3>
-            </div>
-            <div class="panel-body">
+<div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">條件查詢</h3>
+        </div>
+        <div class="panel-body">
+
+            <form method="post" action="/basicData/employeeMaster">
                 <div class="form-group row">
                     <div class="col-xs-4">
-                        <label for="ex1">廠別</label>
-                        <input class="form-control" id="ex1" type="text">
+                        <label for="ex2">廠別</label>
+                        <select class="form-control" id="ex2" name="factory_name">
+                            @foreach (var row in Model.factory)
+                            {
+                                <option>@row.factory_name</option>
+                            }
+                        </select>
                     </div>
-
                     <div class="col-xs-4">
-                        <label for="ex2">姓名</label>
-                        <input class="form-control" id="ex2" type="text">
+                        <label for="ex1">姓名</label>
+                        <input class="form-control" id="ex1" type="text" name="employee_name">
                     </div>
                     <div class="col-xs-4">
-                        <label for="ex3">工號</label>
-                        <input class="form-control" id="ex3" type="text">
+                        <label for="ex1">工號</label>
+                        <input class="form-control" id="ex1" type="text" name="employee_workNumber">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-xs-4">
-                        <label for="ex4">工種</label>
-                        <select class="form-control" id="ex4">
-                            <option>高階主管</option>
-                            <option>一般員工</option>
-
+                        <label for="ex2">工種</label>
+                        <select class="form-control" id="ex2" name="work_name">
+                            <option></option>
+                            @foreach (var row1 in Model.workInfo)
+                            {
+                                <option>@row1.work_name</option>
+                            }
                         </select>
                     </div>
                     <div class="col-xs-4">
-                        <label for="ex5">身分證字號</label>
-                        <input class="form-control" id="ex5" type="text">
+                        <label for="ex1">身分證字號</label>
+                        <input class="form-control" id="ex1" type="text" name="employee_identityCard">
                     </div>
                     <div class="col-xs-4">
-                        <label for="ex6">停用註記</label>
-                        <select class="form-control" id="ex6">
+                        <label for="ex2">停用註記</label>
+                        <select class="form-control" id="ex2" name="employee_isDisabled">
+                            <option></option>
                             <option>Y</option>
                             <option>N</option>
                         </select>
                     </div>
-
                 </div>
                 <input type="submit" class="btn btn-success  pull-right" value="送出查詢">
-            </div>
-        </div>
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3 class="panel-title">查詢結果</h3>
-            </div>
-            <div class="panel-body">
+            </form>
 
-            </div>
         </div>
     </div>
-
-    <div class="col-md-6">
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#firstTab">主檔</a></li>
-            <li><a data-toggle="tab" href="#secondTab">明細檔-工種</a></li>
-            <li><a data-toggle="tab" href="#thirdTab">明細檔-健檢記錄</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane fade in active" id="firstTab">@Html.Action("employeeMain")</div>
-            <div class="tab-pane fade in " id="secondTab">@Html.Action("employeeWork")</div>
-            <div class="tab-pane fade in " id="thirdTab">@Html.Action("employeeReport")</div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">查詢結果</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table" style="overflow: auto;
+	                                        height: 300px;
+	                                        display: block;">
+                <tr><th>姓名</th><th>聯絡窗口</th><th>連絡電話</th><th>停用註記</th></tr>
+                @foreach (var row3 in Model.employee)
+                {
+                    <tr>
+                        <td>@row3.employee_name</td>
+                        <td>@row3.employee_workNumber</td>
+                        <td>@row3.employee_identityCard</td>
+                        <td>@row3.employee_email</td>
+                        <td>@row3.employee_isDisabled</td>
+                        <td>
+                            <form method="post" action="/basicData/hospitalMain">
+                                <input type="text" name="hospital_hospitalId" value="@row3.employee_workNumber" hidden />
+                                <button type="submit" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </table>
         </div>
     </div>
+</div>

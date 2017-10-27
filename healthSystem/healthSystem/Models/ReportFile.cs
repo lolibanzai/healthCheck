@@ -15,7 +15,7 @@ namespace healthSystem.Models
     public partial class ReportFile
     {
         public int reportFile_fileId { get; set; }
-        public Nullable<int> reportFile_reportId { get; set; }
+        public string reportFile_reportId { get; set; }
         public string reportFile_name { get; set; }
         public string reportFile_content { get; set; }
     

@@ -4,13 +4,27 @@
 }
 
 <h2>login</h2>
-
-<input type="button" class="btn btn-success" value="登入" onclick="newStart()">
-
-
+<form action="" method="post">
+    <div class="form-group form-inline">
+        <label for="employee_username" class="glyphicon glyphicon-user">帳號：</label>
+        <input type="text" class="form-control" id="employee_username" name="employee_username" value='@Request["employee_username"]' />
+        </div><div class="form-group form-inline">
+    <label for="employee_password" class="glyphicon glyphicon-lock">密碼：</label>
+    <input type="password" class="form-control" id="employee_password" name="employee_password" value='@Request["employee_password"]' />
+    <label style="color:red">@Session["message"]</label><br />
+</div>
+    <div class="form-group">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" class="btn btn-success" value="登入" onclick="newStart()">
+        <input type="button" class="btn btn-danger" value="取消" onclick="Cancel()">
+    </div>
+</form>
 <script>
                 function newStart() {
                     window.location.href = "/member/welcomePage";
+                }
+                function Cancel() {
+                    window.location.href = "/member/login";
                 }
 </script>
 

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="HealthCheckModelStoreContainer" CdmEntityContainer="HealthCheckEntities">
+  <EntityContainerMapping StorageEntityContainer="HealthCheckModelStoreContainer" CdmEntityContainer="HealthCheckEntities1">
     <EntitySetMapping Name="Authority">
       <EntityTypeMapping TypeName="HealthCheckModel.Authority">
         <MappingFragment StoreEntitySet="Authority">
@@ -21,6 +21,7 @@
           <ScalarProperty Name="book_workNumber" ColumnName="book_workNumber" />
           <ScalarProperty Name="book_mobile" ColumnName="book_mobile" />
           <ScalarProperty Name="book_state" ColumnName="book_state" />
+          <ScalarProperty Name="book_Date" ColumnName="book_Date" />
           <ScalarProperty Name="book_hospitalId" ColumnName="book_hospitalId" />
           <ScalarProperty Name="book_ProgramId" ColumnName="book_ProgramId" />
           <ScalarProperty Name="book_special" ColumnName="book_special" />
@@ -39,6 +40,7 @@
           <ScalarProperty Name="book_welfare" ColumnName="book_welfare" />
           <ScalarProperty Name="book_host" ColumnName="book_host" />
           <ScalarProperty Name="book_hostTime" ColumnName="book_hostTime" />
+          <ScalarProperty Name="book_serialNumber" ColumnName="book_serialNumber" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -163,16 +165,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="HospitalProgramFile">
-      <EntityTypeMapping TypeName="HealthCheckModel.HospitalProgramFile">
-        <MappingFragment StoreEntitySet="HospitalProgramFile">
-          <ScalarProperty Name="file_fileId" ColumnName="file_fileId" />
-          <ScalarProperty Name="file_hospitalId" ColumnName="file_hospitalId" />
-          <ScalarProperty Name="hos_FileName" ColumnName="hos_FileName" />
-          <ScalarProperty Name="file_content" ColumnName="file_content" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="InspectPerson">
       <EntityTypeMapping TypeName="HealthCheckModel.InspectPerson">
         <MappingFragment StoreEntitySet="InspectPerson">
@@ -198,6 +190,7 @@
           <ScalarProperty Name="program_state" ColumnName="program_state" />
           <ScalarProperty Name="program_updateuser" ColumnName="program_updateuser" />
           <ScalarProperty Name="program_updatetime" ColumnName="program_updatetime" />
+          <ScalarProperty Name="program_special" ColumnName="program_special" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -248,6 +241,7 @@
           <ScalarProperty Name="generalComment_15" ColumnName="generalComment_15" />
           <ScalarProperty Name="generalComment_16" ColumnName="generalComment_16" />
           <ScalarProperty Name="generalComment_17" ColumnName="generalComment_17" />
+          <ScalarProperty Name="ReportManage_serialNumber" ColumnName="ReportManage_serialNumber" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -314,6 +308,17 @@
           <ScalarProperty Name="work_IsDiabled" ColumnName="work_IsDiabled" />
           <ScalarProperty Name="work_updateUser" ColumnName="work_updateUser" />
           <ScalarProperty Name="work_updateTime" ColumnName="work_updateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HospitalProgramFile">
+      <EntityTypeMapping TypeName="HealthCheckModel.HospitalProgramFile">
+        <MappingFragment StoreEntitySet="HospitalProgramFile">
+          <ScalarProperty Name="file_url" ColumnName="file_url" />
+          <ScalarProperty Name="file_content" ColumnName="file_content" />
+          <ScalarProperty Name="hos_FileName" ColumnName="hos_FileName" />
+          <ScalarProperty Name="file_hospitalId" ColumnName="file_hospitalId" />
+          <ScalarProperty Name="file_fileId" ColumnName="file_fileId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

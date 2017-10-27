@@ -13,10 +13,10 @@ namespace healthSystem.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class HealthCheckEntities : DbContext
+    public partial class HealthCheckEntities1 : DbContext
     {
-        public HealthCheckEntities()
-            : base("name=HealthCheckEntities")
+        public HealthCheckEntities1()
+            : base("name=HealthCheckEntities1")
         {
         }
     
@@ -34,7 +34,6 @@ namespace healthSystem.Models
         public virtual DbSet<Factory> Factory { get; set; }
         public virtual DbSet<HealthNotice> HealthNotice { get; set; }
         public virtual DbSet<Hospital> Hospital { get; set; }
-        public virtual DbSet<HospitalProgramFile> HospitalProgramFile { get; set; }
         public virtual DbSet<InspectPerson> InspectPerson { get; set; }
         public virtual DbSet<Program> Program { get; set; }
         public virtual DbSet<ReportFile> ReportFile { get; set; }
@@ -45,5 +44,6 @@ namespace healthSystem.Models
         public virtual DbSet<StartPlace> StartPlace { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<WorkInfo> WorkInfo { get; set; }
+        public virtual DbSet<HospitalProgramFile> HospitalProgramFile { get; set; }
     }
 }

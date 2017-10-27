@@ -1,11 +1,173 @@
-﻿
+﻿@using healthSystem.ViewModel;
+@model basicDataHospitalMain
 @{
-    ViewBag.Title = "hospitalMain";
-    Layout = null;
+    ViewBag.Title = "hospitalSearch";
+    healthSystem.Models.WorkId workId = new healthSystem.Models.WorkId();
+    int hospitalID = 0;
+    foreach (var x in Model.hospital)
+    {
+        hospitalID = x.hospital_hospitalId;
+    }
 }
-
-<h2>hospitalMain</h2>
-
-<div class="form-group row">
-    <input type="submit" class="btn btn-success" value="修改">
+@*主檔*@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    主檔
+                    <a href="~/basicData/newhospital" class="btn btn-info btn-xs pull-right">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                    <a href="~/basicData/edithospital" class="btn btn-info btn-xs pull-right">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="panel-body">
+                    @foreach (var row in Model.hospital)
+                    {
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">醫院名稱:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_name" readonly value="@row.hospital_name">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">統一編號:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_uniform" readonly value="@row.hospital_uniform">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                <label for="email">地址:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_address" readonly value="@row.hospital_address">
+                            </div>
+                            <div class="col-xs-2">
+                                <label for="sel1">停用註記:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_state" readonly value="@row.hospital_state">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-3">
+                                <label for="email">聯絡窗口:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_contact" readonly value="@row.hospital_contact">
+                            </div>
+                            <div class="col-xs-3">
+                                <label for="email">連絡電話:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_phone" readonly value="@row.hospital_phone">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-3">
+                                <label for="email">網址:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_website" readonly value="@row.hospital_website">
+                            </div>
+                            <div class="col-xs-3">
+                                <label for="email">email:</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="hospital_email" readonly value="@row.hospital_email">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-3">
+                                <label for="email">更新者:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_updateuser" readonly value="@row.hospital_updateuser">
+                            </div>
+                            <div class="col-xs-3">
+                                <label for="email">更新時間:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="@row.hospital_updatetime">
+                            </div>
+                        </div>
+                    }
+                </div>
+                @*<table class="table" style="overflow: auto;
+	                                        height: 300px;
+	                                        display: block;">
+                    <tr><th>醫院名稱</th><th>地址</th><th>聯絡窗口</th><th>連絡電話</th><th>統一編號</th><th>網址</th><th>email</th><th>停用註記</th><th>更新者</th><th>更新時間</th></tr>
+                    @foreach (var row in Model.hospital)
+                    {
+                        <tr>
+                            <td>@row.hospital_name</td>
+                            <td>@row.hospital_address</td>
+                            <td>@row.hospital_contact</td>
+                            <td>@row.hospital_phone</td>
+                            <td>@row.hospital_uniform</td>
+                            <td>@row.hospital_website</td>
+                            <td>@row.hospital_email</td>
+                            <td>@row.hospital_state</td>
+                            <td>@row.hospital_updateuser</td>
+                            <td>@row.hospital_updatetime</td>
+                        </tr>
+                    }
+                </table>*@
+            </div>
+        </div>
+    </div>
 </div>
+
+@*明細檔-附件管理*@
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    明細檔-附件管理<a href="#" class="btn btn-info btn-xs pull-right">
+                                       <span class="glyphicon glyphicon-plus"></span>
+                                   </a>
+                </h3>
+
+
+            </div>
+            <div class="panel-body">
+                <table class="table" style="overflow: auto;
+	                                        height: 300px;
+	                                        display: block;">
+                    <tr><th>檔案名稱</th><th>檔案說明</th></tr>
+                    @foreach (var row in Model.hospitalProgramFile)
+                    {
+                        <tr>
+                            <td>@row.hos_FileName</td>
+                            <td>@row.file_content</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    @*明細檔-健檢方案*@
+
+    <div class="col-md-8">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    明細檔-健檢方案<a href="#" class="btn btn-info btn-xs pull-right">
+                                       <span class="glyphicon glyphicon-plus"></span>
+                                   </a>
+</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table" style="overflow: auto;
+	                                        height: 300px;
+	                                        display: block;">
+                    <tr><th>檔案名稱</th><th>檔案說明</th><th>工種ID</th><th>停用註記</th><th>特殊身分</th><th>更新者</th><th>更新時間</th></tr>
+                    @foreach (var row in Model.program)
+                    {
+                        <tr>
+                            <td>@row.program_programName</td>
+                            <td>@row.program_content</td>
+                            <td>@workId.GetWorkName(row.program_workid)</td>
+                            <td>@row.program_state</td>
+                            <td>@row.program_special</td>
+                            <td>@row.program_updateuser</td>
+                            <td>@row.program_updatetime</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

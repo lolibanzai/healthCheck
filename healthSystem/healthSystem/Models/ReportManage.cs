@@ -22,7 +22,7 @@ namespace healthSystem.Models
             this.ReportFile = new HashSet<ReportFile>();
         }
     
-        public int ReportManage_id { get; set; }
+        public string ReportManage_id { get; set; }
         public string ReportManage_workNumber { get; set; }
         public Nullable<int> ReportManage_startId { get; set; }
         public Nullable<int> ReportManage_hospitalId { get; set; }
@@ -56,14 +56,13 @@ namespace healthSystem.Models
         public string generalComment_15 { get; set; }
         public string generalComment_16 { get; set; }
         public string generalComment_17 { get; set; }
+        public Nullable<int> ReportManage_serialNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CheckItem> CheckItem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoubleCheck> DoubleCheck { get; set; }
         public virtual Employee Employee { get; set; }
-        public virtual Hospital Hospital { get; set; }
-        public virtual Program Program { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReportFile> ReportFile { get; set; }
         public virtual StartCheck StartCheck { get; set; }

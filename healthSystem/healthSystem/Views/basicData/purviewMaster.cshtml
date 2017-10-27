@@ -1,64 +1,88 @@
-﻿
+﻿@using healthSystem.Models;
+@model List<Employee>
 @{
     ViewBag.Title = "purviewMaster";
+    Emp emp = new Emp();
 }
 
 <h2>purviewMaster</h2>
 
-<div class="col-md-6">
+<div class="col-md-8">
     <div class="panel panel-info">
         <div class="panel-heading">
             <h3 class="panel-title">條件查詢</h3>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
         </div>
-        <div class="panel-body">
-            <div class="form-group row">
-                <div class="col-xs-4">
-                    <label for="ex1">姓名:</label>
-                    <input class="form-control" id="ex1" type="text">
+        <form method="post" action="">
+            <div class="panel-body">
+            
+                <div class="form-group row">
+                    
+                    <div class="col-xs-4">
+            
+                        <label for="ex1" >姓名:</label>
+                        
+                        @*<input class="form-control" id="ex1" type="text" name="employee_name" >*@
+                        <input class="form-control" id="ex1" type="text" name="employee_name" value='@emp.Name(Session["employee_workNumber"].ToString())' @((Session["employee_role"].ToString() == "Y")? "" : "readonly")>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="ex2" >帳號:</label>
+                        @*<input class="form-control" id="ex2" type="text" name="employee_userName">*@
+                        <input class="form-control" id="ex2" type="text" name="employee_userName" value='@emp.GetUserName(Session["employee_workNumber"].ToString())' @((Session["employee_role"].ToString() == "Y")? "": "readonly")>
+ </div>
+                    <div class="col-xs-4">
+                        <label for="ex3" >Email:</label>
+                        @*<input class="form-control" id="ex3" type="text" name="employee_email">*@
+                        <input class="form-control" id="ex3" type="text" name="employee_email" value='@emp.GetEmail(Session["employee_workNumber"].ToString())' @((Session["employee_role"].ToString() == "Y")? "" : "readonly")>
+                        </div>
                 </div>
-                <div class="col-xs-4">
-                    <label for="ex2">帳號:</label>
-                    <input class="form-control" id="ex2" type="text">
+                <div class="form-group row">
+                    <div class="col-xs-4">
+                        <label for="ex4" >廠別權限代碼:</label>
+                        
+                            @*<input class="form-control" id="ex4" type="text" name="employee_factoryId">*@
+                            <input class="form-control" id="ex4" type="text" name="employee_factoryId" value='@emp.GetFactoryId(Session["employee_workNumber"].ToString())' @((Session["employee_role"].ToString() == "Y")? "" : "readonly")>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="ex1" >停用註記</label>
+                        <select class="form-control" id="exampleSelect1" name="employee_isDisabled">
+                            <option selected value="N">N</option>
+                            <option value="Y">Y</option>
+                            <option disabled>查詢全部(提示文字)</option>
+                            <option value=""></option>
+                            
+                        </select>
+                    </div>
                 </div>
-                <div class="col-xs-4">
-                    <label for="ex3">Email:</label>
-                    <input class="form-control" id="ex3" type="text">
+                <input type="submit" class="btn btn-success  pull-right" value="送出查詢">
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-xs-4">
-                    <label for="ex4">廠別權限代碼:</label>
-                    <input class="form-control" id="ex4" type="text">
-                </div>
-                <div class="col-xs-4">
-                    <label for="ex1">停用註記</label>
-                    <select class="form-control" id="exampleSelect1">
-                        <option>Y</option>
-                        <option>N</option>
-                    </select>
-                </div>
-            </div>
-            <input type="submit" class="btn btn-success  pull-right" value="送出查詢">
-        </div>
+        </form>
     </div>
     <div class="panel panel-info">
         <div class="panel-heading">
             <h3 class="panel-title">查詢結果</h3>
+           
         </div>
         <div class="panel-body">
+            <form action="~/basicData/purviewMain">
+                <table class="table">
+                    <tr><th align="justify">廠別</th><th align="center">姓名</th><th align="center">帳號</th><th align="center">email</th><th align="center">停用註記</th><th>查詢</th></tr>
+                    @foreach (var item in Model) {
 
+                        <tr>
+                            <td align="center">@item.employee_factoryId-@emp.GetFactoryName(item.employee_factoryId)</td>
+                            <td align="center">@item.employee_name</td>
+                            <td align="center">@item.employee_workNumber</td>
+                            <td align="center">@item.employee_email</td>
+                            <td align="center">@item.employee_isDisabled</td>
+                            <td align="center"><span><button class="btn btn-info btn-xs editItem" name="employee_workNumber" value="@item.employee_workNumber" type="submit"  onclick="location.href = '~/basicData/purviewMain/'"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></span></td>
+                        </tr>
+                    }
+                </table>
+            </form>
         </div>
     </div>
 </div>
-<div class="col-md-6">
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#firstTab">主檔</a></li>
-        <li><a data-toggle="tab" href="#secondTab">明細檔-廠別權限</a></li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane fade in active" id="firstTab">@Html.Action("purviewMain")</div>
-        <div class="tab-pane fade in " id="secondTab">@Html.Action("employeeFactory")</div>
-    </div>
-</div>
+
+
 

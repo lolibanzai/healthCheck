@@ -15,7 +15,7 @@ namespace healthSystem.Models
     public partial class CheckItem
     {
         public int checkItem_itemId { get; set; }
-        public Nullable<int> checkItem_reportId { get; set; }
+        public string checkItem_reportId { get; set; }
         public string checkItem_itemCode { get; set; }
         public string checkItem_itemName { get; set; }
         public Nullable<double> checkItem_itemValue { get; set; }

@@ -159,15 +159,10 @@
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Views\basicData\purviewMain.cshtml" />
-    <Content Include="Views\basicData\employeeFactory.cshtml" />
     <Content Include="Views\basicData\employeeMaster.cshtml" />
     <Content Include="Views\basicData\employeeMain.cshtml" />
-    <Content Include="Views\basicData\employeeWork.cshtml" />
-    <Content Include="Views\basicData\employeeReport.cshtml" />
     <Content Include="Views\basicData\hospitalMaster.cshtml" />
     <Content Include="Views\basicData\hospitalMain.cshtml" />
-    <Content Include="Views\basicData\hospitalFile.cshtml" />
-    <Content Include="Views\basicData\hospitalProgram.cshtml" />
     <Content Include="Views\member\login.cshtml" />
     <Content Include="Views\member\welcomePage.cshtml" />
   </ItemGroup>
@@ -194,12 +189,14 @@
     <Compile Include="Models\DoubleCheck.cs">
       <DependentUpon>healthCheck.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Emp.cs" />
     <Compile Include="Models\Employee.cs">
       <DependentUpon>healthCheck.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Factory.cs">
       <DependentUpon>healthCheck.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FatoryId.cs" />
     <Compile Include="Models\healthCheck.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -251,10 +248,14 @@
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>healthCheck.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModel_empAu.cs" />
+    <Compile Include="Models\WorkId.cs" />
     <Compile Include="Models\WorkInfo.cs">
       <DependentUpon>healthCheck.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\basicDataEmployeeMaster.cs" />
+    <Compile Include="ViewModel\basicDataHospitalMain.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -281,6 +282,8 @@
     <Content Include="Views\healthSystem\newStart.cshtml" />
     <Content Include="Views\healthSystem\bookMaster.cshtml" />
     <Content Include="Views\healthSystem\bookMain.cshtml" />
+    <Content Include="Views\basicData\newhospital.cshtml" />
+    <Content Include="Views\basicData\edithospital.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

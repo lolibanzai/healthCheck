@@ -15,7 +15,7 @@ namespace healthSystem.Models
     public partial class DoubleCheck
     {
         public int doubleCheck_itemId { get; set; }
-        public Nullable<int> doubleCheck_reportId { get; set; }
+        public string doubleCheck_reportId { get; set; }
         public string doubleCheck_itemCode { get; set; }
         public string doubleCheck_itemName { get; set; }
         public Nullable<double> doubleCheck_itemValue { get; set; }

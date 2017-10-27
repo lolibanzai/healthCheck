@@ -20,8 +20,8 @@ namespace healthSystem.Models
             this.Authority = new HashSet<Authority>();
             this.book = new HashSet<book>();
             this.InspectPerson = new HashSet<InspectPerson>();
-            this.ReportManage = new HashSet<ReportManage>();
             this.StartHand = new HashSet<StartHand>();
+            this.ReportManage = new HashSet<ReportManage>();
         }
     
         public string employee_workNumber { get; set; }
@@ -69,8 +69,8 @@ namespace healthSystem.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InspectPerson> InspectPerson { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReportManage> ReportManage { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StartHand> StartHand { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReportManage> ReportManage { get; set; }
     }
 }
