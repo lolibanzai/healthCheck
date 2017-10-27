@@ -1,0 +1,84 @@
+﻿@using healthSystem.Models;
+@model List<Hospital>
+@{
+    ViewBag.Title = "newhospital";
+}
+
+<h2>newhospital</h2>
+
+<div class="alert alert-success" role="alert">@TempData["hospitalMessage"]</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    主檔
+                </h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" action="">
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label for="email">醫院名稱:</label>
+                            <input type="text" class="form-control" id="email" name="hospital_name">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="email">統一編號:</label>
+                            <input type="text" class="form-control" id="email" name="hospital_uniform">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label for="email">地址:</label>
+                            <input type="text" class="form-control" id="email" name="hospital_address">
+                        </div>
+                        <div class="col-xs-2">
+                            <label for="sel1">停用註記:</label>
+                            <select class="form-control" id="sel1" name="hospital_state">
+                                <option>Y</option>
+                                <option>N</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-3">
+                            <label for="email">聯絡窗口:</label>
+                            <input type="text" class="form-control" id="email" name="hospital_contact">
+                        </div>
+                        <div class="col-xs-3">
+                            <label for="email">連絡電話:</label>
+                            <input type="text" class="form-control" id="email" name="hospital_phone">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-3">
+                            <label for="email">網址:</label>
+                            <input type="text" class="form-control" id="email" name="hospital_website">
+                        </div>
+                        <div class="col-xs-3">
+                            <label for="email">email:</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter email" name="hospital_email">
+                        </div>
+                    </div>
+                    @*<div class="form-group row">
+                        <div class="col-xs-3">
+                            <label for="email">更新者:</label>
+                            <input type="email" class="form-control" id="email" name="hospital_updateuser">
+                        </div>
+                        <div class="col-xs-3">
+                            <label for="email">更新時間:</label>
+                            <input type="email" class="form-control" id="email" name="hospital_updatetime">
+                        </div>
+                    </div>*@
+                    <button type="submit" class="btn btn-success btn-default">新增</button>
+                </form>
+                <div class="form-group row">
+                    <form method="get" action="/basicData/hospitalMaster">
+                        <button type="submit" class="btn btn-success btn-default">回查詢頁</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

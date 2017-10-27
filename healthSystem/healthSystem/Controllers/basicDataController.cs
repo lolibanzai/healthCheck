@@ -90,46 +90,50 @@ namespace healthSystem.Controllers
         public ActionResult employeeMaster(Factory factory,Employee employee,WorkInfo workInfo) //人事資料主頁
         {
             //若沒有輸入post回去會是null值,把它改成""去做模糊查詢
-            if (string.IsNullOrEmpty(employee.employee_name))
-            {
+            if (string.IsNullOrEmpty(employee.employee_name)) {
                 employee.employee_name = "";
             }
-            if (string.IsNullOrEmpty(employee.employee_workNumber))
-            {
+            if (string.IsNullOrEmpty(employee.employee_workNumber)) {
                 employee.employee_workNumber = "";
             }
-            if (string.IsNullOrEmpty(employee.employee_identityCard))
-            {
+            if (string.IsNullOrEmpty(employee.employee_identityCard)) {
                 employee.employee_identityCard = "";
             }
-            if (string.IsNullOrEmpty(employee.employee_isDisabled))
-            {
+            if (string.IsNullOrEmpty(employee.employee_isDisabled)) {
                 employee.employee_isDisabled = "";
             }
-            if (string.IsNullOrEmpty(workInfo.work_name))
-            {
-                employee.employee_isDisabled = "";
+            if (string.IsNullOrEmpty(workInfo.work_name)) {
+                workInfo.work_name = "";
             }
             //先將工廠名稱轉換成工廠ID,工種名稱轉換成工種ID
             var query = from f in db.Factory
-                         where f.factory_name == factory.factory_name
-                         select f.factory_id;
+                        where f.factory_name == factory.factory_name
+                        select f.factory_id;
             var query1 = from w in db.WorkInfo
                          where w.work_name.Contains(workInfo.work_name)
                          select w.work_id;
             string factoryID = query.First();
-            int workID = query1.First();
-
+            int workID = 0;
+            if (query1.Count() == 1) {
+                workID = query1.First();
+            }
             var query2 = from e in db.Employee
-                         where e.employee_factoryId == factoryID &&
+                         where (e.employee_workId == workID &&
                                e.employee_name.Contains(employee.employee_name) &&
                                e.employee_workNumber.Contains(employee.employee_workNumber) &&
-                               e.employee_workId == workID &&
+                               e.employee_factoryId == factoryID &&
                                e.employee_identityCard.Contains(employee.employee_identityCard) &&
-                               e.employee_isDisabled.Contains(employee.employee_isDisabled)
-                        select e;
+                               e.employee_isDisabled.Contains(employee.employee_isDisabled))
+                               ||
+                               (workID == 0 &&
+                               e.employee_name.Contains(employee.employee_name) &&
+                               e.employee_workNumber.Contains(employee.employee_workNumber) &&
+                               e.employee_factoryId == factoryID &&
+                               e.employee_identityCard.Contains(employee.employee_identityCard) &&
+                               e.employee_isDisabled.Contains(employee.employee_isDisabled))
+                         select e;
             var query3 = from o in db.WorkInfo
-                        select o;
+                         select o;
             var query4 = from x in db.Factory
                          select x;
             basicDataEmployeeMaster data = new basicDataEmployeeMaster();
