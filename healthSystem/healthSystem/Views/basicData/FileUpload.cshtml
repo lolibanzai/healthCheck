@@ -1,0 +1,89 @@
+﻿
+
+@{
+    healthSystem.Models.hos hos = new healthSystem.Models.hos();
+    string hos_name = "";
+    if (Session["hospitalID"] != null)
+    {
+        string hos_id = Session["hospitalID"].ToString();
+        hos_name = hos.GetHosName(hos_id);
+    }
+}
+
+<div class="container">
+    <div class="panel panel-success">
+
+        <div class="panel-heading">
+  
+            <h3><span class="glyphicon glyphicon-file"></span>@hos_name<span class="label label-primary">@Session["hospitalID"]</span><a href="~/basicData/hospitalMain" class="btn btn-warning btn-xs pull-right">
+    <span class="glyphicon glyphicon-arrow-left"></span> Left
+</a></h3>
+           
+
+        </div>
+        <div class="panel-body">
+            <div class="col-md-8 col-md-offset-2">
+
+                <form method="POST" action="~/basicData/fileUpload" enctype="multipart/form-data">
+                    <!-- COMPONENT START -->
+                    <div class="form-group row">
+                        <div class="col-xs-4">
+                            <label for="hos_FileName">檔案名稱</label>
+                            <input type="File" class="form-control" name="hos_FileName" id="file" value="Choose File" />
+
+                        </div>
+                        <div class="col-xs-4">
+                            <label for="FileContent">檔案描述</label>
+                            <input type="text" class="form-control" name="FileContent" value="" />
+                        </div>
+                        <button class="btn btn-default pull-right" type="submit">匯入</button>
+                        <button class="btn btn-warning btn-reset pull-right" type="button">Reset</button>
+                    </div>
+                    @*<div class="form-group">
+                        <div class="input-group input-file" name="Fichier1">
+
+                          
+                                <label for="hos_FileName">檔案名稱</label>
+                                 <input type="File"class="form-control" name="hos_FileName" id="file" value="Choose File" />
+                             
+                                <label for="FileContent">檔案描述</label>
+                                 <input type="text" class="form-control"name="FileContent" value="" />
+                                <button class="btn btn-default pull-right" type="submit">匯入</button>
+                                <button class="btn btn-warning btn-reset pull-right" type="button">Reset</button>
+                            
+
+
+                        </div>
+                    </div>*@
+                    <p>附件檔案只能上傳PDF 單一檔案上限3MB</p>
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>@TempData["uploadFileMessage"]</strong>
+                    </div>
+
+                    @*<ul>
+                            @foreach (var fName in Model)
+                            {
+                                var name = fName;
+                                var link = @Url.Content("~/Content/Files/") + name.Replace(" ", "%20");
+
+                                <li>
+                                    <a href="@link">@name</a>
+                                </li>
+                            }
+                        </ul>*@
+
+                    @*<div>
+                            @using (Html.BeginForm("fileUpload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                <input type="File" name="file" id="file" value="Choose File" />
+                                <button type="submit">Upload</button>
+                            }
+                        </div>*@
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

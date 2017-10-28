@@ -1,7 +1,177 @@
-﻿
-@{
-    ViewBag.Title = "welcomePage";
+﻿@{
+    healthSystem.Models.Emp emp = new healthSystem.Models.Emp();
+    string emp_name = "";
+    if (Session["Employee_workNumber"] != null)
+    {
+        string emp_id = Session["Employee_workNumber"].ToString();
+        emp_name = emp.Name(emp_id);
+    }
 }
+@{
+    Layout = null;
+ }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="~/Content/font.css" rel="stylesheet" />
+    <style>
+        .jumbotron {
+    margin-bottom: 10px;
+    margin-top:10px;
+    background-image: url(http://i.epochtimes.com/assets/uploads/2017/04/Untitled-1-4.jpg);
+    background-position: 0% 25%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: black;
+   
+}
+        .panel-default {
+             margin-bottom: 10px;
+    margin-top:10px;
+    background-position: 0% 25%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("寶成國際", "welcomePage", "member", new { area = "" }, new { @class = "navbar-brand" })
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">基礎資料管理<b class="caret"></b></a> @*b是箭頭*@
+                        <ul class="dropdown-menu">
+                            <li><a href="~/basicData/purviewMaster">人員權限管理</a></li>
+                            <li><a href="~/basicData/employeeMaster">人事資料管理</a></li>
+                            <li><a href="~/basicData/hospitalMaster">醫院及方案設定</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">健檢系統 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="~/healthSystem/StartCheckMaster">健檢作業管理</a></li>
+                            <li><a href="~/healthSystem/bookMaster">高級主管預約</a></li>
+                            <li><a href="~/healthSystem/reportManageMaster">健檢報告管理</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    @if (string.IsNullOrEmpty(emp_name))
+                    {
+                        <li><a href="~/member/login"><span class="glyphicon glyphicon-user"></span>請登入</a></li>
+                    }
+                    else
+                    {
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span>@emp_name</a></li>}
+                    <li><a href="~/member/logout"><span class="glyphicon glyphicon-log-in"></span>員工登出</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-<h2>welcomePage</h2>
 
+        <header>
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="http://www.pouchen.com/images/banner/csr.jpg" alt="Los Angeles" style="width:100%;">
+                    </div>
+
+                    <div class="item">
+                        <img src="http://www.pouchen.com/images/banner/shoes.jpg" alt="Chicago" style="width:100%;">
+                    </div>
+
+                    <div class="item">
+                        <img src="http://www.pouchen.com/images/banner/csr.jpg" alt="New york" style="width:100%;">
+                    </div>
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+   
+    <div class="row">
+        <div class="col-md-8">
+            <div class="jumbotron">
+                <div class="container">
+                    <strong><span class="align-text-top">有溫度的服務把關您的健康有深度的管理永續您的照護</span></strong>
+                    <p>有溫度的健康檢查，維護人生每一階段的健康</p>
+                    <a href="~/healthSystem/StartCheckMaster" class="btn btn-primary btn-lg" role="button">
+                        進入健檢系統
+                    </a>
+                    </p>
+                </div>
+            </div>
+           
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        Contact Us
+
+                    </h2>
+                </div>
+                <div class="panel-body text-center">
+                    <address>
+                        <strong>Start Bootstrap</strong>
+                        <br>3481 Melrose Place
+                        <br>Beverly Hills, CA 90210
+                        <br>
+                    </address>
+                    <address>
+                        <abbr title="Phone">P:</abbr>
+                        (123) 456-7890
+                        <br>
+                        <abbr title="Email">E:</abbr>
+                        <a href="mailto:#">name@example.com</a>
+                    </address>
+                    <address>
+                        <strong>Start Bootstrap</strong>
+           
+                    </address>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+</body>
+</html>

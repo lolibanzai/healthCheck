@@ -18,10 +18,9 @@ namespace healthSystem.ViewModel
             get;
             set;
         }
-        public IEnumerable<HospitalProgramFile> hospitalProgramFile
-        {
-            get;
-            set;
-        }
+       
+        public IEnumerable<HospitalProgramFile> File { get; set; }
+
+        
     }
 }

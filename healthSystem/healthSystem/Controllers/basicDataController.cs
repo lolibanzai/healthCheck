@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using healthSystem.Models;
 using healthSystem.ViewModel;
+using System.IO;
 
 namespace healthSystem.Controllers
 {
@@ -175,6 +176,7 @@ namespace healthSystem.Controllers
         }
         public ActionResult hospitalMain() //醫院資料主檔,明細檔-附件管理,明細檔-健檢方案(編輯完成後使用的ActionResult)
         {
+            
             int hospital_hospitalId = Convert.ToInt32(Session["hospitalID"]);
             var query = from o in db.Hospital
                         where o.hospital_hospitalId == hospital_hospitalId
@@ -187,13 +189,14 @@ namespace healthSystem.Controllers
                          select o;
             basicDataHospitalMain data = new basicDataHospitalMain();
             data.hospital = query.ToList();
-            data.hospitalProgramFile = query1.ToList();
+            data.File = query1.ToList();
             data.program = query2.ToList();
             return View(data);
         }
         [HttpPost]
         public ActionResult hospitalMain(int hospital_hospitalId) //醫院資料主檔,明細檔-附件管理,明細檔-健檢方案(查詢完成後使用的ActionResult)
         {
+           
             var query  = from o in db.Hospital
                          where o.hospital_hospitalId == hospital_hospitalId
                          select o;
@@ -205,11 +208,15 @@ namespace healthSystem.Controllers
                          select o;
             basicDataHospitalMain data = new basicDataHospitalMain();
             data.hospital = query.ToList();
-            data.hospitalProgramFile = query1.ToList();
+            data.File = query1.ToList();
             data.program = query2.ToList();
-            Session["hospitalID"] = hospital_hospitalId;
+            
+            Session["hospitalID"] = hospital_hospitalId.ToString(); 
             return View(data);
         }
+
+
+        //醫院新增
         public ActionResult newhospital()
         {
             List<Hospital> data = new List<Hospital>();
@@ -263,5 +270,107 @@ namespace healthSystem.Controllers
             db.SaveChanges();
             return RedirectToAction("hospitalMain", "basicData");
         }
+
+        
+        public ActionResult DownloadFile(int id) //檔案下載
+        {
+
+            HospitalProgramFile Download = db.HospitalProgramFile.Find(id);
+            if (Download != null)
+            {
+                Stream iStream = new FileStream(Download.file_url, FileMode.Open, FileAccess.Read, FileShare.Read);
+                return File(iStream, Download.file_url, Download.hos_FileName);
+
+
+
+            }
+            else
+            {
+
+                return JavaScript("alert(\"無此檔案\")");
+
+            }
+        }
+
+        //上傳頁面
+
+        public ActionResult FileUpload()
+        {
+            HospitalProgramFile hosFileInfo = new HospitalProgramFile();
+            return View(hosFileInfo);
+
+        }//附件管理上傳
+        [HttpPost]
+        public ActionResult FileUpload(FormCollection frm)//附件管理上傳POST
+        {
+
+            HttpPostedFileBase hosFile = Request.Files["hos_FileName"];
+            int hosId = Convert.ToInt32(Session["hospitalID"]);
+            string FileContent = Request["FileContent"];
+            string UploadedhosFile = Server.MapPath("~\\Upload") + "\\" + hosFile.FileName;
+
+            hosFile.SaveAs(UploadedhosFile);
+
+
+            HospitalProgramFile hosFileInfo = new HospitalProgramFile()
+            {
+                file_content = FileContent,
+                hos_FileName = hosFile.FileName,
+                file_hospitalId = hosId,
+                file_url = UploadedhosFile
+
+            };
+            db.HospitalProgramFile.Add(hosFileInfo);
+            db.SaveChanges();
+            TempData["uploadFileMessage"] = "上傳成功";
+            return View();
+        }
+        [HttpPost]
+        public ActionResult FileUploadDelete(int file_fileId)//檔案刪除
+        {
+            var query = (from d in db.HospitalProgramFile
+                         where d.file_fileId == file_fileId
+                         select d).FirstOrDefault();
+            ////判斷此id是否有資料
+            if (query != default(HospitalProgramFile))
+            {
+                db.HospitalProgramFile.Remove(query);
+                //儲存所有變更
+                db.SaveChanges();
+                TempData["ResultMessage"] = String.Format("", query.hos_FileName);
+                return RedirectToAction("hospitalMain", "basicData");
+            }
+            else
+            {
+                //如果沒有資料則顯示錯誤訊息並導回StoreMember頁面
+                TempData["ResultMessage"] = "指定資料不存在，無法刪除，請重新操作";
+                return RedirectToAction("hospitalMain", "basicData");
+            }
+
+        }
+        public ActionResult FileUploadEdit(int file_fileId)//得到編輯資料
+        {
+            HospitalProgramFile filedata = db.HospitalProgramFile.Find(file_fileId);
+            //int fileId = Convert.ToInt32(Request["file_fileId"]);
+            //var query = from o in db.HospitalProgramFile
+            //            where o.file_fileId == file_fileId
+            //            select o;
+            //HospitalProgramFile data = query.FirstOrDefault();
+            return View(filedata);
+           
+        }
+        [HttpPost]
+        public ActionResult FileUploadEdit(HospitalProgramFile editFileData,int file_fileId)//送出編輯資料
+        {
+            //int fileId = Convert.ToInt32(Request["file_fileId"]);
+            HospitalProgramFile data = db.HospitalProgramFile.Find(file_fileId);
+            data.file_content = editFileData.file_content;
+          
+            db.SaveChanges();
+            return RedirectToAction("hospitalMain", "basicData");
+          
+
+        }
+
     }
 }

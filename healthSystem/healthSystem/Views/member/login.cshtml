@@ -1,10 +1,107 @@
 ﻿
 @{
     ViewBag.Title = "login";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+                function newStart() {
+                    window.location.href = "/member/welcomePage";
+                }
+                function Cancel() {
+                    window.location.href = "/member/login";
+                }
+    </script>
 
-<h2>login</h2>
-<form action="" method="post">
+    @*login樣版*@
+    <link href="~/Content/login.css" rel="stylesheet" type="text/css" />
+    <style>
+        body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+            font-family: Microsoft YaHei,'宋体', Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <section class="login-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 login-sec">
+                    <h2 class="text-center">寶成健檢系統登入</h2>
+                    <form class="login-form" action="" method="post">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="text-uppercase">員工帳號</label>
+                            <input type="text" class="form-control" id="employee_username" name="employee_username" value='@Request["employee_username"]' />
+
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1" class="text-uppercase">員工密碼</label>
+                            <input type="password" class="form-control" id="employee_password" name="employee_password" value='@Request["employee_password"]' />
+                            <label style="color:red">@Session["message"]</label><br />
+                        </div>
+
+
+                        <div class="form-check">
+        
+                            <input type="submit" class="btn btn-success" value="登入" onclick="newStart()">
+                            <input type="button" class="btn btn-danger" value="取消" onclick="Cancel()">
+                            @*<button type="submit" class="btn btn-success float-right">Submit</button>*@
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="col-md-8 banner-sec">
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="http://img.epochtimes.com.tw/upload/images/2016/12/21/237286_medium.jpg" alt="Los Angeles" style="width:100%;">
+                            </div>
+
+                            <div class="item">
+                                <img src="http://img.epochtimes.com.tw/upload/images/2016/12/21/237286_medium.jpg" alt="Chicago" style="width:100%;">
+                            </div>
+
+                            <div class="item">
+                                <img src="http://img.epochtimes.com.tw/upload/images/2016/12/21/237286_medium.jpg" alt="New york" style="width:100%;">
+                            </div>
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+</html>
+
+@*<form action="" method="post">
     <div class="form-group form-inline">
         <label for="employee_username" class="glyphicon glyphicon-user">帳號：</label>
         <input type="text" class="form-control" id="employee_username" name="employee_username" value='@Request["employee_username"]' />
@@ -18,13 +115,5 @@
         <input type="submit" class="btn btn-success" value="登入" onclick="newStart()">
         <input type="button" class="btn btn-danger" value="取消" onclick="Cancel()">
     </div>
-</form>
-<script>
-                function newStart() {
-                    window.location.href = "/member/welcomePage";
-                }
-                function Cancel() {
-                    window.location.href = "/member/login";
-                }
-</script>
+</form>*@
 
