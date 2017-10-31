@@ -16,38 +16,40 @@ namespace healthSystem.Controllers
         public ActionResult purviewMaster() //人員權限主頁
         {
             string employee_workNumber = Session["employee_workNumber"].ToString();
-            //var q = from o in db.Employee
-            //        where o.employee_workNumber == employee_workNumber
-            //        select o;
-            //var emp = q.ToList();
+            //創List<Employee>新List
             List<Employee> emp = new List<Employee>();
             return View(emp);
         }
         [HttpPost]
         public ActionResult purviewMaster(Employee empData) //人員權限主頁
         {
+            //確認employee_姓名是否為空，是給空字串
             if (string.IsNullOrEmpty(empData.employee_name))
             {
                 empData.employee_name = "";
             }
+            //確認employee帳號是否為空，是給空字串
             if (string.IsNullOrEmpty(empData.employee_username))
             {
                 empData.employee_username = "";
             }
-            if (string.IsNullOrEmpty(empData.employee_email))
-            {
+            //確認employee_email是否為空，是給空字串
+            if (string.IsNullOrEmpty(empData.employee_email)) {
+                
                 empData.employee_email = "";
             }
-            if (string.IsNullOrEmpty(empData.employee_factoryId))
-            {
+            //確認employee歸屬廠別是否為空，是給空字串
+            if (string.IsNullOrEmpty(empData.employee_factoryId)) {
+                
                 empData.employee_factoryId = "";
             }
-            if (string.IsNullOrEmpty(empData.employee_isDisabled))
-            {
+            //確認employee停用是否為空，是給空字串
+            if (string.IsNullOrEmpty(empData.employee_isDisabled)) {
+                
                 empData.employee_isDisabled = "";
             }
+            //Contains模糊搜尋，查詢任意值就給空字串
             var q = from o in db.Employee
-                        //where o.employee_name.Contains(empData.employee_name) && o.employee_isDisabled.Contains(empData.employee_isDisabled)
                     where (o.employee_name.Contains(empData.employee_name) &&
                            o.employee_username.Contains(empData.employee_username) &&
                            o.employee_email.Contains(empData.employee_email) &&
@@ -60,30 +62,30 @@ namespace healthSystem.Controllers
         }
         public ActionResult purviewMain(FormCollection frm) //人員權限主檔,人員權限明細檔-廠別權限
         {
+            //接收回應的employee_workNumber值
             string employee_workNumber = Request["employee_workNumber"];
+            //用員工編號ID查權限
             var q = from o in db.Authority
                     where o.authority_workNumber == employee_workNumber
                     select o;
+            //用員工編號查員工資料
             var q1 = from o in db.Employee
                      where o.employee_workNumber == employee_workNumber
                      select o;
-            //var q2 = from o in db.Factory
-            //         from o1 in db.Authority
-            //         where o1.employee_workNumber==employee_workNumber
-            //         select new { factory_id=o.factory_id,factory_area=o.factory_area, factory_name=o.factory_name,factory_contract=o.factory_contract};
+            //創一個新的ViewModel_empAu
             ViewModel_empAu data = new ViewModel_empAu();
+            //把查出來的員工資料跟權限給ViewModel_empAu
             data.AuthView = q.ToList();
             data.EmpView = q1.ToList();
-            //data.Factory = new List<Factory>();
-            //    List<Factory>  q2.ToList();
-            //List.
+            //取出員工編號給Session["employee_acc"]
             foreach (var item in data.EmpView)
             {
                 Session["employee_acc"] = item.employee_workNumber;
             }
             return View(data);
-            //I)
+            
         }
+        //[HttpPost]
         //public ActionResult purviewMain(FormCollection frm) //人員權限主檔,人員權限明細檔-廠別權限
         //{
         //    string employee_workNumber = Request["employee_workNumber"];
@@ -106,17 +108,23 @@ namespace healthSystem.Controllers
         //    return View(data);
         //    //I)
         //}
+
         //人事------------------------------------------------------------------------------
+        //編輯員工權限
         public ActionResult EditfactoryAuthority(FormCollection frm)
         {
+            //宣告employeeworkNumber接傳回來的employeeworkNumber值
             string employeeworkNumber = Request["employeeworkNumber"];
-            //string employeeworkNumber=Session["employee_acc"].ToString();
+            // 查詢員工編號與權限沒停用的資料
             var q1 = from o in db.Authority
                      where o.authority_workNumber == employeeworkNumber && o.authority_IsDisable == "N"
                      select o;
+            //查詢廠別資料
             var q2 = from o in db.Factory
                      select o;
+            //宣告一個新的ViewModel_AuFa
             ViewModel_AuFa data = new ViewModel_AuFa();
+            //把查詢到的權限資料跟廠別資料放入
             data.Factory = q2.ToList();
             data.AuthView = q1.ToList();
             return View(data);
@@ -124,38 +132,45 @@ namespace healthSystem.Controllers
         [HttpPost]
         public ActionResult EditFactoryAuthority(ViewModel_AuFa auth)
         {
-            //Session["employee_acc"] = auth.AuthView.;
+            //宣告變數
             string workNumber = Session["employee_acc"].ToString();
             string employee_workNumber = Request["employee_workNumber"];
             string auth_workNumber = Request["authority_workNumber"];
             string factoryid = Request["factoryId"];
+            //action為0表示新增，為1表示停用
             int action = Convert.ToInt32(Request["AddorRemove"].ToString());
-
+            //引用Emp類別
             Emp emp = new Emp();
             try
             {
+                //action==0時，表示新增權限
                 if (action == 0)
                 {
+                    //用員工編號跟廠別ID查詢
                     var query = (from o in db.Authority
                                  where o.authority_workNumber == workNumber && o.authority_factoryId == factoryid
                                  select o).ToList();
+                    //當查無資料時query陣列沒有元素
                     if (query.Count() == 0)
                     {
+                        //創新的Authority資料行
                         Authority authfac = new Authority()
                         {
                             authority_workNumber = auth_workNumber,
                             authority_factoryId = factoryid,
                             authority_IsDisable = "N",
                             authority_role = emp.GetRole(employee_workNumber),
-                            //authority_updateTime = DateTime.Now,
-                            //authority_updateuser = emp.Name(employee_workNumber)
+                            authority_updateTime = DateTime.Now,
+                            authority_updateuser = emp.Name(employee_workNumber)
                         };
+                        //把資料行加入Authority資料表，並儲存
                         db.Authority.Add(authfac);
                         db.SaveChanges();
                     }
+                    //當查詢員工編號跟廠別編號有值時
                     else if (query.Count() != 0)
                     {
-                        //var queryResult=query.ToList();
+                        //把資料行內的每個元素做變更
                         foreach (var item in query)
                         {
                             item.authority_Id = item.authority_Id;
@@ -165,17 +180,19 @@ namespace healthSystem.Controllers
                             item.authority_updateuser = emp.Name(employee_workNumber);
                             item.authority_updateTime = DateTime.Now;
                         }
-
+                        //寫回資料表
                         db.SaveChanges();
                     }
                 }
+                //當action為1時，表示停用該權限
                 if (action == 1)
                 {
+                    //查詢員工編號與廠別代碼的資料
                     var query = (from o in db.Authority
                                  where o.authority_workNumber == workNumber && o.authority_factoryId == factoryid
                                  select o);
                     var qtoList = query.ToList();
-                    //if (query != default(Authority))
+                    //取出每個資料數值並更新
                     foreach (var item in query)
                     {
                         item.authority_Id = item.authority_Id;
@@ -185,21 +202,29 @@ namespace healthSystem.Controllers
                         item.authority_updateuser = emp.Name(employee_workNumber);
                         item.authority_updateTime = DateTime.Now;
                     }
+                    //寫回資料表
                     db.SaveChanges();
                 }
             }
-            catch (Exception ex) { return Content(ex.ToString()); }
+            catch (Exception ex) {
+                //寫回錯誤輸出SQL錯誤碼
+                return Content(ex.ToString()); }
+            //查詢員工編號與權限沒停用的資料
             var q1 = from o in db.Authority
                      where o.authority_workNumber == workNumber && o.authority_IsDisable == "N"
                      select o;
+            //查詢廠別資料
             var q2 = from o in db.Factory
                      select o;
+            //引用ViewModel_AuFa類別
             ViewModel_AuFa data = new ViewModel_AuFa();
+            //把查詢到的廠別資料給ViewModel_AuFa 下 Factoroy
             data.Factory = q2.ToList();
+            //把查詢到的權限資料給ViewModel_AuFa 下 AuthView
             data.AuthView = q1.ToList();
             return View(data);
-            //return RedirectToAction("hospitalMain", "basicData");
         }
+
         public ActionResult employeeMaster() //人事資料主頁
         {
             var query = from o in db.WorkInfo

@@ -6,9 +6,11 @@ using healthSystem.Models;
 
 namespace healthSystem.Models
 {
+    //宣告一個查詢工種類別
     public class WorkId
     {
         HealthCheckEntities1 db = new HealthCheckEntities1();
+        //查詢工種名稱方法
         public string GetWorkName(int workid)
         {
             var q = from o in db.WorkInfo
