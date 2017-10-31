@@ -59,6 +59,14 @@ namespace healthSystem.Models {
             string result = q.FirstOrDefault();
             return result;
         }
+        public string GetRole(string employee_workNumber)
+        {
+            var q = from o in db.Employee
+                    where o.employee_workNumber == employee_workNumber
+                    select o.employee_role;
+            string result = q.FirstOrDefault();
+            return result;
+        }
     }
 }
 

@@ -1,13 +1,144 @@
-﻿
+﻿@using healthSystem.ViewModel;
+@using healthSystem.Models;
+@model healthSystemStartCheckMain
 @{
     ViewBag.Title = "StartCheckMain";
-    Layout = null;
+    startCheckMain find = new startCheckMain();
 }
 
-<h2>StartCheckMain</h2>
+<div class="col-md-12">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">主檔</h3>
+        </div>
+        <div class="panel-body">
+            @foreach (var row in Model.startCheck)
+            {
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="email">年度:</label>
+                        <input type="text" class="form-control" id="email" name="start_year" readonly value="@row.start_year">
+                    </div>
+                </div>
 
-<div class="form-group row">
-    <input type="submit" class="btn btn-success" value="修改">
-    <input type="submit" class="btn btn-success" value="進入收集作業">
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="email">資料收集開始時間:</label>
+                        <input type="text" class="form-control" id="email" name="start_startDate" readonly value="@row.start_startDate">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="email">資料收集結束時間:</label>
+                        <input type="text" class="form-control" id="email" name="start_startDate" readonly value="@row.start_CheckEndDate">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="email">健檢負責人:</label>
+                        <input type="text" class="form-control" id="email" name="start_principal" readonly value="@row.start_principal">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="email">啟動狀態:</label>
+                        <input type="text" class="form-control" id="email" name="start_state" readonly value="@row.start_state">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="comment">注意事項:</label>
+                        <textarea class="form-control" rows="5" id="comment" style="resize: none;width:1000px;height:200px;" readonly></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="email">更新者:</label>
+                        <input type="text" class="form-control" id="email" name="start_updateUser" readonly value="@row.start_updateUser">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="email">更新時間:</label>
+                        <input type="text" class="form-control" id="email" name="start_updateDate" readonly value="@row.start_updateDate">
+                    </div>
+                </div>
+                <script>
+                $(document).ready(function () {
+                    $("#comment").load("../txt/@row.start_note");
+                });
+                </script>
+            }
+        </div>
+    </div>
 </div>
 
+
+@*受檢單位*@
+<div class="col-md-12">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                明細檔-受檢單位
+                @*<a href="#" class="btn btn-info btn-xs pull-right">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>*@
+            </h3>
+        </div>
+        <div class="panel-body">
+            <table class="table" style="overflow: auto;
+	                                        height: 200px;
+	                                        display: block;">
+                <tr><th>地區</th><th>廠別</th><th>窗口人員</th></tr>
+                @foreach (var row in Model.startPlace)
+                {
+                    <tr>
+                        <td>@find.GETfactoryArea(row.startPlace_factoryId)</td>
+                        <td>@find.GETfactoryName(row.startPlace_factoryId)</td>
+                        <td>@find.GETfactoryContract(row.startPlace_factoryId)</td>
+                        <td>
+                            <form method="get" action="">
+                                <button type="submit" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+@*附件管理*@
+<div class="col-md-12">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                明細檔-附件管理<a href="#" class="btn btn-info btn-xs pull-right">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </h3>
+
+
+        </div>
+        <div class="panel-body">
+            <table class="table" style="overflow: auto;
+	                                        height: 200px;
+	                                        display: block;">
+                <tr><th>檔案名稱</th><th>描述</th></tr>
+                @foreach (var row in Model.startFile)
+                {
+                    <tr>
+                        <td>@row.startFile_name</td>
+                        <td>@row.startFile_content</td>
+                        <td>
+                            <form method="get" action="">
+                                <button type="submit" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+</div>

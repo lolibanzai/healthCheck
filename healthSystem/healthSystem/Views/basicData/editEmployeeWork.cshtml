@@ -1,0 +1,32 @@
+﻿@using healthSystem.Models
+@model List<WorkInfo>
+@{
+    ViewBag.Title = "editEmployeeWork";
+}
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">工種修改</h3>
+    </div>
+    <div class="panel-body">
+        <div class="form-group row">
+            <form method="post" action="/basicData/editEmployeeWork">
+                <div class="col-xs-4">
+                    <label for="ex2">工種</label>
+                    <select class="form-control" id="ex2" name="work_name">
+                        @foreach (var row in Model)
+                        {
+                            <option>@row.work_name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-success btn-default">更新</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+

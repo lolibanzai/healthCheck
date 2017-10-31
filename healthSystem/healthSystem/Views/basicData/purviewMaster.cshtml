@@ -15,59 +15,59 @@
         </div>
         <form method="post" action="">
             <div class="panel-body">
-            
+
                 <div class="form-group row">
-                    
+
                     <div class="col-xs-4">
-            
-                        <label for="ex1" >姓名:</label>
-                        
-                        @*<input class="form-control" id="ex1" type="text" name="employee_name" >*@
-                        <input class="form-control" id="ex1" type="text" name="employee_name" value='@emp.Name(Session["employee_workNumber"].ToString())' @((Session["employee_role"].ToString() == "Y")? "" : "readonly")>
+
+                        <label for="ex1">姓名:</label>
+
+                        <input class="form-control" id="ex1" type="text" name="employee_name" value='@((Session["employee_role"].ToString() != "Y")? @emp.Name(Session["employee_workNumber"].ToString()):"")'
+                               @((Session["employee_role"].ToString() == "Y") ? "" : "readonly")>
                     </div>
                     <div class="col-xs-4">
-                        <label for="ex2" >帳號:</label>
-                        @*<input class="form-control" id="ex2" type="text" name="employee_userName">*@
-                        <input class="form-control" id="ex2" type="text" name="employee_userName" value='@emp.GetUserName(Session["employee_workNumber"].ToString())' @((Session["employee_role"].ToString() == "Y")? "": "readonly")>
- </div>
+                        <label for="ex2">帳號:</label>
+                        <input class="form-control" id="ex2" type="text" name="employee_userName" value='@((Session["employee_role"].ToString() != "Y")? @emp.GetUserName(Session["employee_workNumber"].ToString()):"")'
+                               @((Session["employee_role"].ToString() == "Y") ? "" : "readonly")>
+                    </div>
                     <div class="col-xs-4">
-                        <label for="ex3" >Email:</label>
-                        @*<input class="form-control" id="ex3" type="text" name="employee_email">*@
-                        <input class="form-control" id="ex3" type="text" name="employee_email" value='@emp.GetEmail(Session["employee_workNumber"].ToString())' @((Session["employee_role"].ToString() == "Y")? "" : "readonly")>
-                        </div>
+                        <label for="ex3">Email:</label>
+                        <input class="form-control" id="ex3" type="text" name="employee_email" value='@((Session["employee_role"].ToString() != "Y")?@emp.GetEmail(Session["employee_workNumber"].ToString()):"")'
+                               @((Session["employee_role"].ToString() == "Y") ? "" : "readonly")>
+                    </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-xs-4">
-                        <label for="ex4" >廠別權限代碼:</label>
-                        
-                            @*<input class="form-control" id="ex4" type="text" name="employee_factoryId">*@
-                            <input class="form-control" id="ex4" type="text" name="employee_factoryId" value='@emp.GetFactoryId(Session["employee_workNumber"].ToString())' @((Session["employee_role"].ToString() == "Y")? "" : "readonly")>
+                        <label for="ex4">廠別權限代碼:</label>
+                        <input class="form-control" id="ex4" type="text" name="employee_factoryId" value='@((Session["employee_role"].ToString() != "Y")?@emp.GetFactoryId(Session["employee_workNumber"].ToString()):"")'
+                               @((Session["employee_role"].ToString() == "Y") ? "" : "readonly")>
                     </div>
                     <div class="col-xs-4">
-                        <label for="ex1" >停用註記</label>
+                        <label for="ex1">停用註記</label>
                         <select class="form-control" id="exampleSelect1" name="employee_isDisabled">
                             <option selected value="N">N</option>
                             <option value="Y">Y</option>
                             <option disabled>查詢全部(提示文字)</option>
                             <option value=""></option>
-                            
+
                         </select>
                     </div>
                 </div>
                 <input type="submit" class="btn btn-success  pull-right" value="送出查詢">
-                </div>
+            </div>
         </form>
     </div>
     <div class="panel panel-info">
         <div class="panel-heading">
             <h3 class="panel-title">查詢結果</h3>
-           
+
         </div>
         <div class="panel-body">
             <form action="~/basicData/purviewMain">
                 <table class="table">
                     <tr><th align="justify">廠別</th><th align="center">姓名</th><th align="center">帳號</th><th align="center">email</th><th align="center">停用註記</th><th>查詢</th></tr>
-                    @foreach (var item in Model) {
+                    @foreach (var item in Model)
+                    {
 
                         <tr>
                             <td align="center">@item.employee_factoryId-@emp.GetFactoryName(item.employee_factoryId)</td>
@@ -75,7 +75,7 @@
                             <td align="center">@item.employee_workNumber</td>
                             <td align="center">@item.employee_email</td>
                             <td align="center">@item.employee_isDisabled</td>
-                            <td align="center"><span><button class="btn btn-info btn-xs editItem" name="employee_workNumber" value="@item.employee_workNumber" type="submit"  onclick="location.href = '~/basicData/purviewMain/'"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></span></td>
+                            <td align="center"><span><button class="btn btn-info btn-xs editItem" name="employee_workNumber" value="@item.employee_workNumber" type="submit" onclick="location.href = '~/basicData/purviewMain/'"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></span></td>
                         </tr>
                     }
                 </table>
@@ -83,6 +83,3 @@
         </div>
     </div>
 </div>
-
-
-

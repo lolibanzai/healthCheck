@@ -50,6 +50,11 @@
         <AssociationConnector Association="HealthCheckModel.FK__StartPlac__start__0A338187" ManuallyRouted="false" />
         <EntityTypeShape EntityType="HealthCheckModel.HospitalProgramFile" Width="1.5" PointX="11.25" PointY="8.5" />
         <AssociationConnector Association="HealthCheckModel.FK__HospitalP__file___0FEC5ADD" />
+        <EntityTypeShape EntityType="HealthCheckModel.VW_EmpWorkInfo" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HealthCheckModel.EmployeeWork" Width="1.5" PointX="11.25" PointY="22.625" />
+        <AssociationConnector Association="HealthCheckModel.FK_EmployeeWork_Employee" />
+        <AssociationConnector Association="HealthCheckModel.FK_EmployeeWork_WorkInfo" />
+        <AssociationConnector Association="HealthCheckModel.FK_Authority_Factory" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

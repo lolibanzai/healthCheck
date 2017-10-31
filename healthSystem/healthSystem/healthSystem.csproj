@@ -129,11 +129,20 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\flow.css" />
     <Content Include="Content\font.css" />
+    <Content Include="Content\jasny-bootstrap.css" />
+    <Content Include="Content\jasny-bootstrap.min.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Img\check.png" />
+    <Content Include="Img\collect.png" />
+    <Content Include="Img\if_circle-content-send_1495053 %281%29.png" />
+    <Content Include="Img\man-with-tie.png" />
+    <Content Include="Img\pencil.png" />
+    <Content Include="Img\user-filled-person-shape.png" />
     <Content Include="Models\healthCheck.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>healthCheck.edmx</DependentUpon>
@@ -146,7 +155,6 @@
     </Content>
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
-    <Content Include="scripts\bootstrap.bundle.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\healthCheck.edmx">
@@ -156,10 +164,10 @@
     <Content Include="Models\healthCheck.edmx.diagram">
       <DependentUpon>healthCheck.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\jasny-bootstrap.css.map" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
-    <Content Include="scripts\jquery.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Views\basicData\purviewMain.cshtml" />
@@ -178,6 +186,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AuthFact.cs" />
     <Compile Include="Models\Authority.cs">
       <DependentUpon>healthCheck.tt</DependentUpon>
     </Compile>
@@ -195,6 +204,10 @@
     </Compile>
     <Compile Include="Models\Emp.cs" />
     <Compile Include="Models\Employee.cs">
+      <DependentUpon>healthCheck.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\employeeMainReportManage.cs" />
+    <Compile Include="Models\EmployeeWork.cs">
       <DependentUpon>healthCheck.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Factory.cs">
@@ -241,6 +254,7 @@
     <Compile Include="Models\StartCheck.cs">
       <DependentUpon>healthCheck.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\startCheckMain.cs" />
     <Compile Include="Models\StartFile.cs">
       <DependentUpon>healthCheck.tt</DependentUpon>
     </Compile>
@@ -253,14 +267,21 @@
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>healthCheck.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModel_AuFa.cs" />
     <Compile Include="Models\ViewModel_empAu.cs" />
+    <Compile Include="Models\VW_EmpWorkInfo.cs">
+      <DependentUpon>healthCheck.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\WorkId.cs" />
     <Compile Include="Models\WorkInfo.cs">
       <DependentUpon>healthCheck.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\basicDataEditProgram.cs" />
     <Compile Include="ViewModel\basicDataEmployeeMaster.cs" />
+    <Compile Include="ViewModel\basicDataEmpolyeeMain.cs" />
     <Compile Include="ViewModel\basicDataHospitalMain.cs" />
+    <Compile Include="ViewModel\healthSystemStartCheckMain.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -278,19 +299,20 @@
     <Content Include="Views\healthSystem\StartCheckMaster.cshtml" />
     <Content Include="Views\healthSystem\reportManageMaster.cshtml" />
     <Content Include="Views\healthSystem\StartCheckMain.cshtml" />
-    <Content Include="Views\healthSystem\StartPlace.cshtml" />
-    <Content Include="Views\healthSystem\StartFile.cshtml" />
     <Content Include="Views\healthSystem\reportManageMain.cshtml" />
-    <Content Include="Views\healthSystem\checkItem.cshtml" />
-    <Content Include="Views\healthSystem\doubleCheck.cshtml" />
-    <Content Include="Views\healthSystem\reportFile.cshtml" />
-    <Content Include="Views\healthSystem\newStart.cshtml" />
     <Content Include="Views\healthSystem\bookMaster.cshtml" />
     <Content Include="Views\healthSystem\bookMain.cshtml" />
     <Content Include="Views\basicData\newhospital.cshtml" />
     <Content Include="Views\basicData\edithospital.cshtml" />
+    <Content Include="Views\basicData\editEmployee.cshtml" />
+    <Content Include="Views\basicData\editEmployeeWork.cshtml" />
+    <Content Include="Views\basicData\editProgram.cshtml" />
     <Content Include="Views\basicData\FileUpload.cshtml" />
     <Content Include="Views\basicData\FileUploadEdit.cshtml" />
+    <Content Include="Views\healthSystem\excelImport.cshtml" />
+    <Content Include="Views\basicData\Register.cshtml" />
+    <Content Include="Views\healthSystem\newStartCheck.cshtml" />
+    <Content Include="Views\basicData\EditFactoryAuthority.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -300,7 +322,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Upload\" />
+    <Folder Include="txt\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

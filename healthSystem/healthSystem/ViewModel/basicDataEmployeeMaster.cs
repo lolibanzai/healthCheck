@@ -8,7 +8,7 @@ namespace healthSystem.ViewModel
 {
     public class basicDataEmployeeMaster
     {
-        public IEnumerable<Employee> employee
+        public IEnumerable<VW_EmpWorkInfo> vW_EmpWorkInfo
         {
             get;
             set;
@@ -23,7 +23,5 @@ namespace healthSystem.ViewModel
             get;
             set;
         }
-
-       
     }
 }

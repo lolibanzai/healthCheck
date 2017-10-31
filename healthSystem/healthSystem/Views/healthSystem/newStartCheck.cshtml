@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "newStartCheck";
+}
+
+<div class="col-md-12">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">查詢結果</h3>
+        </div>
+        <div class="panel-body">
+            <form method="post" action="">
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="email">年度:</label>
+                        <input type="text" class="form-control" id="email" name="start_year" value="">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="email">健檢負責人:</label>
+                        <input type="text" class="form-control" id="email" name="start_principal" value="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="email">啟動狀態:</label>
+                        <input type="text" class="form-control" id="email" name="start_state" readonly value="處理中">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="email">注意事項:</label>
+                        <textarea class="form-control" rows="5" id="email" style="resize: none;width:1000px;height:200px;" name="noteText"></textarea>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-success" value="新增">
+            </form>
+        </div>
+    </div>
+</div>
+

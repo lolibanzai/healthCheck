@@ -322,5 +322,62 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="VW_EmpWorkInfo">
+      <EntityTypeMapping TypeName="HealthCheckModel.VW_EmpWorkInfo">
+        <MappingFragment StoreEntitySet="VW_EmpWorkInfo">
+          <ScalarProperty Name="emp_workupdateTime" ColumnName="emp_workupdateTime" />
+          <ScalarProperty Name="emp_workupdateUser" ColumnName="emp_workupdateUser" />
+          <ScalarProperty Name="workId_isDisable" ColumnName="workId_isDisable" />
+          <ScalarProperty Name="employee_Workid" ColumnName="employee_Workid" />
+          <ScalarProperty Name="employee_role" ColumnName="employee_role" />
+          <ScalarProperty Name="employee_password" ColumnName="employee_password" />
+          <ScalarProperty Name="employee_username" ColumnName="employee_username" />
+          <ScalarProperty Name="employee_isDisabled" ColumnName="employee_isDisabled" />
+          <ScalarProperty Name="employee_changedDate" ColumnName="employee_changedDate" />
+          <ScalarProperty Name="employee_note" ColumnName="employee_note" />
+          <ScalarProperty Name="employee_reportMobile" ColumnName="employee_reportMobile" />
+          <ScalarProperty Name="employee_reportAddress" ColumnName="employee_reportAddress" />
+          <ScalarProperty Name="employee_email" ColumnName="employee_email" />
+          <ScalarProperty Name="employee_home" ColumnName="employee_home" />
+          <ScalarProperty Name="employee_cellphone" ColumnName="employee_cellphone" />
+          <ScalarProperty Name="employee_mailingAddress" ColumnName="employee_mailingAddress" />
+          <ScalarProperty Name="employee_accFactory" ColumnName="employee_accFactory" />
+          <ScalarProperty Name="employee_quitDate" ColumnName="employee_quitDate" />
+          <ScalarProperty Name="employee_comingDate" ColumnName="employee_comingDate" />
+          <ScalarProperty Name="employee_laborInsurance" ColumnName="employee_laborInsurance" />
+          <ScalarProperty Name="employee_IaborId" ColumnName="employee_IaborId" />
+          <ScalarProperty Name="employee_IsAbroad" ColumnName="employee_IsAbroad" />
+          <ScalarProperty Name="employee_homeSite" ColumnName="employee_homeSite" />
+          <ScalarProperty Name="employee_managerDate" ColumnName="employee_managerDate" />
+          <ScalarProperty Name="employee_department" ColumnName="employee_department" />
+          <ScalarProperty Name="employee_jobTitle" ColumnName="employee_jobTitle" />
+          <ScalarProperty Name="employee_factoryId" ColumnName="employee_factoryId" />
+          <ScalarProperty Name="employee_team" ColumnName="employee_team" />
+          <ScalarProperty Name="employee_corporation" ColumnName="employee_corporation" />
+          <ScalarProperty Name="employee_groupId" ColumnName="employee_groupId" />
+          <ScalarProperty Name="employee_dateOfBirth" ColumnName="employee_dateOfBirth" />
+          <ScalarProperty Name="employee_age" ColumnName="employee_age" />
+          <ScalarProperty Name="employee_gender" ColumnName="employee_gender" />
+          <ScalarProperty Name="employee_blood" ColumnName="employee_blood" />
+          <ScalarProperty Name="employee_identityCard" ColumnName="employee_identityCard" />
+          <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+          <ScalarProperty Name="employee_workNumber" ColumnName="employee_workNumber" />
+          <ScalarProperty Name="work_name" ColumnName="work_name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeWork">
+      <EntityTypeMapping TypeName="HealthCheckModel.EmployeeWork">
+        <MappingFragment StoreEntitySet="EmployeeWork">
+          <ScalarProperty Name="emp_workupdateTime" ColumnName="emp_workupdateTime" />
+          <ScalarProperty Name="emp_workupdateUser" ColumnName="emp_workupdateUser" />
+          <ScalarProperty Name="workId_isDisable" ColumnName="workId_isDisable" />
+          <ScalarProperty Name="employee_Workid" ColumnName="employee_Workid" />
+          <ScalarProperty Name="employee_workNumber" ColumnName="employee_workNumber" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

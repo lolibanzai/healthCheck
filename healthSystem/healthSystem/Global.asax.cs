@@ -18,6 +18,7 @@ protected void Session_Start(object sender, EventArgs e) {
             Session["message"] = "";
             Session["employee_workNumber"] = "";
             Session["employee_role"] = "";
+            Session["employee_acc"] = "";
         }
     }
 }

@@ -21,6 +21,7 @@ namespace healthSystem.Models
             this.Employee = new HashSet<Employee>();
             this.Employee1 = new HashSet<Employee>();
             this.StartPlace = new HashSet<StartPlace>();
+            this.Authority = new HashSet<Authority>();
         }
     
         public string factory_id { get; set; }
@@ -37,5 +38,7 @@ namespace healthSystem.Models
         public virtual ICollection<Employee> Employee1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StartPlace> StartPlace { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Authority> Authority { get; set; }
     }
 }

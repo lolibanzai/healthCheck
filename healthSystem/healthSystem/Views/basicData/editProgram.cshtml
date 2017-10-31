@@ -1,0 +1,60 @@
+﻿@using healthSystem.ViewModel;
+@model basicDataEditProgram
+@{
+    ViewBag.Title = "editProgram";
+}
+
+<div class="col-md-8">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                明細檔-健檢方案
+            </h3>
+        </div>
+        <div class="panel-body">
+            <form method="post" action="">
+                @foreach (var row in Model.program)
+                {
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">方案名稱:</label>
+                                <input type="text" class="form-control" id="email" name="program_programName" value="@row.program_programName">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">方案說明:</label>
+                                <input type="text" class="form-control" id="email" name="program_content" value="@row.program_content">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="ex2">工種</label>
+                                <select class="form-control" id="ex2" name="work_name">
+                                    @foreach (var row1 in Model.workInfo)
+                                    { 
+                                        <option>@row1.work_name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">更新者:</label>
+                                <input type="text" class="form-control" id="email" name="program_updateuser" value="@row.program_updateuser">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">更新時間:</label>
+                                <input type="text" class="form-control" id="email" name="program_updatetime" @row.program_updatetime>
+                            </div>
+                       </div>
+                       <div class="form-group row">
+                           <input type="text" name="employee_workNumber" value="@row.program_programId" hidden />
+                           <button type="submit" class="btn btn-success btn-default">更新</button> 
+                       </div>
+                }
+            </form>
+        </div>
+    </div>
+</div>
+
+
+

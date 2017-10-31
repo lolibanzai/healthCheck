@@ -14,7 +14,7 @@
         </div>
         <div class="panel-body">
 
-            <form method="post" action="/basicData/employeeMaster">
+            <form method="post" action="~/basicData/employeeMaster">
                 <div class="form-group row">
                     <div class="col-xs-4">
                         <label for="ex2">廠別</label>
@@ -71,8 +71,8 @@
             <table class="table" style="overflow: auto;
 	                                        height: 300px;
 	                                        display: block;">
-                <tr><th>姓名</th><th>聯絡窗口</th><th>連絡電話</th><th>停用註記</th></tr>
-                @foreach (var row3 in Model.employee)
+                <tr><th>姓名</th><th>工號</th><th>身分證字號</th><th>email</th><th>停用註記</th></tr>
+                @foreach (var row3 in Model.vW_EmpWorkInfo)
                 {
                     <tr>
                         <td>@row3.employee_name</td>
@@ -81,8 +81,9 @@
                         <td>@row3.employee_email</td>
                         <td>@row3.employee_isDisabled</td>
                         <td>
-                            <form method="post" action="/basicData/hospitalMain">
-                                <input type="text" name="hospital_hospitalId" value="@row3.employee_workNumber" hidden />
+                            <form method="post" action="/basicData/employeeMain">
+                                <input type="text" name="employee_workNumber" value="@row3.employee_workNumber" hidden />
+                                <input type="text" name="employee_workId" value="@row3.employee_Workid" hidden />
                                 <button type="submit" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                             </form>
                         </td>

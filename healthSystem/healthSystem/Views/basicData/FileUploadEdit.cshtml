@@ -13,36 +13,36 @@
             <div class="panel-heading">
                 <h3 class="panel-title">
                     附件管理-編輯檔案描述<a href="~/basicData/hospitalMain" class="btn btn-warning btn-xs pull-right">
-    <span class="glyphicon glyphicon-arrow-left"></span> 回上頁
-</a>
+                        <span class="glyphicon glyphicon-arrow-left"></span> 回上頁
+                    </a>
                 </h3>
             </div>
             <div class="panel-body">
                 <form method="post" action="">
-                  
-                        <div class="form-group row">
-                            <div class="col-md-4">
-                                <label for="hospital_name">檔案編號:</label>
-                                <input type="text" class="form-control" id="file_fileId" name="file_fileId" value="@Model.file_fileId" readonly>
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="hos_FileName">檔案名稱:</label>
-                                <input type="text" class="form-control" id="hos_FileName" name="hos_FileName" value="@Model.hos_FileName" readonly>
 
-                            </div>
-                           
-                          
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label for="hospital_name">檔案編號:</label>
+                            <input type="text" class="form-control" id="file_fileId" name="file_fileId" value="@Model.file_fileId" readonly>
                         </div>
+                        <div class="col-xs-4">
+                            <label for="hos_FileName">檔案名稱:</label>
+                            <input type="text" class="form-control" id="hos_FileName" name="hos_FileName" value="@Model.hos_FileName" readonly>
+
+                        </div>
+
+
+                    </div>
                     <div class="form-group row">
                         <div class="col-md-8">
                             <label for="file_content">檔案描述:</label>
                             <input type="text" class="form-control" id="file_content" name="file_content" value="@Model.file_content">
                         </div>
                     </div>
-                  
-                        <button type="submit" class="btn btn-success btn-default">更新</button>
 
-</form>
+                    <button type="submit" class="btn btn-success btn-default">更新</button>
+
+                </form>
             </div>
         </div>
     </div>

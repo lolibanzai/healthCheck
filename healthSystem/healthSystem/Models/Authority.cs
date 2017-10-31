@@ -23,5 +23,6 @@ namespace healthSystem.Models
         public Nullable<System.DateTime> authority_updateTime { get; set; }
     
         public virtual Employee Employee { get; set; }
+        public virtual Factory Factory { get; set; }
     }
 }

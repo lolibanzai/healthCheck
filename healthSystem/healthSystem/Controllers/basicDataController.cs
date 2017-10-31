@@ -15,38 +15,47 @@ namespace healthSystem.Controllers
         // GET: basicData
         public ActionResult purviewMaster() //人員權限主頁
         {
-             string employee_workNumber = Session["employee_workNumber"].ToString();
-            var q = from o in db.Employee
-                    where o.employee_workNumber == employee_workNumber
-                    select o;
-            var emp = q.ToList();
+            string employee_workNumber = Session["employee_workNumber"].ToString();
+            //var q = from o in db.Employee
+            //        where o.employee_workNumber == employee_workNumber
+            //        select o;
+            //var emp = q.ToList();
+            List<Employee> emp = new List<Employee>();
             return View(emp);
         }
         [HttpPost]
         public ActionResult purviewMaster(Employee empData) //人員權限主頁
         {
-            if (string.IsNullOrEmpty(empData.employee_name)) {
+            if (string.IsNullOrEmpty(empData.employee_name))
+            {
                 empData.employee_name = "";
             }
-            if (string.IsNullOrEmpty(empData.employee_username)) {
+            if (string.IsNullOrEmpty(empData.employee_username))
+            {
                 empData.employee_username = "";
             }
-            if (string.IsNullOrEmpty(empData.employee_email)) {
+            if (string.IsNullOrEmpty(empData.employee_email))
+            {
                 empData.employee_email = "";
             }
-            if (string.IsNullOrEmpty(empData.employee_factoryId)) {
+            if (string.IsNullOrEmpty(empData.employee_factoryId))
+            {
                 empData.employee_factoryId = "";
             }
-            if (string.IsNullOrEmpty(empData.employee_isDisabled)) {
+            if (string.IsNullOrEmpty(empData.employee_isDisabled))
+            {
                 empData.employee_isDisabled = "";
             }
             var q = from o in db.Employee
-                    //where o.employee_name.Contains(empData.employee_name) && o.employee_isDisabled.Contains(empData.employee_isDisabled)
-                    where (o.employee_name.Contains(empData.employee_name) && o.employee_username.Contains(empData.employee_username) &&
-                    o.employee_email.Contains(empData.employee_email) && o.employee_factoryId.Contains(empData.employee_factoryId)) && o.employee_isDisabled.Contains(empData.employee_isDisabled)
+                        //where o.employee_name.Contains(empData.employee_name) && o.employee_isDisabled.Contains(empData.employee_isDisabled)
+                    where (o.employee_name.Contains(empData.employee_name) &&
+                           o.employee_username.Contains(empData.employee_username) &&
+                           o.employee_email.Contains(empData.employee_email) &&
+                           o.employee_factoryId.Contains(empData.employee_factoryId)) &&
+                           o.employee_isDisabled.Contains(empData.employee_isDisabled)
                     select o;
             var result = q.ToList();
-            
+
             return View(result);
         }
         public ActionResult purviewMain(FormCollection frm) //人員權限主檔,人員權限明細檔-廠別權限
@@ -68,86 +77,356 @@ namespace healthSystem.Controllers
             //data.Factory = new List<Factory>();
             //    List<Factory>  q2.ToList();
             //List.
+            foreach (var item in data.EmpView)
+            {
+                Session["employee_acc"] = item.employee_workNumber;
+            }
             return View(data);
             //I)
         }
-        //------------------------------------------------------------------------------
+        //public ActionResult purviewMain(FormCollection frm) //人員權限主檔,人員權限明細檔-廠別權限
+        //{
+        //    string employee_workNumber = Request["employee_workNumber"];
+        //    var q = from o in db.Authority
+        //            where o.authority_workNumber == employee_workNumber
+        //            select o;
+        //    var q1 = from o in db.Employee
+        //             where o.employee_workNumber == employee_workNumber
+        //             select o;
+        //    //var q2 = from o in db.Factory
+        //    //         from o1 in db.Authority
+        //    //         where o1.employee_workNumber==employee_workNumber
+        //    //         select new { factory_id=o.factory_id,factory_area=o.factory_area, factory_name=o.factory_name,factory_contract=o.factory_contract};
+        //    ViewModel_empAu data = new ViewModel_empAu();
+        //    data.AuthView = q.ToList();
+        //    data.EmpView = q1.ToList();
+        //    //data.Factory = new List<Factory>();
+        //    //    List<Factory>  q2.ToList();
+        //    //List.
+        //    return View(data);
+        //    //I)
+        //}
+        //人事------------------------------------------------------------------------------
+        public ActionResult EditfactoryAuthority(FormCollection frm)
+        {
+            string employeeworkNumber = Request["employeeworkNumber"];
+            //string employeeworkNumber=Session["employee_acc"].ToString();
+            var q1 = from o in db.Authority
+                     where o.authority_workNumber == employeeworkNumber && o.authority_IsDisable == "N"
+                     select o;
+            var q2 = from o in db.Factory
+                     select o;
+            ViewModel_AuFa data = new ViewModel_AuFa();
+            data.Factory = q2.ToList();
+            data.AuthView = q1.ToList();
+            return View(data);
+        }
+        [HttpPost]
+        public ActionResult EditFactoryAuthority(ViewModel_AuFa auth)
+        {
+            //Session["employee_acc"] = auth.AuthView.;
+            string workNumber = Session["employee_acc"].ToString();
+            string employee_workNumber = Request["employee_workNumber"];
+            string auth_workNumber = Request["authority_workNumber"];
+            string factoryid = Request["factoryId"];
+            int action = Convert.ToInt32(Request["AddorRemove"].ToString());
+
+            Emp emp = new Emp();
+            try
+            {
+                if (action == 0)
+                {
+                    var query = (from o in db.Authority
+                                 where o.authority_workNumber == workNumber && o.authority_factoryId == factoryid
+                                 select o).ToList();
+                    if (query.Count() == 0)
+                    {
+                        Authority authfac = new Authority()
+                        {
+                            authority_workNumber = auth_workNumber,
+                            authority_factoryId = factoryid,
+                            authority_IsDisable = "N",
+                            authority_role = emp.GetRole(employee_workNumber),
+                            //authority_updateTime = DateTime.Now,
+                            //authority_updateuser = emp.Name(employee_workNumber)
+                        };
+                        db.Authority.Add(authfac);
+                        db.SaveChanges();
+                    }
+                    else if (query.Count() != 0)
+                    {
+                        //var queryResult=query.ToList();
+                        foreach (var item in query)
+                        {
+                            item.authority_Id = item.authority_Id;
+                            item.authority_factoryId = item.authority_factoryId;
+                            item.authority_workNumber = item.authority_workNumber;
+                            item.authority_IsDisable = "N";
+                            item.authority_updateuser = emp.Name(employee_workNumber);
+                            item.authority_updateTime = DateTime.Now;
+                        }
+
+                        db.SaveChanges();
+                    }
+                }
+                if (action == 1)
+                {
+                    var query = (from o in db.Authority
+                                 where o.authority_workNumber == workNumber && o.authority_factoryId == factoryid
+                                 select o);
+                    var qtoList = query.ToList();
+                    //if (query != default(Authority))
+                    foreach (var item in query)
+                    {
+                        item.authority_Id = item.authority_Id;
+                        item.authority_factoryId = item.authority_factoryId;
+                        item.authority_workNumber = item.authority_workNumber;
+                        item.authority_IsDisable = "Y";
+                        item.authority_updateuser = emp.Name(employee_workNumber);
+                        item.authority_updateTime = DateTime.Now;
+                    }
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex) { return Content(ex.ToString()); }
+            var q1 = from o in db.Authority
+                     where o.authority_workNumber == workNumber && o.authority_IsDisable == "N"
+                     select o;
+            var q2 = from o in db.Factory
+                     select o;
+            ViewModel_AuFa data = new ViewModel_AuFa();
+            data.Factory = q2.ToList();
+            data.AuthView = q1.ToList();
+            return View(data);
+            //return RedirectToAction("hospitalMain", "basicData");
+        }
         public ActionResult employeeMaster() //人事資料主頁
         {
             var query = from o in db.WorkInfo
                         select o;
             var query1 = from x in db.Factory
                          select x;
-            var query2 = from o in db.Employee
+            var query2 = from o in db.VW_EmpWorkInfo
                          where o.employee_workNumber == null
                          select o;
             basicDataEmployeeMaster data = new basicDataEmployeeMaster();
             data.workInfo = query.ToList();
             data.factory = query1.ToList();
-            data.employee = query2.ToList();
+            data.vW_EmpWorkInfo = query2.ToList();
             return View(data);
         }
         [HttpPost]
-        public ActionResult employeeMaster(Factory factory,Employee employee,WorkInfo workInfo) //人事資料主頁
+        public ActionResult employeeMaster(Factory factory, Employee employee, WorkInfo workInfo) //人事資料主頁
         {
             //若沒有輸入post回去會是null值,把它改成""去做模糊查詢
-            if (string.IsNullOrEmpty(employee.employee_name)) {
+            if (string.IsNullOrEmpty(employee.employee_name))
+            {
                 employee.employee_name = "";
             }
-            if (string.IsNullOrEmpty(employee.employee_workNumber)) {
+            if (string.IsNullOrEmpty(employee.employee_workNumber))
+            {
                 employee.employee_workNumber = "";
             }
-            if (string.IsNullOrEmpty(employee.employee_identityCard)) {
+            if (string.IsNullOrEmpty(employee.employee_identityCard))
+            {
                 employee.employee_identityCard = "";
             }
-            if (string.IsNullOrEmpty(employee.employee_isDisabled)) {
+            if (string.IsNullOrEmpty(employee.employee_isDisabled))
+            {
                 employee.employee_isDisabled = "";
             }
-            if (string.IsNullOrEmpty(workInfo.work_name)) {
+            if (string.IsNullOrEmpty(workInfo.work_name))
+            {
                 workInfo.work_name = "";
             }
-            //先將工廠名稱轉換成工廠ID,工種名稱轉換成工種ID
+            //先將工廠名稱轉換成工廠ID
             var query = from f in db.Factory
                         where f.factory_name == factory.factory_name
                         select f.factory_id;
+            string factoryID = query.First();
+            //工種名稱轉換成工種ID
             var query1 = from w in db.WorkInfo
                          where w.work_name.Contains(workInfo.work_name)
                          select w.work_id;
-            string factoryID = query.First();
-            int workID = 0;
-            if (query1.Count() == 1) {
+            int workID = 0; //當workID等於0就是查詢全部
+            string workname = "";
+            if (query1.Count() == 1)
+            {
                 workID = query1.First();
             }
-            var query2 = from e in db.Employee
-                         where (e.employee_workId == workID &&
-                               e.employee_name.Contains(employee.employee_name) &&
-                               e.employee_workNumber.Contains(employee.employee_workNumber) &&
-                               e.employee_factoryId == factoryID &&
-                               e.employee_identityCard.Contains(employee.employee_identityCard) &&
-                               e.employee_isDisabled.Contains(employee.employee_isDisabled))
-                               ||
-                               (workID == 0 &&
-                               e.employee_name.Contains(employee.employee_name) &&
-                               e.employee_workNumber.Contains(employee.employee_workNumber) &&
-                               e.employee_factoryId == factoryID &&
-                               e.employee_identityCard.Contains(employee.employee_identityCard) &&
-                               e.employee_isDisabled.Contains(employee.employee_isDisabled))
+            if (workID == 3)
+            {
+                workname = "一般人員";
+            }
+            if (workID == 4)
+            {
+                workname = "高階主管";
+            }
+            //轉換完畢
+            var query2 = from e in db.VW_EmpWorkInfo
+                         where (e.employee_Workid == workID &&
+                                e.employee_name.Contains(employee.employee_name) &&
+                                e.employee_workNumber.Contains(employee.employee_workNumber) &&
+                                e.employee_factoryId == factoryID &&
+                                e.employee_identityCard.Contains(employee.employee_identityCard) &&
+                                e.employee_isDisabled.Contains(employee.employee_isDisabled))
+                                ||
+                               (e.work_name == workname &&
+                                e.employee_name.Contains(employee.employee_name) &&
+                                e.employee_workNumber.Contains(employee.employee_workNumber) &&
+                                e.employee_factoryId == factoryID &&
+                                e.employee_identityCard.Contains(employee.employee_identityCard) &&
+                                e.employee_isDisabled.Contains(employee.employee_isDisabled))
+                                ||
+                                (workID == 0 &&
+                                e.employee_name.Contains(employee.employee_name) &&
+                                e.employee_workNumber.Contains(employee.employee_workNumber) &&
+                                e.employee_factoryId == factoryID &&
+                                e.employee_identityCard.Contains(employee.employee_identityCard) &&
+                                e.employee_isDisabled.Contains(employee.employee_isDisabled))
                          select e;
+
+            //var query2 = from e in db.Employee
+            //             where (e.employee_workId == workID &&
+            //                   e.employee_name.Contains(employee.employee_name) &&
+            //                   e.employee_workNumber.Contains(employee.employee_workNumber) &&
+            //                   e.employee_factoryId == factoryID &&
+            //                   e.employee_identityCard.Contains(employee.employee_identityCard) &&
+            //                   e.employee_isDisabled.Contains(employee.employee_isDisabled))
+            //                   ||
+            //                   (workID == 0 &&
+            //                   e.employee_name.Contains(employee.employee_name) &&
+            //                   e.employee_workNumber.Contains(employee.employee_workNumber) &&
+            //                   e.employee_factoryId == factoryID &&
+            //                   e.employee_identityCard.Contains(employee.employee_identityCard) &&
+            //                   e.employee_isDisabled.Contains(employee.employee_isDisabled))
+            //             select e;
             var query3 = from o in db.WorkInfo
                          select o;
             var query4 = from x in db.Factory
                          select x;
             basicDataEmployeeMaster data = new basicDataEmployeeMaster();
-            data.employee = query2.ToList();
+            data.vW_EmpWorkInfo = query2.ToList();
             data.workInfo = query3.ToList();
             data.factory = query4.ToList();
             return View(data);
         }
-        public ActionResult employeeMain() //人事資料主檔,明細檔-工種,明細檔-健檢記錄
+        public ActionResult employeeMain() //人事資料主檔,明細檔-工種,明細檔-健檢記錄(編輯完成後使用的ActionResult)
         {
-            return View();
+            string workNumber = Session["workNumber"].ToString();
+            int workId = Convert.ToInt32(Session["workId"]);
+            var query = from o in db.Employee
+                        where o.employee_workNumber == workNumber
+                        select o;
+            var query1 = from x in db.WorkInfo
+                         where x.work_id == workId
+                         select x;
+            var query2 = from z in db.ReportManage
+                         where z.ReportManage_workNumber == workNumber
+                         select z;
+            var query3 = from a in db.VW_EmpWorkInfo
+                         where a.employee_workNumber == workNumber
+                         select a;
+
+            basicDataEmpolyeeMain data = new basicDataEmpolyeeMain();
+            data.employee = query.ToList();
+            data.workInfo = query1.ToList();
+            data.reportManage = query2.ToList();
+            data.vW_EmpWorkInfo = query3.ToList();
+
+            return View(data);
         }
-        //------------------------------------------------------------------------------
+        [HttpPost]
+        public ActionResult employeeMain(VW_EmpWorkInfo employee) //人事資料主檔,明細檔-工種,明細檔-健檢記錄(查詢完成按下放大鏡後使用的ActionResult)
+        {
+            var query = from o in db.Employee
+                        where o.employee_workNumber == employee.employee_workNumber
+                        select o;
+            var query1 = from x in db.WorkInfo
+                         where x.work_id == employee.employee_Workid
+                         select x;
+            var query2 = from z in db.ReportManage
+                         where z.ReportManage_workNumber == employee.employee_workNumber
+                         select z;
+            var query3 = from a in db.VW_EmpWorkInfo
+                         where a.employee_workNumber == employee.employee_workNumber
+                         select a;
+
+            basicDataEmpolyeeMain data = new basicDataEmpolyeeMain();
+            data.employee = query.ToList();
+            data.workInfo = query1.ToList();
+            data.reportManage = query2.ToList();
+            data.vW_EmpWorkInfo = query3.ToList();
+
+            Session["workNumber"] = employee.employee_workNumber;
+            Session["workId"] = employee.employee_Workid;
+            return View(data);
+        }
+        public ActionResult editEmployee() //更改人事主檔
+        {
+            string workNumber = Session["workNumber"].ToString();
+            var query = from o in db.Employee
+                        where o.employee_workNumber == workNumber
+                        select o;
+            List<Employee> data = query.ToList();
+
+            return View(data);
+        }
+        [HttpPost]
+        public ActionResult editEmployee(Employee editData)
+        {
+            Employee data = db.Employee.Find(Session["workNumber"]);
+            data.employee_reportAddress = editData.employee_reportAddress;
+            data.employee_reportMobile = editData.employee_reportMobile;
+            data.employee_note = editData.employee_note;
+            db.SaveChanges();
+            return RedirectToAction("employeeMain", "basicData");
+        }
+        public ActionResult editEmployeeWork() //更改所屬工種
+        {
+            var query = from o in db.WorkInfo
+                        where o.work_id != 3 && o.work_id != 4
+                        select o;
+            List<WorkInfo> data = query.ToList();
+            return View(data);
+        }
+        [HttpPost]
+        public ActionResult editEmployeeWork(string work_name)
+        {
+            //將工種名稱轉換成id
+            var query = from o in db.WorkInfo
+                        where o.work_name == work_name
+                        select o.work_id;
+            int workID = query.First();
+
+            //將工號轉換成EmployeeWork表對應的ID
+            string workNumber = Session["workNumber"].ToString();
+            var query1 = from o in db.EmployeeWork
+                         where o.employee_workNumber == workNumber
+                         select o.Id;
+            int EmployeeWorkID = query1.First();
+
+            //修改資料並儲存
+            EmployeeWork data = db.EmployeeWork.Find(EmployeeWorkID);
+            data.employee_Workid = workID;
+            db.SaveChanges();
+
+            return RedirectToAction("employeeMain", "basicData");
+        }
+        public ActionResult delEmployeeWork()
+        {
+            string workNumber = Session["workNumber"].ToString();
+            var query = from o in db.EmployeeWork
+                        where o.employee_workNumber == workNumber
+                        select o.Id;
+            int id = query.First();
+            EmployeeWork data = db.EmployeeWork.Find(id);
+            data.workId_isDisable = "Y";
+            db.SaveChanges();
+
+            return RedirectToAction("employeeMain", "basicData");
+        }
+        //醫院------------------------------------------------------------------------------
         public ActionResult hospitalMaster() //醫院資料主頁
         {
             List<Hospital> hospitalData = new List<Hospital>();
@@ -176,7 +455,6 @@ namespace healthSystem.Controllers
         }
         public ActionResult hospitalMain() //醫院資料主檔,明細檔-附件管理,明細檔-健檢方案(編輯完成後使用的ActionResult)
         {
-            
             int hospital_hospitalId = Convert.ToInt32(Session["hospitalID"]);
             var query = from o in db.Hospital
                         where o.hospital_hospitalId == hospital_hospitalId
@@ -189,17 +467,16 @@ namespace healthSystem.Controllers
                          select o;
             basicDataHospitalMain data = new basicDataHospitalMain();
             data.hospital = query.ToList();
-            data.File = query1.ToList();
+            data.hospitalProgramFile = query1.ToList();
             data.program = query2.ToList();
             return View(data);
         }
         [HttpPost]
         public ActionResult hospitalMain(int hospital_hospitalId) //醫院資料主檔,明細檔-附件管理,明細檔-健檢方案(查詢完成後使用的ActionResult)
         {
-           
-            var query  = from o in db.Hospital
-                         where o.hospital_hospitalId == hospital_hospitalId
-                         select o;
+            var query = from o in db.Hospital
+                        where o.hospital_hospitalId == hospital_hospitalId
+                        select o;
             var query1 = from o in db.HospitalProgramFile
                          where o.file_hospitalId == hospital_hospitalId
                          select o;
@@ -208,15 +485,11 @@ namespace healthSystem.Controllers
                          select o;
             basicDataHospitalMain data = new basicDataHospitalMain();
             data.hospital = query.ToList();
-            data.File = query1.ToList();
+            data.hospitalProgramFile = query1.ToList();
             data.program = query2.ToList();
-            
-            Session["hospitalID"] = hospital_hospitalId.ToString(); 
+            Session["hospitalID"] = hospital_hospitalId;
             return View(data);
         }
-
-
-        //醫院新增
         public ActionResult newhospital()
         {
             List<Hospital> data = new List<Hospital>();
@@ -225,21 +498,21 @@ namespace healthSystem.Controllers
         [HttpPost]
         public ActionResult newhospital(Hospital data)
         {
-                Hospital newhospital = new Hospital()
-                {
-                    hospital_name = data.hospital_name,
-                    hospital_uniform = data.hospital_uniform,
-                    hospital_address = data.hospital_address,
-                    hospital_state = data.hospital_state,
-                    hospital_contact = data.hospital_contact,
-                    hospital_phone = data.hospital_phone,
-                    hospital_website = data.hospital_website,
-                    hospital_email = data.hospital_email
-                    //hospital_updateuser = data.hospital_updateuser,
-                    //hospital_updatetime = data.hospital_updatetime
-                };
-                db.Hospital.Add(newhospital);
-                db.SaveChanges();
+            Hospital newhospital = new Hospital()
+            {
+                hospital_name = data.hospital_name,
+                hospital_uniform = data.hospital_uniform,
+                hospital_address = data.hospital_address,
+                hospital_state = data.hospital_state,
+                hospital_contact = data.hospital_contact,
+                hospital_phone = data.hospital_phone,
+                hospital_website = data.hospital_website,
+                hospital_email = data.hospital_email
+                //hospital_updateuser = data.hospital_updateuser,
+                //hospital_updatetime = data.hospital_updatetime
+            };
+            db.Hospital.Add(newhospital);
+            db.SaveChanges();
             List<Hospital> hospitalList = new List<Hospital>();
             TempData["hospitalMessage"] = "新增成功";
             return View(hospitalList);
@@ -270,8 +543,42 @@ namespace healthSystem.Controllers
             db.SaveChanges();
             return RedirectToAction("hospitalMain", "basicData");
         }
+        public ActionResult delProgram(int program_programId)
+        {
+            Program data = db.Program.Find(program_programId);
+            data.program_state = "Y";
+            db.SaveChanges();
+            return RedirectToAction("hospitalMain", "basicData");
+        }
+        public ActionResult editProgram(int program_programId)
+        {
+            var query = from o in db.Program
+                        where o.program_programId == program_programId
+                        select o;
+            basicDataEditProgram data = new basicDataEditProgram();
+            data.program = query.ToList();
+            var query1 = from o in db.WorkInfo
+                         select o;
+            data.workInfo = query1.ToList();
+            return View(data);
+        }
+        [HttpPost]
+        public ActionResult editProgram(Program program, WorkInfo workInfo)
+        {
+            var query = from o in db.WorkInfo
+                        where o.work_name == workInfo.work_name
+                        select o.work_id;
+            int workId = query.First();
+            Program data = db.Program.Find(program.program_programId);
+            data.program_programName = program.program_programName;
+            data.program_content = program.program_content;
+            data.program_workid = workId;
+            data.program_updateuser = program.program_updateuser;
+            data.program_updatetime = program.program_updatetime;
+            db.SaveChanges();
+            return RedirectToAction("hospitalMain", "basicData");
+        }
 
-        
         public ActionResult DownloadFile(int id) //檔案下載
         {
 
@@ -293,7 +600,6 @@ namespace healthSystem.Controllers
         }
 
         //上傳頁面
-
         public ActionResult FileUpload()
         {
             HospitalProgramFile hosFileInfo = new HospitalProgramFile();
@@ -357,20 +663,71 @@ namespace healthSystem.Controllers
             //            select o;
             //HospitalProgramFile data = query.FirstOrDefault();
             return View(filedata);
-           
+
         }
         [HttpPost]
-        public ActionResult FileUploadEdit(HospitalProgramFile editFileData,int file_fileId)//送出編輯資料
+        public ActionResult FileUploadEdit(HospitalProgramFile editFileData, int file_fileId)//送出編輯資料
         {
             //int fileId = Convert.ToInt32(Request["file_fileId"]);
             HospitalProgramFile data = db.HospitalProgramFile.Find(file_fileId);
             data.file_content = editFileData.file_content;
-          
+
             db.SaveChanges();
             return RedirectToAction("hospitalMain", "basicData");
-          
+
 
         }
 
+        public ActionResult Register(FormCollection frm)
+        {
+            string employee_workNumber = Session["employee_acc"].ToString();
+            var q = from o in db.Employee
+                    where o.employee_workNumber == employee_workNumber
+                    select o;
+            var data = q.ToList();
+            return View(data);
+        }
+        [HttpPost]
+        public ActionResult Register(Employee emp)
+        {
+            string employee_workNumber = "";
+            string employee_password = "";
+            string employee_username = "";
+            /*foreach(var item in emp.EmpView) {*/
+            employee_workNumber = emp.employee_workNumber;
+            //employee_username = emp.employee_username;
+            //employee_password = emp.employee_password;
+            //}
+            //employee_workNumber = Request["employee_workNumber"];
+            if (string.IsNullOrEmpty(Request["employee_username"]))
+            {
+            }
+            else
+                employee_username = Request["employee_username"];
+            if (string.IsNullOrEmpty(Request["employee_password"]))
+            {
+            }
+            else
+                employee_password = Request["employee_password"];
+
+            if (employee_username == "")
+            {
+                var q = from o in db.Employee
+                        where o.employee_workNumber == employee_workNumber
+                        select o;
+                var result = q.ToList();
+                return View("Register", result);
+            }
+            else
+            {
+                var data = db.Employee.Find(employee_workNumber);
+                data.employee_username = employee_username;
+                data.employee_password = employee_password;
+                db.SaveChanges();
+                //Session.Remove("employee_acc");
+
+                return RedirectToAction("purviewMaster", "basicData");
+            }
+        }
     }
-}
+    }

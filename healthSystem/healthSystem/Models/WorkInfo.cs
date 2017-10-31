@@ -19,6 +19,7 @@ namespace healthSystem.Models
         {
             this.Employee = new HashSet<Employee>();
             this.Program = new HashSet<Program>();
+            this.EmployeeWork = new HashSet<EmployeeWork>();
         }
     
         public int work_id { get; set; }
@@ -32,5 +33,7 @@ namespace healthSystem.Models
         public virtual ICollection<Employee> Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Program> Program { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeeWork> EmployeeWork { get; set; }
     }
 }

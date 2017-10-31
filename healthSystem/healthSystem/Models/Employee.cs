@@ -22,6 +22,7 @@ namespace healthSystem.Models
             this.InspectPerson = new HashSet<InspectPerson>();
             this.StartHand = new HashSet<StartHand>();
             this.ReportManage = new HashSet<ReportManage>();
+            this.EmployeeWork = new HashSet<EmployeeWork>();
         }
     
         public string employee_workNumber { get; set; }
@@ -72,5 +73,7 @@ namespace healthSystem.Models
         public virtual ICollection<StartHand> StartHand { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReportManage> ReportManage { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeeWork> EmployeeWork { get; set; }
     }
 }

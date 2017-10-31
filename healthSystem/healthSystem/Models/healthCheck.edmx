@@ -123,9 +123,20 @@
           <Property Name="employee_note" Type="nvarchar" MaxLength="50" />
           <Property Name="employee_changedDate" Type="datetime" />
           <Property Name="employee_isDisabled" Type="char" MaxLength="1" Nullable="false" />
-          <Property Name="employee_username" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="employee_password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="employee_username" Type="varchar" MaxLength="20" />
+          <Property Name="employee_password" Type="varchar" MaxLength="20" />
           <Property Name="employee_role" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="EmployeeWork">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employee_workNumber" Type="nvarchar" MaxLength="10" />
+          <Property Name="employee_Workid" Type="int" />
+          <Property Name="workId_isDisable" Type="char" MaxLength="1" />
+          <Property Name="emp_workupdateUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="emp_workupdateTime" Type="datetime" />
         </EntityType>
         <EntityType Name="Factory">
           <Key>
@@ -250,13 +261,13 @@
           <Key>
             <PropertyRef Name="Start_id" />
           </Key>
-          <Property Name="Start_id" Type="int" Nullable="false" />
+          <Property Name="Start_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="start_year" Type="int" Nullable="false" />
           <Property Name="start_startDate" Type="date" />
           <Property Name="start_CheckEndDate" Type="date" />
           <Property Name="start_principal" Type="char" MaxLength="15" />
           <Property Name="start_state" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="start_note" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="start_note" Type="nvarchar" MaxLength="50" />
           <Property Name="start_updateUser" Type="nvarchar" MaxLength="10" />
           <Property Name="start_updateDate" Type="datetime" />
         </EntityType>
@@ -305,6 +316,76 @@
           <Property Name="work_IsDiabled" Type="char" MaxLength="1" />
           <Property Name="work_updateUser" Type="nvarchar" MaxLength="10" />
           <Property Name="work_updateTime" Type="datetime" />
+        </EntityType>
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'HealthCheck.dbo.VW_EmpWorkInfo' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="VW_EmpWorkInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="work_name" />
+            <PropertyRef Name="employee_workNumber" />
+            <PropertyRef Name="employee_name" />
+            <PropertyRef Name="employee_identityCard" />
+            <PropertyRef Name="employee_blood" />
+            <PropertyRef Name="employee_gender" />
+            <PropertyRef Name="employee_age" />
+            <PropertyRef Name="employee_dateOfBirth" />
+            <PropertyRef Name="employee_groupId" />
+            <PropertyRef Name="employee_corporation" />
+            <PropertyRef Name="employee_team" />
+            <PropertyRef Name="employee_factoryId" />
+            <PropertyRef Name="employee_jobTitle" />
+            <PropertyRef Name="employee_department" />
+            <PropertyRef Name="employee_homeSite" />
+            <PropertyRef Name="employee_IsAbroad" />
+            <PropertyRef Name="employee_IaborId" />
+            <PropertyRef Name="employee_laborInsurance" />
+            <PropertyRef Name="employee_comingDate" />
+            <PropertyRef Name="employee_accFactory" />
+            <PropertyRef Name="employee_mailingAddress" />
+            <PropertyRef Name="employee_cellphone" />
+            <PropertyRef Name="employee_email" />
+            <PropertyRef Name="employee_isDisabled" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="work_name" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="employee_workNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="employee_name" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="employee_identityCard" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="employee_blood" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="employee_gender" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="employee_age" Type="int" Nullable="false" />
+          <Property Name="employee_dateOfBirth" Type="date" Nullable="false" />
+          <Property Name="employee_groupId" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="employee_corporation" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="employee_team" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="employee_factoryId" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="employee_jobTitle" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="employee_department" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="employee_managerDate" Type="date" />
+          <Property Name="employee_homeSite" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="employee_IsAbroad" Type="nchar" MaxLength="2" Nullable="false" />
+          <Property Name="employee_IaborId" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="employee_laborInsurance" Type="date" Nullable="false" />
+          <Property Name="employee_comingDate" Type="date" Nullable="false" />
+          <Property Name="employee_quitDate" Type="date" />
+          <Property Name="employee_accFactory" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="employee_mailingAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="employee_cellphone" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="employee_home" Type="nvarchar" MaxLength="12" />
+          <Property Name="employee_email" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="employee_reportAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="employee_reportMobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="employee_note" Type="nvarchar" MaxLength="50" />
+          <Property Name="employee_changedDate" Type="datetime" />
+          <Property Name="employee_isDisabled" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="employee_username" Type="varchar" MaxLength="20" />
+          <Property Name="employee_password" Type="varchar" MaxLength="20" />
+          <Property Name="employee_role" Type="char" MaxLength="1" />
+          <Property Name="employee_Workid" Type="int" />
+          <Property Name="workId_isDisable" Type="char" MaxLength="1" />
+          <Property Name="emp_workupdateUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="emp_workupdateTime" Type="datetime" />
         </EntityType>
         <Association Name="FK__book__book_hospi__178D7CA5">
           <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
@@ -546,6 +627,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Authority_Factory">
+          <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
+          <End Role="Authority" Type="Self.Authority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factory">
+              <PropertyRef Name="factory_id" />
+            </Principal>
+            <Dependent Role="Authority">
+              <PropertyRef Name="authority_factoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CheckItem_ReportManage">
           <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="0..1" />
           <End Role="CheckItem" Type="Self.CheckItem" Multiplicity="*" />
@@ -567,6 +660,30 @@
             </Principal>
             <Dependent Role="DoubleCheck">
               <PropertyRef Name="doubleCheck_reportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeWork_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="EmployeeWork" Type="Self.EmployeeWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="employee_workNumber" />
+            </Principal>
+            <Dependent Role="EmployeeWork">
+              <PropertyRef Name="employee_workNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeWork_WorkInfo">
+          <End Role="WorkInfo" Type="Self.WorkInfo" Multiplicity="0..1" />
+          <End Role="EmployeeWork" Type="Self.EmployeeWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkInfo">
+              <PropertyRef Name="work_id" />
+            </Principal>
+            <Dependent Role="EmployeeWork">
+              <PropertyRef Name="employee_Workid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -613,6 +730,7 @@
           <EntitySet Name="CheckItem" EntityType="Self.CheckItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DoubleCheck" EntityType="Self.DoubleCheck" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeWork" EntityType="Self.EmployeeWork" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Factory" EntityType="Self.Factory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HealthNotice" EntityType="Self.HealthNotice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Hospital" EntityType="Self.Hospital" Schema="dbo" store:Type="Tables" />
@@ -627,6 +745,49 @@
           <EntitySet Name="StartPlace" EntityType="Self.StartPlace" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkInfo" EntityType="Self.WorkInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VW_EmpWorkInfo" EntityType="Self.VW_EmpWorkInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_EmpWorkInfo].[Id] AS [Id], 
+    [VW_EmpWorkInfo].[work_name] AS [work_name], 
+    [VW_EmpWorkInfo].[employee_workNumber] AS [employee_workNumber], 
+    [VW_EmpWorkInfo].[employee_name] AS [employee_name], 
+    [VW_EmpWorkInfo].[employee_identityCard] AS [employee_identityCard], 
+    [VW_EmpWorkInfo].[employee_blood] AS [employee_blood], 
+    [VW_EmpWorkInfo].[employee_gender] AS [employee_gender], 
+    [VW_EmpWorkInfo].[employee_age] AS [employee_age], 
+    [VW_EmpWorkInfo].[employee_dateOfBirth] AS [employee_dateOfBirth], 
+    [VW_EmpWorkInfo].[employee_groupId] AS [employee_groupId], 
+    [VW_EmpWorkInfo].[employee_corporation] AS [employee_corporation], 
+    [VW_EmpWorkInfo].[employee_team] AS [employee_team], 
+    [VW_EmpWorkInfo].[employee_factoryId] AS [employee_factoryId], 
+    [VW_EmpWorkInfo].[employee_jobTitle] AS [employee_jobTitle], 
+    [VW_EmpWorkInfo].[employee_department] AS [employee_department], 
+    [VW_EmpWorkInfo].[employee_managerDate] AS [employee_managerDate], 
+    [VW_EmpWorkInfo].[employee_homeSite] AS [employee_homeSite], 
+    [VW_EmpWorkInfo].[employee_IsAbroad] AS [employee_IsAbroad], 
+    [VW_EmpWorkInfo].[employee_IaborId] AS [employee_IaborId], 
+    [VW_EmpWorkInfo].[employee_laborInsurance] AS [employee_laborInsurance], 
+    [VW_EmpWorkInfo].[employee_comingDate] AS [employee_comingDate], 
+    [VW_EmpWorkInfo].[employee_quitDate] AS [employee_quitDate], 
+    [VW_EmpWorkInfo].[employee_accFactory] AS [employee_accFactory], 
+    [VW_EmpWorkInfo].[employee_mailingAddress] AS [employee_mailingAddress], 
+    [VW_EmpWorkInfo].[employee_cellphone] AS [employee_cellphone], 
+    [VW_EmpWorkInfo].[employee_home] AS [employee_home], 
+    [VW_EmpWorkInfo].[employee_email] AS [employee_email], 
+    [VW_EmpWorkInfo].[employee_reportAddress] AS [employee_reportAddress], 
+    [VW_EmpWorkInfo].[employee_reportMobile] AS [employee_reportMobile], 
+    [VW_EmpWorkInfo].[employee_note] AS [employee_note], 
+    [VW_EmpWorkInfo].[employee_changedDate] AS [employee_changedDate], 
+    [VW_EmpWorkInfo].[employee_isDisabled] AS [employee_isDisabled], 
+    [VW_EmpWorkInfo].[employee_username] AS [employee_username], 
+    [VW_EmpWorkInfo].[employee_password] AS [employee_password], 
+    [VW_EmpWorkInfo].[employee_role] AS [employee_role], 
+    [VW_EmpWorkInfo].[employee_Workid] AS [employee_Workid], 
+    [VW_EmpWorkInfo].[workId_isDisable] AS [workId_isDisable], 
+    [VW_EmpWorkInfo].[emp_workupdateUser] AS [emp_workupdateUser], 
+    [VW_EmpWorkInfo].[emp_workupdateTime] AS [emp_workupdateTime]
+    FROM [dbo].[VW_EmpWorkInfo] AS [VW_EmpWorkInfo]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__book__book_hospi__178D7CA5" Association="Self.FK__book__book_hospi__178D7CA5">
             <End Role="Hospital" EntitySet="Hospital" />
             <End Role="book" EntitySet="book" />
@@ -707,6 +868,10 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Authority" EntitySet="Authority" />
           </AssociationSet>
+          <AssociationSet Name="FK_Authority_Factory" Association="Self.FK_Authority_Factory">
+            <End Role="Factory" EntitySet="Factory" />
+            <End Role="Authority" EntitySet="Authority" />
+          </AssociationSet>
           <AssociationSet Name="FK_CheckItem_ReportManage" Association="Self.FK_CheckItem_ReportManage">
             <End Role="ReportManage" EntitySet="ReportManage" />
             <End Role="CheckItem" EntitySet="CheckItem" />
@@ -714,6 +879,14 @@
           <AssociationSet Name="FK_DoubleCheck_ReportManage" Association="Self.FK_DoubleCheck_ReportManage">
             <End Role="ReportManage" EntitySet="ReportManage" />
             <End Role="DoubleCheck" EntitySet="DoubleCheck" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeWork_Employee" Association="Self.FK_EmployeeWork_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeWork" EntitySet="EmployeeWork" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeWork_WorkInfo" Association="Self.FK_EmployeeWork_WorkInfo">
+            <End Role="WorkInfo" EntitySet="WorkInfo" />
+            <End Role="EmployeeWork" EntitySet="EmployeeWork" />
           </AssociationSet>
           <AssociationSet Name="FK_ReportFile_ReportManage" Association="Self.FK_ReportFile_ReportManage">
             <End Role="ReportManage" EntitySet="ReportManage" />
@@ -744,6 +917,7 @@
           <Property Name="authority_updateuser" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="authority_updateTime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Authority_Employee" FromRole="Authority" ToRole="Employee" />
+          <NavigationProperty Name="Factory" Relationship="HealthCheckModel.FK_Authority_Factory" FromRole="Authority" ToRole="Factory" />
         </EntityType>
         <EntityType Name="book">
           <Key>
@@ -860,8 +1034,8 @@
           <Property Name="employee_note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="employee_changedDate" Type="DateTime" Precision="3" />
           <Property Name="employee_isDisabled" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="employee_username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="employee_password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="employee_username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="employee_password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="employee_role" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Authority" Relationship="Self.FK_Authority_Employee" FromRole="Employee" ToRole="Authority" />
           <NavigationProperty Name="book" Relationship="Self.FK__book__book_workN__1699586C" FromRole="Employee" ToRole="book" />
@@ -871,6 +1045,7 @@
           <NavigationProperty Name="InspectPerson" Relationship="Self.FK__InspectPe__inspe__047AA831" FromRole="Employee" ToRole="InspectPerson" />
           <NavigationProperty Name="StartHand" Relationship="Self.FK__StartHand__start__13BCEBC1" FromRole="Employee" ToRole="StartHand" />
           <NavigationProperty Name="ReportManage" Relationship="Self.FK_ReportManage_Employee" FromRole="Employee" ToRole="ReportManage" />
+          <NavigationProperty Name="EmployeeWork" Relationship="HealthCheckModel.FK_EmployeeWork_Employee" FromRole="Employee" ToRole="EmployeeWork" />
         </EntityType>
         <EntityType Name="Factory">
           <Key>
@@ -885,6 +1060,7 @@
           <NavigationProperty Name="Employee" Relationship="Self.FK__Employee__employ__6225902D" FromRole="Factory" ToRole="Employee" />
           <NavigationProperty Name="Employee1" Relationship="Self.FK__Employee__employ__6319B466" FromRole="Factory" ToRole="Employee" />
           <NavigationProperty Name="StartPlace" Relationship="Self.FK__StartPlac__start__093F5D4E" FromRole="Factory" ToRole="StartPlace" />
+          <NavigationProperty Name="Authority" Relationship="HealthCheckModel.FK_Authority_Factory" FromRole="Factory" ToRole="Authority" />
         </EntityType>
         <EntityType Name="HealthNotice">
           <Key>
@@ -1010,7 +1186,7 @@
           <Property Name="start_CheckEndDate" Type="DateTime" Precision="0" />
           <Property Name="start_principal" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
           <Property Name="start_state" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="start_note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="start_note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="start_updateUser" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="start_updateDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="CheckCollect" Relationship="Self.FK__CheckColl__check__7DCDAAA2" FromRole="StartCheck" ToRole="CheckCollect" />
@@ -1071,6 +1247,7 @@
           <Property Name="work_updateTime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Employee" Relationship="Self.FK__Employee__employ__61316BF4" FromRole="WorkInfo" ToRole="Employee" />
           <NavigationProperty Name="Program" Relationship="Self.FK__Program__program__6BAEFA67" FromRole="WorkInfo" ToRole="Program" />
+          <NavigationProperty Name="EmployeeWork" Relationship="HealthCheckModel.FK_EmployeeWork_WorkInfo" FromRole="WorkInfo" ToRole="EmployeeWork" />
         </EntityType>
         <Association Name="FK_Authority_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
@@ -1481,6 +1658,20 @@
             <End Role="Hospital" EntitySet="Hospital" />
             <End Role="HospitalProgramFile" EntitySet="HospitalProgramFile" />
           </AssociationSet>
+          <EntitySet Name="VW_EmpWorkInfo" EntityType="HealthCheckModel.VW_EmpWorkInfo" />
+          <EntitySet Name="EmployeeWork" EntityType="HealthCheckModel.EmployeeWork" />
+          <AssociationSet Name="FK_EmployeeWork_Employee" Association="HealthCheckModel.FK_EmployeeWork_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="EmployeeWork" EntitySet="EmployeeWork" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeWork_WorkInfo" Association="HealthCheckModel.FK_EmployeeWork_WorkInfo">
+            <End Role="WorkInfo" EntitySet="WorkInfo" />
+            <End Role="EmployeeWork" EntitySet="EmployeeWork" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Authority_Factory" Association="HealthCheckModel.FK_Authority_Factory">
+            <End Role="Factory" EntitySet="Factory" />
+            <End Role="Authority" EntitySet="Authority" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="HospitalProgramFile">
           <Key>
@@ -1502,6 +1693,123 @@
             </Principal>
             <Dependent Role="HospitalProgramFile">
               <PropertyRef Name="file_hospitalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="VW_EmpWorkInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="work_name" />
+            <PropertyRef Name="employee_workNumber" />
+            <PropertyRef Name="employee_name" />
+            <PropertyRef Name="employee_identityCard" />
+            <PropertyRef Name="employee_blood" />
+            <PropertyRef Name="employee_gender" />
+            <PropertyRef Name="employee_age" />
+            <PropertyRef Name="employee_dateOfBirth" />
+            <PropertyRef Name="employee_groupId" />
+            <PropertyRef Name="employee_corporation" />
+            <PropertyRef Name="employee_team" />
+            <PropertyRef Name="employee_factoryId" />
+            <PropertyRef Name="employee_jobTitle" />
+            <PropertyRef Name="employee_department" />
+            <PropertyRef Name="employee_homeSite" />
+            <PropertyRef Name="employee_IsAbroad" />
+            <PropertyRef Name="employee_IaborId" />
+            <PropertyRef Name="employee_laborInsurance" />
+            <PropertyRef Name="employee_comingDate" />
+            <PropertyRef Name="employee_accFactory" />
+            <PropertyRef Name="employee_mailingAddress" />
+            <PropertyRef Name="employee_cellphone" />
+            <PropertyRef Name="employee_email" />
+            <PropertyRef Name="employee_isDisabled" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="work_name" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="employee_workNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="employee_name" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="employee_identityCard" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="employee_blood" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="employee_gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="employee_age" Type="Int32" Nullable="false" />
+          <Property Name="employee_dateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="employee_groupId" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="employee_corporation" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="employee_team" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="employee_factoryId" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="employee_jobTitle" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="employee_department" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="employee_managerDate" Type="DateTime" Precision="0" />
+          <Property Name="employee_homeSite" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="employee_IsAbroad" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="true" />
+          <Property Name="employee_IaborId" Type="String" Nullable="false" MaxLength="9" FixedLength="true" Unicode="false" />
+          <Property Name="employee_laborInsurance" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="employee_comingDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="employee_quitDate" Type="DateTime" Precision="0" />
+          <Property Name="employee_accFactory" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="employee_mailingAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="employee_cellphone" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="employee_home" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="employee_email" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="employee_reportAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="employee_reportMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="employee_note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="employee_changedDate" Type="DateTime" Precision="3" />
+          <Property Name="employee_isDisabled" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="employee_username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="employee_password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="employee_role" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="employee_Workid" Type="Int32" />
+          <Property Name="workId_isDisable" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="emp_workupdateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="emp_workupdateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="EmployeeWork">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employee_workNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="employee_Workid" Type="Int32" />
+          <Property Name="workId_isDisable" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="emp_workupdateUser" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="emp_workupdateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Employee" Relationship="HealthCheckModel.FK_EmployeeWork_Employee" FromRole="EmployeeWork" ToRole="Employee" />
+          <NavigationProperty Name="WorkInfo" Relationship="HealthCheckModel.FK_EmployeeWork_WorkInfo" FromRole="EmployeeWork" ToRole="WorkInfo" />
+        </EntityType>
+        <Association Name="FK_EmployeeWork_Employee">
+          <End Type="HealthCheckModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="HealthCheckModel.EmployeeWork" Role="EmployeeWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="employee_workNumber" />
+            </Principal>
+            <Dependent Role="EmployeeWork">
+              <PropertyRef Name="employee_workNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmployeeWork_WorkInfo">
+          <End Type="HealthCheckModel.WorkInfo" Role="WorkInfo" Multiplicity="0..1" />
+          <End Type="HealthCheckModel.EmployeeWork" Role="EmployeeWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkInfo">
+              <PropertyRef Name="work_id" />
+            </Principal>
+            <Dependent Role="EmployeeWork">
+              <PropertyRef Name="employee_Workid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Authority_Factory">
+          <End Type="HealthCheckModel.Factory" Role="Factory" Multiplicity="1" />
+          <End Type="HealthCheckModel.Authority" Role="Authority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Factory">
+              <PropertyRef Name="factory_id" />
+            </Principal>
+            <Dependent Role="Authority">
+              <PropertyRef Name="authority_factoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1829,6 +2137,63 @@
                 <ScalarProperty Name="hos_FileName" ColumnName="hos_FileName" />
                 <ScalarProperty Name="file_hospitalId" ColumnName="file_hospitalId" />
                 <ScalarProperty Name="file_fileId" ColumnName="file_fileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_EmpWorkInfo">
+            <EntityTypeMapping TypeName="HealthCheckModel.VW_EmpWorkInfo">
+              <MappingFragment StoreEntitySet="VW_EmpWorkInfo">
+                <ScalarProperty Name="emp_workupdateTime" ColumnName="emp_workupdateTime" />
+                <ScalarProperty Name="emp_workupdateUser" ColumnName="emp_workupdateUser" />
+                <ScalarProperty Name="workId_isDisable" ColumnName="workId_isDisable" />
+                <ScalarProperty Name="employee_Workid" ColumnName="employee_Workid" />
+                <ScalarProperty Name="employee_role" ColumnName="employee_role" />
+                <ScalarProperty Name="employee_password" ColumnName="employee_password" />
+                <ScalarProperty Name="employee_username" ColumnName="employee_username" />
+                <ScalarProperty Name="employee_isDisabled" ColumnName="employee_isDisabled" />
+                <ScalarProperty Name="employee_changedDate" ColumnName="employee_changedDate" />
+                <ScalarProperty Name="employee_note" ColumnName="employee_note" />
+                <ScalarProperty Name="employee_reportMobile" ColumnName="employee_reportMobile" />
+                <ScalarProperty Name="employee_reportAddress" ColumnName="employee_reportAddress" />
+                <ScalarProperty Name="employee_email" ColumnName="employee_email" />
+                <ScalarProperty Name="employee_home" ColumnName="employee_home" />
+                <ScalarProperty Name="employee_cellphone" ColumnName="employee_cellphone" />
+                <ScalarProperty Name="employee_mailingAddress" ColumnName="employee_mailingAddress" />
+                <ScalarProperty Name="employee_accFactory" ColumnName="employee_accFactory" />
+                <ScalarProperty Name="employee_quitDate" ColumnName="employee_quitDate" />
+                <ScalarProperty Name="employee_comingDate" ColumnName="employee_comingDate" />
+                <ScalarProperty Name="employee_laborInsurance" ColumnName="employee_laborInsurance" />
+                <ScalarProperty Name="employee_IaborId" ColumnName="employee_IaborId" />
+                <ScalarProperty Name="employee_IsAbroad" ColumnName="employee_IsAbroad" />
+                <ScalarProperty Name="employee_homeSite" ColumnName="employee_homeSite" />
+                <ScalarProperty Name="employee_managerDate" ColumnName="employee_managerDate" />
+                <ScalarProperty Name="employee_department" ColumnName="employee_department" />
+                <ScalarProperty Name="employee_jobTitle" ColumnName="employee_jobTitle" />
+                <ScalarProperty Name="employee_factoryId" ColumnName="employee_factoryId" />
+                <ScalarProperty Name="employee_team" ColumnName="employee_team" />
+                <ScalarProperty Name="employee_corporation" ColumnName="employee_corporation" />
+                <ScalarProperty Name="employee_groupId" ColumnName="employee_groupId" />
+                <ScalarProperty Name="employee_dateOfBirth" ColumnName="employee_dateOfBirth" />
+                <ScalarProperty Name="employee_age" ColumnName="employee_age" />
+                <ScalarProperty Name="employee_gender" ColumnName="employee_gender" />
+                <ScalarProperty Name="employee_blood" ColumnName="employee_blood" />
+                <ScalarProperty Name="employee_identityCard" ColumnName="employee_identityCard" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="employee_workNumber" ColumnName="employee_workNumber" />
+                <ScalarProperty Name="work_name" ColumnName="work_name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeWork">
+            <EntityTypeMapping TypeName="HealthCheckModel.EmployeeWork">
+              <MappingFragment StoreEntitySet="EmployeeWork">
+                <ScalarProperty Name="emp_workupdateTime" ColumnName="emp_workupdateTime" />
+                <ScalarProperty Name="emp_workupdateUser" ColumnName="emp_workupdateUser" />
+                <ScalarProperty Name="workId_isDisable" ColumnName="workId_isDisable" />
+                <ScalarProperty Name="employee_Workid" ColumnName="employee_Workid" />
+                <ScalarProperty Name="employee_workNumber" ColumnName="employee_workNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

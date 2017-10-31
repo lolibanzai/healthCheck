@@ -1,65 +1,72 @@
-﻿
+﻿@using healthSystem.Models;
+@model List<StartCheck>
 @{
     ViewBag.Title = "StartCheckMaster";
 }
 
-<h2>StartCheckMaster</h2>
-<div class="col-md-6">
+<div class="col-md-12">
     <div class="panel panel-info">
         <div class="panel-heading">
-            <h3 class="panel-title">條件查詢</h3>
+            <h3 class="panel-title">
+                條件查詢
+            </h3>
         </div>
         <div class="panel-body">
-            <div class="form-group row">
-                <div class="col-xs-4">
-                    <label for="ex6">年度</label>
-                    <select class="form-control" id="ex6">
-                        <option>2015</option>
-                        <option>2016</option>
-                    </select>
+            <form method="post" action="">
+                <div class="form-group row">
+                    <div class="col-xs-4">
+                        <label for="ex6">年度</label>
+                        <select class="form-control" id="ex6" name="start_year">
+                            @foreach (var row in Model)
+                            {
+                                <option>@row.start_year</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="ex6">啟用狀態</label>
+                        <select class="form-control" id="ex6" name="start_state">
+                            <option></option>
+                            <option>處理中</option>
+                            <option>健檢收集</option>
+                            <option>結案</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col-xs-4">
-                    <label for="ex6">啟用狀態</label>
-                    <select class="form-control" id="ex6">
-                        <option>處理中</option>
-                        <option>健檢收集</option>
-                        <option>結案</option>
-                    </select>
-                </div>
-            </div>
-            <input type="button" class="btn btn-success" value="新增健檢方案" onclick="newStart()">
-
-
-            <script>
-                function newStart() {
-                    window.location.href = "/healthSystem/newStart";
-                }
-            </script>
-
-
-            <input type="submit" class="btn btn-success  pull-right" value="送出查詢">
+                <input type="submit" class="btn btn-success  pull-right" value="送出查詢">
+            </form>
+            <a href="~/healthSystem/newStartCheck" class="btn btn-success">
+                <span style="color:white">發起健檢</span>
+            </a>
         </div>
     </div>
+
+</div>
+<div class="col-md-12">
     <div class="panel panel-info">
         <div class="panel-heading">
             <h3 class="panel-title">查詢結果</h3>
         </div>
         <div class="panel-body">
-
+            <table class="table" style="overflow: auto;
+	                                        height: 300px;
+	                                        display: block;">
+                <tr><th>年度</th><th>健檢負責人</th><th>啟動狀況</th></tr>
+                @foreach (var row in Model)
+                {
+                    <tr>
+                        <td>@row.start_year</td>
+                        <td>@row.start_principal</td>
+                        <td>@row.start_state</td>
+                        <td>
+                            <form method="post" action="/healthSystem/StartCheckMain">
+                                <input type="text" name="Start_id" value="@row.Start_id" hidden />
+                                <button type="submit" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </table>
         </div>
     </div>
 </div>
-
-<div class="col-md-6">
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#firstTab">主檔</a></li>
-        <li><a data-toggle="tab" href="#secondTab">明細檔-受檢單位</a></li>
-        <li><a data-toggle="tab" href="#thirdTab">明細檔-附件管理</a></li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane fade in active" id="firstTab">@Html.Action("StartCheckMain")</div>
-        <div class="tab-pane fade in " id="secondTab">@Html.Action("StartPlace")</div>
-        <div class="tab-pane fade in " id="thirdTab">@Html.Action("StartFile")</div>
-    </div>
-</div>
-

@@ -45,5 +45,7 @@ namespace healthSystem.Models
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<WorkInfo> WorkInfo { get; set; }
         public virtual DbSet<HospitalProgramFile> HospitalProgramFile { get; set; }
+        public virtual DbSet<VW_EmpWorkInfo> VW_EmpWorkInfo { get; set; }
+        public virtual DbSet<EmployeeWork> EmployeeWork { get; set; }
     }
 }
