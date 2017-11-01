@@ -169,6 +169,8 @@
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
+    <Content Include="txt\note1.txt" />
+    <Content Include="txt\note2.txt" />
     <Content Include="Web.config" />
     <Content Include="Views\basicData\purviewMain.cshtml" />
     <Content Include="Views\basicData\employeeMaster.cshtml" />
@@ -282,6 +284,7 @@
     <Compile Include="ViewModel\basicDataEmpolyeeMain.cs" />
     <Compile Include="ViewModel\basicDataHospitalMain.cs" />
     <Compile Include="ViewModel\healthSystemStartCheckMain.cs" />
+    <Compile Include="ViewModel\healthSystemStartCheckMaster.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -313,6 +316,7 @@
     <Content Include="Views\basicData\Register.cshtml" />
     <Content Include="Views\healthSystem\newStartCheck.cshtml" />
     <Content Include="Views\basicData\EditFactoryAuthority.cshtml" />
+    <Content Include="Views\healthSystem\checkCollect.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -322,7 +326,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="txt\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

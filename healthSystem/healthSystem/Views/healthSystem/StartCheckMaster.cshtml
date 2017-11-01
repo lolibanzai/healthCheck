@@ -1,5 +1,5 @@
-﻿@using healthSystem.Models;
-@model List<StartCheck>
+﻿@using healthSystem.ViewModel;
+@model healthSystemStartCheckMaster
 @{
     ViewBag.Title = "StartCheckMaster";
 }
@@ -17,9 +17,9 @@
                     <div class="col-xs-4">
                         <label for="ex6">年度</label>
                         <select class="form-control" id="ex6" name="start_year">
-                            @foreach (var row in Model)
+                            @foreach(var row in Model.year)
                             {
-                                <option>@row.start_year</option>
+                                <option>@row</option>
                             }
                         </select>
                     </div>
@@ -52,7 +52,7 @@
 	                                        height: 300px;
 	                                        display: block;">
                 <tr><th>年度</th><th>健檢負責人</th><th>啟動狀況</th></tr>
-                @foreach (var row in Model)
+                @foreach (var row in Model.startCheck)
                 {
                     <tr>
                         <td>@row.start_year</td>

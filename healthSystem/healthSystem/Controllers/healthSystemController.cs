@@ -11,13 +11,21 @@ namespace healthSystem.Controllers
 {
     public class healthSystemController : Controller
     {
-        HealthCheckEntities1 db = new HealthCheckEntities1();
+           HealthCheckEntities1 db = new HealthCheckEntities1();
         // GET: healthSystem
         public ActionResult StartCheckMaster() //啟動作業主頁
         {
+            healthSystemStartCheckMaster data = new healthSystemStartCheckMaster();
+
+            //查詢存在的年度,Distinct()可以去除掉查詢出來後重複的值
             var query = from o in db.StartCheck
+                        select o.start_year;
+            data.year = query.Distinct().ToList();
+            //查詢空的給StartCheck
+            var query1 = from o in db.StartCheck
+                        where o.Start_id == null
                         select o;
-            List<StartCheck> data = query.ToList();
+            data.startCheck = query1.ToList();
             return View(data);
         }
         [HttpPost]
@@ -27,11 +35,18 @@ namespace healthSystem.Controllers
             {
                 data.start_state = "";
             }
+            healthSystemStartCheckMaster viewData = new healthSystemStartCheckMaster();
+            //查詢存在的年度,Distinct()可以去除掉查詢出來後重複的值
             var query = from o in db.StartCheck
+                        select o.start_year;
+            viewData.year = query.Distinct().ToList();
+            //查詢後給StartCheck
+            var query1 = from o in db.StartCheck
                         where o.start_year == data.start_year && o.start_state.Contains(data.start_state)
                         select o;
-            List<StartCheck> selectData = query.ToList();
-            return View(selectData);
+            viewData.startCheck = query1.ToList();
+
+            return View(viewData);
         }
         public ActionResult StartCheckMain() //啟動作業主檔
         {
@@ -58,8 +73,12 @@ namespace healthSystem.Controllers
             data.startFile = query2.ToList();
             return View(data);
         }
+        public ActionResult newStartCheck() //啟動健檢
+        {
+            return View();
+        }
         [HttpPost]
-        public ActionResult newStartCheck(StartCheck data, string noteText)//啟動健檢
+        public ActionResult newStartCheck(StartCheck data, string noteText) //啟動健檢
         {
             StartCheck newStartCheck = new StartCheck()
             {
@@ -94,20 +113,8 @@ namespace healthSystem.Controllers
 
             return RedirectToAction("StartCheckMaster", "healthSystem");
         }
-        public ActionResult newStartCheck()
-        {
-            return View();
-        }
-        public ActionResult StartPlace() //啟動作業明細檔-受檢單位
-        {
-            return View();
-        }
-        public ActionResult StartFile() //啟動作業明細檔-附件管理
-        {
-            return View();
-        }
         //----------------------------------------------------------
-        public ActionResult newStart() //啟動作業-新增的畫面
+        public ActionResult checkCollect() //收集作業
         {
             return View();
         }
@@ -130,19 +137,8 @@ namespace healthSystem.Controllers
         {
             return View();
         }
-        public ActionResult checkItem() //健檢報告明細檔-健檢項目
+        public ActionResult excelImport() // 批次匯入
         {
-            return View();
-        }
-        public ActionResult doubleCheck() //健檢報告明細檔-複檢項目
-        {
-            return View();
-        }
-        public ActionResult reportFile() //健檢報告明細檔-附件管理
-        {
-            return View();
-        }
-        public ActionResult excelImport() {
 
             return View();
         }

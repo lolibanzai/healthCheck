@@ -58,6 +58,19 @@
                         <input type="text" class="form-control" id="email" name="start_updateDate" readonly value="@row.start_updateDate">
                     </div>
                 </div>
+                <div class="form-group row">
+                    @if (row.start_state == "處理中")
+                    {
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <form method="get" action="/healthSystem/checkCollect">
+                                    <input type="text" name="hospital_hospitalId" value="" hidden />
+                                    <input type="submit" class="btn btn-success" value="收集作業">
+                                </form>
+                            </div>
+                        </div>
+                    }
+                </div>
                 <script>
                 $(document).ready(function () {
                     $("#comment").load("../txt/@row.start_note");

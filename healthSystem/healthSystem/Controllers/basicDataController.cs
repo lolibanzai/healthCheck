@@ -16,7 +16,10 @@ namespace healthSystem.Controllers
         public ActionResult purviewMaster() //人員權限主頁
         {
             string employee_workNumber = Session["employee_workNumber"].ToString();
-            //創List<Employee>新List
+            //var q = from o in db.Employee
+            //        where o.employee_workNumber == employee_workNumber
+            //        select o;
+            //var emp = q.ToList();
             List<Employee> emp = new List<Employee>();
             return View(emp);
         }
@@ -34,18 +37,18 @@ namespace healthSystem.Controllers
                 empData.employee_username = "";
             }
             //確認employee_email是否為空，是給空字串
-            if (string.IsNullOrEmpty(empData.employee_email)) {
-                
+            if (string.IsNullOrEmpty(empData.employee_email))
+            {
                 empData.employee_email = "";
             }
             //確認employee歸屬廠別是否為空，是給空字串
-            if (string.IsNullOrEmpty(empData.employee_factoryId)) {
-                
+            if (string.IsNullOrEmpty(empData.employee_factoryId))
+            {
                 empData.employee_factoryId = "";
             }
             //確認employee停用是否為空，是給空字串
-            if (string.IsNullOrEmpty(empData.employee_isDisabled)) {
-                
+            if (string.IsNullOrEmpty(empData.employee_isDisabled))
+            {
                 empData.employee_isDisabled = "";
             }
             //Contains模糊搜尋，查詢任意值就給空字串
@@ -83,7 +86,6 @@ namespace healthSystem.Controllers
                 Session["employee_acc"] = item.employee_workNumber;
             }
             return View(data);
-            
         }
         //[HttpPost]
         //public ActionResult purviewMain(FormCollection frm) //人員權限主檔,人員權限明細檔-廠別權限
@@ -108,8 +110,6 @@ namespace healthSystem.Controllers
         //    return View(data);
         //    //I)
         //}
-
-        //人事------------------------------------------------------------------------------
         //編輯員工權限
         public ActionResult EditfactoryAuthority(FormCollection frm)
         {
@@ -160,8 +160,8 @@ namespace healthSystem.Controllers
                             authority_factoryId = factoryid,
                             authority_IsDisable = "N",
                             authority_role = emp.GetRole(employee_workNumber),
-                            authority_updateTime = DateTime.Now,
-                            authority_updateuser = emp.Name(employee_workNumber)
+                            //authority_updateTime = DateTime.Now,
+                            //authority_updateuser = emp.Name(employee_workNumber)
                         };
                         //把資料行加入Authority資料表，並儲存
                         db.Authority.Add(authfac);
@@ -206,9 +206,10 @@ namespace healthSystem.Controllers
                     db.SaveChanges();
                 }
             }
-            catch (Exception ex) {
-                //寫回錯誤輸出SQL錯誤碼
-                return Content(ex.ToString()); }
+            catch (Exception ex) //寫回錯誤輸出SQL錯誤碼
+            {
+                return Content(ex.ToString());
+            }
             //查詢員工編號與權限沒停用的資料
             var q1 = from o in db.Authority
                      where o.authority_workNumber == workNumber && o.authority_IsDisable == "N"
@@ -224,7 +225,7 @@ namespace healthSystem.Controllers
             data.AuthView = q1.ToList();
             return View(data);
         }
-
+        //人事---------------------------------------------------------------------------------------
         public ActionResult employeeMaster() //人事資料主頁
         {
             var query = from o in db.WorkInfo

@@ -5,10 +5,8 @@ using System.Web;
 using healthSystem.Models;
 
 namespace healthSystem.Models {
-    //宣告一個查詢員工、廠別資料類別
     public class Emp {
         HealthCheckEntities1 db = new HealthCheckEntities1();
-        //查詢員工姓名方法
         public string Name(string employee_workNumber) {
             string employee_id = employee_workNumber;
             var q = from o in db.Employee
@@ -17,7 +15,6 @@ namespace healthSystem.Models {
             string result = q.FirstOrDefault();
             return result;
         }
-        //查詢廠別名稱方法
         public string GetFactoryName(string authority_factoryId) {
             string authority_factoryid = authority_factoryId;
             var q = from o in db.Factory
@@ -26,7 +23,6 @@ namespace healthSystem.Models {
             string result = q.FirstOrDefault();
             return result;
         }
-        //查詢廠別所在地區方法
         public string GetFactoryArea(string authority_factoryId) {
             string authority_factoryid = authority_factoryId;
             var q = from o in db.Factory
@@ -35,7 +31,6 @@ namespace healthSystem.Models {
             string result = q.FirstOrDefault();
             return result;
         }
-        //查詢該員工所屬廠別編號方法
         public string GetFactoryId(string employee_workNumber) {
             var q = from o in db.Employee
                     where o.employee_workNumber == employee_workNumber
@@ -43,7 +38,6 @@ namespace healthSystem.Models {
             string result = q.FirstOrDefault();
             return result;
         }
-        //查詢員工email帳號方法
         public string GetEmail(string employee_workNumber) {
             var q = from o in db.Employee
                     where o.employee_workNumber == employee_workNumber
@@ -51,7 +45,6 @@ namespace healthSystem.Models {
             string result = q.FirstOrDefault();
             return result;
         }
-        //查詢員工帳號方法
         public string GetUserName(string employee_workNumber) {
             var q = from o in db.Employee
                     where o.employee_workNumber == employee_workNumber
@@ -59,7 +52,6 @@ namespace healthSystem.Models {
             string result = q.FirstOrDefault();
             return result;
         }
-        //查詢員工是否停用方法
         public string GetIsDisabled(string employee_workNumber) {
             var q = from o in db.Employee
                     where o.employee_workNumber == employee_workNumber
@@ -67,7 +59,6 @@ namespace healthSystem.Models {
             string result = q.FirstOrDefault();
             return result;
         }
-        //查詢員工角色方法
         public string GetRole(string employee_workNumber)
         {
             var q = from o in db.Employee
