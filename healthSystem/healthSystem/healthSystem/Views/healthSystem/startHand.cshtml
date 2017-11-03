@@ -1,0 +1,98 @@
+﻿@using healthSystem.Models;
+@model ViewModel_StHanEmp
+@{
+    ViewBag.Title = "startHand";
+    Start st = new Start();
+}
+
+
+
+<div class="col-md-10">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">挑選代驗人員</h3>
+            <button class="close" aria-label="Close" type="button" data-dismiss="alert"></button>
+        </div>
+        <form action="" method="post">
+            <div class="panel-body">
+                <div class="form-group row">
+                    <div class="col-xs-4">
+                        <label for="ex1">廠別:</label>
+                        <select name="factoryId" class="form-control" id="ex1">
+                            <option>2A</option>
+                            <option>G3</option>
+                            <option>G8</option>
+                            <option>K0</option>
+                            <option>K10</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="ex2">姓名:</label>
+                        <input name="employee_Name" class="form-control" id="ex2" type="text" value="">
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="ex3">工號:</label>
+                        <input name="employee_WorkNumber" class="form-control" id="ex3" type="text" value="">
+                    </div>
+                </div>
+                <input type="text" name="action" value="0" hidden />
+                <input class="btn btn-success  pull-right" type="submit" value="送出查詢">
+            </div>
+        </form>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">查詢結果</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <tr><th>姓名</th><th>工號</th><th>性別</th><th>公司</th><th>廠別</th><th>部門</th><th>入場日期</th><th>手動新增</th><th>手動刪除</th></tr>
+                @foreach (var item in Model.Employee)
+                {
+                    if (st.StartHand_FaExist(item.employee_factoryId, Model.StartId))
+                    {
+                        <tr>
+                            <td>@item.employee_name</td>
+                            <td>@item.employee_workNumber</td>
+                            <td>@item.employee_gender</td>
+                            <td>@item.employee_corporation</td>
+                            <td>@item.employee_factoryId-@st.GetFactoryName(item.employee_factoryId)</td>
+                            <td>@item.employee_team</td>
+                            <td>@item.employee_comingDate.ToShortDateString()</td>
+
+                            <td>
+                                <form method="post" action="">
+                                    <input type="text" name="employee_WorkNumber" value="@item.employee_workNumber" hidden />
+                                    <input type="text" name="startId" value="@Model.StartId" hidden />
+                                    <input type="text" name="action" value="1" hidden />
+                                    @if (st.StartHand_Emp(Model.StartId, item.employee_workNumber))
+                                    {
+                                        <button type="submit" class="btn btn-info btn-xs editItem"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                                    }
+                                </form>
+                            </td>
+                            <td>
+                                <form method="post" action="">
+                                    <input type="text" name="employee_WorkNumber" value="@item.employee_workNumber" hidden />
+                                    <input type="text" name="startId" value="@Model.StartId" hidden />
+                                    <input type="text" name="action" value="2" hidden />
+                                    @if (!st.StartHand_Emp(Model.StartId, item.employee_workNumber))
+                                    {
+                                        <button type="submit" class="btn btn-danger btn-xs editItem"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                    }
+                                </form>
+                            </td>
+
+                        </tr>}
+                }
+            </table>
+            <form method="get" action="/healthSystem/checkCollectMaster">
+                <button type="submit" class="btn btn-info btn">
+                    回到收集作業
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+

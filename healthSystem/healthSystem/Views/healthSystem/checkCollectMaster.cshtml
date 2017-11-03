@@ -1,0 +1,88 @@
+﻿@using healthSystem.ViewModel;
+@model healthSystemCheckCollectMaster
+@{
+    ViewBag.Title = "checkCollectMaster";
+}
+
+<div class="col-md-12">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                健檢作業-處理中
+            </h3>
+
+
+        </div>
+        <div class="panel-body">
+            <table class="table" style="overflow: auto;
+	                                        height: 300px;
+	                                        display: block;">
+                <tr><th>年度</th><th>健檢負責人</th><th>啟動狀況</th><th>狀態變更</th></tr>
+                @foreach (var row in Model.beginSstartCheck)
+                {
+                    <tr>
+                        <td>@row.start_year</td>
+                        <td>@row.start_principal</td>
+                        <td>@row.start_state</td>
+                        <td>
+                            <form method="post" action="/healthSystem/stateChange">
+                                <input type="text" name="collectMark" value="進入健檢收集" hidden />
+                                <input type="text" name="StartID" value="@row.Start_id" hidden />
+                                <input type="text" name="startYear" value="@row.start_year" hidden />
+                                <button type="submit" class="btn btn-success btn-xs">進入健檢收集</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<div class="col-md-12">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                健檢作業-健檢收集
+            </h3>
+
+
+        </div>
+        <div class="panel-body">
+            <table class="table" style="overflow: auto;
+	                                        height: 300px;
+	                                        display: block;">
+                <tr><th>年度</th><th>健檢負責人</th><th>啟動狀況</th><th>編輯</th><th>狀態變更</th></tr>
+                @foreach (var row in Model.startCheck)
+                {
+                    <tr>
+                        <td>@row.start_year</td>
+                        <td>@row.start_principal</td>
+                        <td>@row.start_state</td>
+                        <td>
+                            <form method="post" action="/healthSystem/checkCollect">
+                                <input type="text" name="collectMark" value="編輯待驗人員" hidden />
+                                <input type="text" name="StartID" value="@row.Start_id" hidden />
+                                <input type="text" name="startYear" value="@row.start_year" hidden />
+                                <input type="text" name="saveSignal" value="1" hidden />
+                                <button type="submit" class="btn btn-success btn-xs">編輯待驗人員</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="post" action="/healthSystem/stateChange">
+                                <input type="text" name="Start_id" value="@row.Start_id" hidden />
+                                <input type="text" name="collectMark" value="進入結案" hidden />
+                                <button type="submit" class="btn btn-success btn-xs">進入結案</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+

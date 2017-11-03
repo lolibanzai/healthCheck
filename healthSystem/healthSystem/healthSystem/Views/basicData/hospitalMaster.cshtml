@@ -1,0 +1,61 @@
+﻿@using healthSystem.Models;
+@model List<Hospital>
+@{
+    ViewBag.Title = "hospitalMaster";
+}
+
+<div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">條件查詢</h3>
+        </div>
+        <div class="panel-body">
+
+            <form method="post" action="/basicData/hospitalMaster">
+                <div class="form-group row">
+                      <div class="col-xs-4">
+                           <label for="ex1">醫院名稱</label>
+                           <input class="form-control" id="ex1" type="text" name="hospital_name">
+                      </div>
+                      <div class="col-xs-4">
+                            <label for="ex2">停用註記</label>
+                            <select class="form-control" id="ex2" name="hospital_state">
+                               <option></option>
+                               <option>Y</option>
+                               <option>N</option>
+                            </select>
+                      </div>
+                 </div>
+                 <input type="submit" class="btn btn-success  pull-right" value="送出查詢">
+            </form>
+
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">查詢結果</h3>
+        </div>
+        <div class="panel-body">
+                <table class="table" style="overflow: auto;
+	                                        height: 300px;
+	                                        display: block;">
+                    <tr><th>醫院名稱</th><th>聯絡窗口</th><th>連絡電話</th><th>停用註記</th></tr>
+                    @foreach (var row in Model)
+                    {
+                        <tr>
+                            <td>@row.hospital_name</td>
+                            <td>@row.hospital_contact</td>
+                            <td>@row.hospital_phone</td>
+                            <td>@row.hospital_state</td>
+                            <td>
+                                <form method="post" action="/basicData/hospitalMain">
+                                    <input type="text" name="hospital_hospitalId" value="@row.hospital_hospitalId" hidden />
+                                    <button type="submit" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </table>
+        </div>
+    </div>
+</div>

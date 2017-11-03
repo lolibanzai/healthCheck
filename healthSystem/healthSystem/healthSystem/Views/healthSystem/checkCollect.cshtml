@@ -1,0 +1,121 @@
+﻿@using healthSystem.ViewModel;
+@using healthSystem.Models;
+@model healthSystemCheckCollect
+@{
+    ViewBag.Title = "checkCollect";
+    startCheckMain find = new startCheckMain();
+    checkCollectUse findd = new checkCollectUse();
+}
+
+<div class="col-md-12">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <form method="get" action="/healthSystem/newStartPlace">
+                <h3 class="panel-title">
+                    受檢單位
+                </h3>
+            </form>
+        </div>
+        <div class="panel-body">
+            <table class="table" style="overflow: auto;
+	                                        height: 200px;
+	                                        display: block;">
+                <tr><th>地區</th><th>廠別</th><th>窗口人員</th></tr>
+                @foreach (var row in Model.startPlace)
+                {
+                    <tr>
+                        <td>@find.GETfactoryArea(row.startPlace_factoryId)</td>
+                        <td>@find.GETfactoryName(row.startPlace_factoryId)</td>
+                        <td>@find.GETfactoryContract(row.startPlace_factoryId)</td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="col-md-12">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <form method="get" action="/healthSystem/checkCollect">
+                <h3 class="panel-title">
+                    待驗人員清單-系統收集
+                    <input type="text" name="StartID" value="@Session["checkCollectStartID"]" hidden />
+                    <input type="text" name="startYear" value="@Session["checkCollectstartYear"]" hidden />
+                    <input type="text" name="saveSignal" value="0" hidden />
+                    <button type="submit" class="btn btn-info btn-xs">
+                        <span class="glyphicon glyphicon-plus"></span>儲存系統收集人員
+                    </button>
+                </h3>
+            </form>
+        </div>
+        <div class="panel-body">
+            <table class="table" style="overflow: auto;
+	                                        height: 400px;
+	                                        display: block;">
+                <tr><th>姓名</th><th>工號</th><th>性別</th><th>公司</th><th>廠別</th><th>部門</th><th>入廠日期</th><th>工種</th><th>收集來源</th><th>預約單號</th></tr>
+                @foreach (var row in Model.employee)
+                {
+                    <tr>
+                        <td>@row.employee_name</td> @*姓名*@
+                        <td>@row.employee_workNumber</td> @*工號*@
+                        <td>@row.employee_gender</td> @*性別*@
+                        <td>@row.employee_corporation</td> @*公司*@
+                        <td>@findd.GETfactoryName(row.employee_factoryId)</td> @*廠別*@
+                        <td>@row.employee_department</td> @*部門*@
+                        <td>@row.employee_comingDate.ToShortDateString()</td> @*入廠日期*@
+                        <td>@findd.GETworkName(row.employee_workId)</td> @*工種*@
+                        @*<td>@row.employee_factoryId</td>*@
+                        <td>系統收集</td> @*收集來源*@
+                        <td>預約單號</td> @*預約單號*@
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="col-md-12">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <form method="get" action="/healthSystem/startHand">
+                <h3 class="panel-title">
+                    待驗人員清單-以儲存人員
+                    <input type="text" name="StartID" value="@Model.StartID" hidden />
+                    <button type="submit" class="btn btn-info btn-xs">
+                        <span class="glyphicon glyphicon-plus"></span>加入其他待驗人員
+                    </button>
+                </h3>
+            </form>
+        </div>
+        <div class="panel-body">
+            <table class="table" style="overflow: auto;
+	                                        height: 400px;
+	                                        display: block;">
+                <tr><th>姓名</th><th>工號</th><th>性別</th><th>公司</th><th>廠別</th><th>部門</th><th>入廠日期</th><th>工種</th><th>收集來源</th><th>預約單號</th></tr>
+                @foreach (var row in Model.startHand)
+                {
+                    <tr>
+                        <td>@findd.GETemployeeName(row.startHand_workNumber)</td> @*姓名*@
+                        <td>@row.startHand_workNumber</td> @*工號*@
+                        <td>@findd.GETemployeeGender(row.startHand_workNumber )</td> @*性別*@
+                        <td>@findd.GETemployeeCorporation(row.startHand_workNumber)</td> @*公司*@
+                        <td>@findd.GETfactoryName1(row.startHand_workNumber)</td> @*廠別*@
+                        <td>@findd.GETemployeeDepartment(row.startHand_workNumber)</td> @*部門*@
+                        <td>@findd.GETemployeeComingDate(row.startHand_workNumber).ToShortDateString()</td> @*入廠日期*@
+                        <td>@findd.GETworkName(row.startHand_workNumber)</td> @*工種*@
+                        @*<td>@findd.GETmailingAddres(row.startHand_workNumber)</td>*@
+                        <td>@row.startHand_type</td> @*收集來源*@
+                        <td>@row.startHand_No</td> @*預約單號*@
+                    </tr>
+                }
+            </table>
+
+        </div>
+    </div>
+
+</div>

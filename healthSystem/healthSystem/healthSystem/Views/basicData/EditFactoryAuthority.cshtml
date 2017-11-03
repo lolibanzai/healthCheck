@@ -1,0 +1,133 @@
+﻿@using healthSystem.Models;
+@model ViewModel_AuFa
+@{
+    Emp emp = new Emp();
+    AuthFact authfact = new AuthFact();
+    ViewBag.Title = "EditFactoryAuthority";
+    string auth_workNumber = "";
+    foreach (var item in Model.AuthView)
+    {
+        auth_workNumber = Session["employee_acc"].ToString();
+    }
+}
+
+<h2>EditFactoryAuthority</h2>
+@*<script src="~/Scripts/multiselect.min.js"></script>
+    <script src="~/Scripts/zero-configuration.spec.js"></script>*@
+
+
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">擁有廠別權限</h3>
+    </div>
+    <div class="panel-body">
+
+        <table class="table">
+            <tr><th align="justify">廠別</th><th align="center">姓名</th><th align="center">帳號</th><th align="center">email</th><th align="center">停用註記</th></tr>
+            @foreach (var item in Model.AuthView)
+            {
+
+                <tr>
+                    <td>@item.authority_factoryId-@emp.GetFactoryName(item.authority_factoryId)</td>
+                    <td>@emp.Name(item.authority_workNumber)</td>
+                    <td>@emp.GetUserName(item.authority_workNumber)</td>
+                    <td>@emp.GetEmail(item.authority_workNumber)</td>
+                    <td>@emp.GetIsDisabled(item.authority_workNumber)</td>
+                </tr>
+            }
+        </table>
+
+    </div>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">權限修改</h3>
+    </div>
+    <div class="panel-body">
+
+        <table class="table">
+            <tr><th align="center">地區</th><th align="center">廠別代碼</th><th align="center">廠別名稱</th><th align="center">權限新增</th><th align="center">權限停用</th></tr>
+            @foreach (var item in Model.Factory)
+            {
+                //foreach(var item1 in Model.AuthView) {
+                <tr>
+                    <td>@item.factory_area</td>
+                    <td>@item.factory_id</td>
+                    <td>@item.factory_name</td>
+                    <td>
+                       
+                        @if (Session["employee_role"].ToString() == "Y")
+                        {
+                            if (authfact.GetAuthFac(Session["employee_acc"].ToString(), item.factory_id))
+                            {
+                                if (authfact.GetIsDisable(Session["employee_acc"].ToString(), item.factory_id) == false)
+                                {
+                                    @*<form method="post" action="~/basicData/AddAuthorityFactory">*@
+                                    <form method="post" action="">
+                                        <input type="text" name="authority_workNumber" value="@auth_workNumber" hidden />
+                                        <input type="text" name="factoryId" value="@item.factory_id" hidden />
+                                        <input type="text" name="employee_workNumber" value="@Session["employee_workNumber"]" hidden />
+                                        <input type="number" name="AddorRemove" value="0" hidden />
+                                        <button type="submit" class="btn btn-info btn-xs editItem"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                                        <input type="text" name="authority_workNumber" value="@Session["employee_acc"]" hidden />
+                                    </form>
+                                }
+                            }
+                            else
+                            {
+                                <form method="post" action="">
+                                    <input type="text" name="authority_workNumber" value="@Session["employee_acc"]" hidden />
+                                    <input type="text" name="factoryId" value="@item.factory_id" hidden />
+                                    <input type="text" name="employee_workNumber" value="@Session["employee_workNumber"]" hidden />
+                                    <input type="number" name="AddorRemove" value="0" hidden />
+                                    <button type="submit" class="btn btn-info btn-xs editItem"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                                </form>
+                            }
+                        }
+                    </td>
+
+                    <td>
+                        <input type="text" name="authority_workNumber" value="@Session["employee_acc"]" hidden />
+
+                        @if (Session["employee_role"].ToString() == "Y")
+                        {
+
+                            if (authfact.GetAuthFac(Session["employee_acc"].ToString(), item.factory_id))
+                            {
+                                if (authfact.GetIsDisable(Session["employee_acc"].ToString(), item.factory_id))
+                                {
+                                    <form method="post" action="">
+                                        <input type="text" name="authority_workNumber" value="@auth_workNumber" hidden />
+                                        <input type="text" name="factoryId" value="@item.factory_id" hidden />
+                                        <input type="text" name="employee_workNumber" value="@Session["employee_workNumber"]" hidden />
+                                        <input type="number" name="AddorRemove" value="1" hidden />
+                                        <button type="submit" class="btn btn-danger btn-xs editItem"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                    </form>
+                                }
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+            @*}*@
+        </table>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+@*<script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('#undo_redo').multiselect();
+        });
+    </script>*@

@@ -1,0 +1,289 @@
+﻿@using healthSystem.ViewModel;
+@using healthSystem.Models;
+@model basicDataEmpolyeeMain
+@{
+    ViewBag.Title = "employeeMain";
+    employeeMainReportManage find = new employeeMainReportManage();
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    主檔
+                  
+                    <a href="~/basicData/editEmployee" class="btn btn-success btn-xs pull-right">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a href="~/basicData/employeeMaster" class="btn btn-warning btn-xs pull-right">
+                        <span class="glyphicon glyphicon-arrow-left"></span> 回上頁
+                    </a>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="panel-body">
+                    @foreach (var row in Model.employee)
+                    {
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">工號:</label>
+                                <input type="text" class="form-control" id="email" name="employee_workNumber" readonly value="@row.employee_workNumber">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">一般工種:</label>
+                                <input type="text" class="form-control" id="email" name="employee_workId" readonly value="@find.GETworkName(row.employee_workId)">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">姓名:</label>
+                                <input type="text" class="form-control" id="email" name="employee_name" readonly value="@row.employee_name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">身分證字號:</label>
+                                <input type="text" class="form-control" id="email" name="employee_identityCard" readonly value="@row.employee_identityCard">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">血型:</label>
+                                <input type="text" class="form-control" id="email" name="employee_blood" readonly value="@row.employee_blood">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">性別:</label>
+                                <input type="text" class="form-control" id="email" name="employee_gender" readonly value="@row.employee_gender">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">生日:</label>
+                                <input type="text" class="form-control" id="email" name="employee_dateOfBirth" readonly value="@row.employee_dateOfBirth">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">年齡:</label>
+                                <input type="text" class="form-control" id="email" name="employee_age" readonly value="@row.employee_age">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">集團ID:</label>
+                                <input type="text" class="form-control" id="email" name="employee_groupId" readonly value="@row.employee_groupId">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">公司:</label>
+                                <input type="text" class="form-control" id="email" name="employee_corporation" readonly value="@row.employee_corporation">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">部門:</label>
+                                <input type="text" class="form-control" id="email" name="employee_team" readonly value="@row.employee_team">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">工廠:</label>
+                                <input type="text" class="form-control" id="email" name="employee_factoryId" readonly value="@row.employee_factoryId">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">職位:</label>
+                                <input type="text" class="form-control" id="email" name="employee_jobTitle" readonly value="@row.employee_jobTitle">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">組別:</label>
+                                <input type="text" class="form-control" id="email" name="employee_department" readonly value="@row.employee_department">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">晉升經理日:</label>
+                                <input type="text" class="form-control" id="email" name="employee_managerDate" readonly value="@row.employee_managerDate">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">所屬公司:</label>
+                                <input type="text" class="form-control" id="email" name="employee_homeSite" readonly value="@row.employee_homeSite">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">駐外人員註記:</label>
+                                <input type="text" class="form-control" id="email" name="employee_IsAbroad" readonly value="@row.employee_IsAbroad">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">勞保證號:</label>
+                                <input type="text" class="form-control" id="email" name="employee_IaborId" readonly value="@row.employee_IaborId">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">勞保生效日:</label>
+                                <input type="text" class="form-control" id="email" name="employee_laborInsurance" readonly value="@row.employee_laborInsurance">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">入廠日:</label>
+                                <input type="text" class="form-control" id="email" name="employee_comingDate" readonly value="@row.employee_comingDate">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">離廠日:</label>
+                                <input type="text" class="form-control" id="email" name="employee_quitDate" readonly value="@row.employee_quitDate">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">作帳廠別代碼:</label>
+                                <input type="text" class="form-control" id="email" name="employee_accFactory" readonly value="@row.employee_accFactory">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">聯絡地址:</label>
+                                <input type="text" class="form-control" id="email" name="employee_mailingAddress" readonly value="@row.employee_mailingAddress">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">手機:</label>
+                                <input type="text" class="form-control" id="email" name="employee_cellphone" readonly value="@row.employee_cellphone">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">家用電話:</label>
+                                <input type="text" class="form-control" id="email" name="employee_home" readonly value="@row.employee_home">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">email:</label>
+                                <input type="text" class="form-control" id="email" name="employee_email" readonly value="@row.employee_email">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">健檢報告-郵寄地址:</label>
+                                <input type="text" class="form-control" id="email" name="employee_reportAddress" readonly value="@row.employee_reportAddress">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">健檢報告-手機通知:</label>
+                                <input type="text" class="form-control" id="email" name="employee_reportMobile" readonly value="@row.employee_reportMobile">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">備註:</label>
+                                <input type="text" class="form-control" id="email" name="employee_note" readonly value="@row.employee_note">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">異動日期:</label>
+                                <input type="text" class="form-control" id="email" name="employee_changedDate" readonly value="@row.employee_changedDate">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">停用註記:</label>
+                                <input type="text" class="form-control" id="email" name="employee_isDisabled" readonly value="@row.employee_isDisabled">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">帳號:</label>
+                                <input type="text" class="form-control" id="email" name="employee_username" readonly value="@row.employee_username">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">密碼:</label>
+                                <input type="text" class="form-control" id="email" name="employee_password" readonly value="@row.employee_password">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">主管註記:</label>
+                                <input type="text" class="form-control" id="email" name="employee_role" readonly value="@row.employee_role">
+                            </div>
+                        </div>
+                    }
+                </div>
+                @*<table class="table" style="overflow: auto;
+                                                height: 300px;
+                                                display: block;">
+                        <tr><th>醫院名稱</th><th>地址</th><th>聯絡窗口</th><th>連絡電話</th><th>統一編號</th><th>網址</th><th>email</th><th>停用註記</th><th>更新者</th><th>更新時間</th></tr>
+                        @foreach (var row in Model.hospital)
+                        {
+                            <tr>
+                                <td>@row.hospital_name</td>
+                            </tr>
+                        }
+                    </table>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+@*明細檔-工種*@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    明細檔-工種<a href="#" class="btn btn-info btn-xs pull-right">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </h3>
+
+
+            </div>
+            <div class="panel-body">
+                <table class="table" style="overflow: auto;
+	                                        height: 200px;
+	                                        display: block;">
+                    <tr><th>工種</th><th>說明</th><th>停用</th><th>更新者</th><th>更新時間</th></tr>
+                    @foreach (var row in Model.workInfo)
+                    {
+                        <tr>
+                            @foreach (var row1 in Model.vW_EmpWorkInfo)
+                            {
+                            <td>@find.GETworkName(row1.employee_Workid)</td>
+                            <td>@row.work_description</td>
+                            
+                            <td>@row1.workId_isDisable</td>
+                            <td>@row1.emp_workupdateUser</td>
+                            <td>@row1.emp_workupdateTime</td>
+                            <td>
+                                <form method="get" action="/basicData/editEmployeeWork">
+                                    <input type="text" name="hospital_hospitalId" value="" hidden />
+                                    <button type="submit" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                                </form>
+                            </td>
+                            }
+                            <td>
+                                <form method="get" action="/basicData/delEmployeeWork">
+                                    <button type="submit" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    @*明細檔-健檢紀錄*@
+
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    明細檔-健檢記錄
+                </h3>
+            </div>
+            <div class="panel-body">
+                <table class="table" style="overflow: auto;
+	                                        height: 200px;
+	                                        display: block;">
+                    <tr><th>報告編號</th><th>年度</th><th>公司</th><th>廠別</th><th>部門</th><th>工號</th><th>醫院名稱</th><th>健檢類別</th><th>更新者</th><th>更新時間</th></tr>
+                    @foreach (var row in Model.reportManage)
+                    {
+                        <tr>
+                            <td>@row.ReportManage_id</td>
+                            <td>@find.GETyear(row.ReportManage_startId)</td>@*查詢年度*@
+                            <td>@find.GETcorporation(row.ReportManage_workNumber)</td>@*查詢公司*@
+                            <td>@find.GETfactoryName(row.ReportManage_workNumber)</td>@*查詢廠別*@
+                            <td>@find.GETdepartment(row.ReportManage_workNumber)</td>@*查詢部門*@
+                            <td>@row.ReportManage_workNumber</td>
+                            <td>@find.GEThospitalName(row.ReportManage_hospitalId)</td>@*查詢醫院名稱*@
+                            <td>@find.GETprogramName(row.ReportManage_programId)</td>@*查詢方案名稱*@
+                            <td>@row.ReportManage_updateUser</td>
+                            <td>@row.ReportManage_updateTime</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,78 @@
+﻿@using healthSystem.Models;
+@model List<Hospital>
+@{
+    ViewBag.Title = "edithospital";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    主檔
+                </h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" action="">
+                    @foreach (var row in Model)
+                    {
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">醫院名稱:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_name" value="@row.hospital_name">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">統一編號:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_uniform" value="@row.hospital_uniform">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                <label for="email">地址:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_address" value="@row.hospital_address">
+                            </div>
+                            <div class="col-xs-2">
+                                <label for="sel1">停用註記:</label>
+                                <select class="form-control" id="sel1" name="hospital_state">
+                                    <option @((row.hospital_state == "Y")? "selected":"")>Y</option>
+                                    <option @((row.hospital_state == "N")? "selected":"")>N</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-3">
+                                <label for="email">聯絡窗口:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_contact" value="@row.hospital_contact">
+                            </div>
+                            <div class="col-xs-3">
+                                <label for="email">連絡電話:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_phone" value="@row.hospital_phone">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-3">
+                                <label for="email">網址:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_website" value="@row.hospital_website">
+                            </div>
+                            <div class="col-xs-3">
+                                <label for="email">email:</label>
+                                <input type="text" class="form-control" id="email" placeholder="Enter email" name="hospital_email" value="@row.hospital_email">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                                <div class="col-xs-3">
+                                    <label for="email">更新者:</label>
+                                    <input type="email" class="form-control" id="email" name="hospital_updateuser" value="@row.hospital_updateuser">
+                                </div>
+                                <div class="col-xs-3">
+                                    <label for="email">更新時間:</label>
+                                    <input type="email" class="form-control" id="email" name="hospital_updatetime" value="@row.hospital_updatetime">
+                                </div>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-default">更新</button>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

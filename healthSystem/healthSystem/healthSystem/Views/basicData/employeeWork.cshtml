@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "employeeWork";
+    Layout = null;
+}
+
+<h2>employeeWork</h2>
+
+<div class="form-group row">
+    <input type="button" id="triggerLoginButton" class="btn btn-success" value="新增工種">
+</div>
+
+<div id="loginModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4>新增工種</h4>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="pull-right">
+                        <button type="button"
+                                id="loginButton"
+                                class="btn btn-success">
+                            <span class="glyphicon glyphicon-off"></span> 加入
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                modal-footer
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+
+// init.
+$(function () {
+
+    // Lab 程式:
+
+    $("#triggerLoginButton").click(function () {
+        $("#loginModal").modal( { backdrop: "static" } );
+    });
+
+    $("#loginButton").click(function () {
+        // 資料檢查
+        // if (OK) {
+        $("#loginModal").modal("hide");
+    })
+
+    //$("#loginModal").on("hidden.bs.modal", function () {
+    //    alert("對話盒已關閉");
+    //})
+
+})  // end of init.
+
+</script>

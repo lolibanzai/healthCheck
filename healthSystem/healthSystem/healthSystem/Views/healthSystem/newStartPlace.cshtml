@@ -1,0 +1,57 @@
+﻿@using healthSystem.Models;
+@model ViewModel_StartFac
+@{
+    ViewBag.Title = "newStartPlace";
+    Start st = new Start();
+}
+
+<h2>newStartPlace</h2>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">新增廠別</h3>
+    </div>
+    <div class="panel-body">
+
+        <table class="table">
+            <tr><th align="center">地區</th><th align="center">廠別代碼</th><th align="center">廠別名稱</th><th align="center">新增廠別</th><th align="center">刪除廠別</th></tr>
+            @foreach (var item in Model.Factory)
+            {
+                <tr>
+                    <td>@item.factory_area</td>
+                    <td>@item.factory_id</td>
+                    <td>@item.factory_name</td>
+                    <td>
+                        @if (Session["employee_role"].ToString() == "Y")
+                        {
+                            if (st.Start_exist(Model.StartId, item.factory_id))
+                            {
+                                <form method="post" action="">
+                                    <input type="text" name="Start_id" value="@Model.StartId" hidden />
+                                    <input type="text" name="factoryId" value="@item.factory_id" hidden />
+                                    <input type="number" name="AddorRemove" value="0" hidden />
+                                    <button type="submit" class="btn btn-info btn-xs editItem"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                                </form>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @if (Session["employee_role"].ToString() == "Y")
+                        {
+                            if (!st.Start_exist(Model.StartId, item.factory_id))
+                            {
+                                <form method="post" action="">
+                                    <input type="text" name="Start_id" value="@Model.StartId" hidden />
+                                    <input type="text" name="factoryId" value="@item.factory_id" hidden />
+                                    <input type="number" name="AddorRemove" value="1" hidden />
+                                    <button type="submit" class="btn btn-danger btn-xs editItem"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                </form>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+
+    </div>
+</div>
