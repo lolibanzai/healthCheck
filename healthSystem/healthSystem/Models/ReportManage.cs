@@ -28,7 +28,7 @@ namespace healthSystem.Models
         public Nullable<int> ReportManage_hospitalId { get; set; }
         public int ReportManage_programId { get; set; }
         public string ReportManage_medicalRecord { get; set; }
-        public Nullable<System.DateTime> ReportManage_healthDate { get; set; }
+        public string ReportManage_healthDate { get; set; }
         public string ReportManage_corporation { get; set; }
         public string ReportManage_IsdoubleCheck { get; set; }
         public string ReportManage_hw { get; set; }
@@ -56,13 +56,15 @@ namespace healthSystem.Models
         public string generalComment_15 { get; set; }
         public string generalComment_16 { get; set; }
         public string generalComment_17 { get; set; }
-        public Nullable<int> ReportManage_serialNumber { get; set; }
+        public int ReportManage_serialNumber { get; set; }
+        public Nullable<int> report_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CheckItem> CheckItem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoubleCheck> DoubleCheck { get; set; }
         public virtual Employee Employee { get; set; }
+        public virtual ReportCheckItem ReportCheckItem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReportFile> ReportFile { get; set; }
         public virtual StartCheck StartCheck { get; set; }

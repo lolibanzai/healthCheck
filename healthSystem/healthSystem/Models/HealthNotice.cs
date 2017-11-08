@@ -17,13 +17,13 @@ namespace healthSystem.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HealthNotice()
         {
-            this.Book = new HashSet<Book>();
+            this.book = new HashSet<Book>();
         }
     
         public int notice_id { get; set; }
         public string notice_name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Book> Book { get; set; }
+        public virtual ICollection<Book> book { get; set; }
     }
 }

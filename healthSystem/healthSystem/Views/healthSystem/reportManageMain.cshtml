@@ -1,13 +1,12 @@
-﻿@*@using healthSystem.ViewModel;
-    @model basicDataHospitalMain
-    @{
-        ViewBag.Title = "hospitalSearch";
-        healthSystem.Models.WorkId workId = new healthSystem.Models.WorkId();
-        int hospitalID = 0;
-        foreach (var x in Model.hospital)
-        {
-            hospitalID = x.hospital_hospitalId;
-        }*@
+﻿@using healthSystem.ViewModel;
+@model healthSystemReportMange
+@using healthSystem.Models;
+
+@{
+    reportManageUse find1 = new reportManageUse();
+    string pass = "合格";
+    string fail = "不合格";
+}
 
 <script>
 
@@ -35,242 +34,252 @@
     });
 
 </script>
+<script>
+        $(document).ready(function () {
+            swal({
+                html:true,
+                title: "圖示操作介紹",
+                text: '<p>編輯資料: <span class="glyphicon glyphicon-pencil"></span></p><br><p>刪除資料: <span class="glyphicon glyphicon-remove"></span><br><p>新增資料: <span class="glyphicon glyphicon-plus"></span><br><p>瀏覽資料明細: <span class="glyphicon glyphicon-search"></span>',
+
+            });
+        });
+</script>
 @*主檔*@
+<div class="row form-group">
+    <div class="col-xs-12">
+        <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+            <li class="active">
+                <a href="#step-1">
+                    <h4 class="list-group-item-heading">主檔</h4>
+                    <p class="list-group-item-text">報告主要資料</p>
+                </a>
+            </li>
+            <li>
+                <a href="#step-2">
+                    <h4 class="list-group-item-heading">明細檔</h4>
+                    <p class="list-group-item-text">健檢項目</p>
+                </a>
+            </li>
+            <li>
+                <a href="#step-3">
+                    <h4 class="list-group-item-heading">明細檔2</h4>
+                    <p class="list-group-item-text">總評1~9</p>
+                </a>
+            </li>
+            <li>
+                <a href="#step-4">
+                    <h4 class="list-group-item-heading">明細檔3</h4>
+                    <p class="list-group-item-text">總評10~17</p>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</div>
 <div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    主檔
+    @foreach (var row in Model.Report)
+    {
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        主檔
 
-                    <a href="~/healthSystem/excelimport" class="btn btn-info btn-xs pull-right">
-                        <span class="glyphicon glyphicon-import">批次匯入</span>
-                    </a>
-                    <a href="~/healthSystem/edithospital" class="btn btn-danger btn-xs pull-right">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </a>
 
-                    <a href="~/healthSystem/edithospital" class="btn btn-success btn-xs pull-right">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </a>
-                    <a href="~/basicData/newhospital" class="btn btn-info btn-xs pull-right">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </a>
 
-                    <a href="~/healthSystem/reportManageMaster" class="btn btn-warning btn-xs pull-right">
-                        <span class="glyphicon glyphicon-arrow-left"></span> 回上頁
-                    </a>
-                </h3>
-            </div>
+                        <a href="~/healthSystem/delreport/@row.ReportManage_id" class="btn btn-danger btn-xs pull-right">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                        @*@using (@Html.BeginForm("delreport", "healthSystem", FormMethod.Post, new { @class = "delete" }))
+                            {
+                                @Html.Hidden("ReportManage_id", row.ReportManage_id)
+                                <span><button type="submit" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></span>
 
-            <div class="panel-body">
-                <div class="row ">
-                    <div class="col-md-6">
-                        <label class="label-info">公司資料</label>
-                        <div class="form-group row">
-                            <div class="col-md-3">
-                                <label for="email">年度:</label>
-                                <select class="form-control" id="ex2" name="hospital_state">
-                                    <option></option>
-                                    <option>2016</option>
-                                    <option>2015</option>
-                                </select>
+                            }*@
+
+                        <a href="~/healthSystem/editReport" class="btn btn-success btn-xs pull-right">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+
+
+                        <a href="~/healthSystem/reportManageMaster" class="btn btn-warning btn-xs pull-right">
+                            <span class="glyphicon glyphicon-arrow-left"></span> 回上頁
+                        </a>
+                    </h3>
+                </div>
+
+                <div class="panel-body" id="step-1">
+
+                    <div class="row ">
+                        <div class="col-md-6">
+
+                            <label class="label-info">公司資料</label>
+
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="email">公司:</label>
+                                    <input type="text" name="reportCampany" class="form-control" value="@find1.GETemployeeCampany(row.ReportManage_workNumber)" readonly>
+                                </div>
+
+
+
                             </div>
-                            <div class="col-md-4">
-                                <label for="email">廠別</label>
-                                <select class="form-control" id="ex2" name="hospital_state">
-                                    <option></option>
-                                    <option>2016</option>
-                                    <option>2015</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="email">部門</label>
-                                <select class="form-control" id="ex2" name="hospital_state">
-                                    <option></option>
-                                    <option>2016</option>
-                                    <option>2015</option>
-                                </select>
-                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="email">廠別</label>
+                                    <input type="text" name="reportFactory" class="form-control" value="@find1.GETemployeeFactory(row.ReportManage_workNumber)" readonly>
+                                </div>
 
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="email">部門</label>
+                                    <input type="text" name="reportFactory" class="form-control" value="@find1.GETemployee_department(row.ReportManage_workNumber)" readonly>
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+
+                                <div class="col-md-4">
+                                    <label for="sel1">姓名:</label>
+                                    <input type="text" name="reportName" class="form-control" value="@find1.GETemployeeName(row.ReportManage_workNumber)" readonly>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="email">工號:</label>
+                                    <input type="text" class="form-control" id="ReportManage_workNumber" name="ReportManage_workNumber" readonly value="@row.ReportManage_workNumber">
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <label for="email">身分證字號:</label>
+                                    <input type="text" name="employee_identityCard" class="form-control" value="@find1.Getemployee_identityCard(row.ReportManage_workNumber)" readonly>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="email">集團ID:</label>
+                                    <input type="text" name="employee_groupId" class="form-control" value="@find1.Getemployee_groupId(row.ReportManage_workNumber)" readonly>
+                                </div>
+                            </div>
+                            <label class="label-info">其他資料</label>
+                            <div class="form-group row">
+                                
+                                <div class="col-xs-2">
+                                    <label for="email">停用註記:</label>
+                                    <input type="text" class="form-control" id="ReportManage_IsDisable" name="ReportManage_IsDisable" readonly value="@row.ReportManage_IsDisable">
+                                </div>
+                                <div class="col-xs-4">
+                                    <label for="email">更新者:</label>
+                                    <input type="text" class="form-control" id="ReportManage_updateUser" name="ReportManage_updateUser" readonly value="@row.ReportManage_updateUser">
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-12">
+                                    <label for="email">更新時間:</label>
+                                    <input type="text" class="form-control" id="ReportManage_updateTime" name="ReportManage_updateTime" value="@row.ReportManage_updateTime" readonly>
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-md-4">
-                                <label for="email">公司:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_uniform" readonly value="">
+                        <div class="col-md-6">
+                            <label class="label-info">醫院資料</label>
+                            <div class="form-group row">
+                                <div class="col-xs-4">
+                                    <label for="email">報告編號:</label>
+                                    <input type="text" class="form-control" id="email" name="report_id" readonly value="@row.report_id">
+                                </div>
+                                <div class="col-xs-4">
+                                    <label for="email">預約編號:</label>
+                                    <input type="text" name="reportBookNumber" class="form-control" value="@find1.GETBookNumber(row.ReportManage_workNumber)" readonly>
+                                </div>
+
                             </div>
-                            <div class="col-md-3">
-                                <label for="sel1">姓名:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_state" readonly value="">
+                            <div class="form-group row">
+                                <div class="col-xs-5">
+                                    <label for="email">醫院名稱:</label>
+                                    <input type="text" name="HosName" class="form-control" value="@find1.GETHosName(row.ReportManage_hospitalId)" readonly>
+                                </div>
+                                <div class="col-xs-4">
+                                    <label for="email">健檢方案:</label>
+                                    <input type="text" name="ProgramName" class="form-control" value="@find1.GETProgramName(row.ReportManage_programId)" readonly>
+                                </div>
+                                <div class="col-xs-3">
+                                    <label for="email">健檢方案工種:</label>
+                                    <input type="text" name="WorkName" class="form-control" value="@find1.GETWorkName(row.ReportManage_programId)" readonly>
+                                </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="email">工號:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_address" readonly value="">
+                            <div class="form-group row">
+                                <div class="col-xs-4">
+                                    <label for="email">病歷號碼:</label>
+                                    <input type="text" class="form-control" id="email" name="hospital_updateuser" readonly value="@row.ReportManage_medicalRecord">
+                                </div>
+                                <div class="col-xs-4">
+                                    <label for="email">體檢時間:</label>
+                                    <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="@row.ReportCheckItem_checkDate">
+                                </div>
+
                             </div>
 
+                            <label class="label-info">醫院-報告資料</label>
+                            <div class="form-group row">
+                                <div class="col-xs-12">
+                                    <label for="email">作業經歷:</label>
+                                    <input type="text" class="form-control" id="email" name="ReportCheckItem_hw" readonly value="@row.ReportCheckItem_hw">
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-12">
+                                    <label for="email">既往病歷:</label>
+                                    <input type="text" class="form-control" id="email" name="ReportCheckItem_pastHistory" readonly value="@row.ReportCheckItem_pastHistory">
+                                </div>
+
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-12">
+                                    <label for="email">自覺症狀:</label>
+                                    <input type="text" class="form-control" id="email" name="ReportCheckItem_symptoms" readonly value="@row.ReportCheckItem_symptoms">
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-12">
+                                    <label for="email">備註:</label>
+                                    <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="@row.ReportManage_notes">
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-md-4">
-                                <label for="email">身分證字號:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_contact" readonly value="">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="email">集團ID:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_phone" readonly value="">
-                            </div>
-                        </div>
-                        <label class="label-info">其他資料</label>
-                        <div class="form-group row">
-                            <div class="col-xs-4">
-                                <label for="email">備註:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-                            <div class="col-xs-2">
-                                <label for="email">停用註記:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="email">更新者:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="email">更新時間:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-                        </div>
+
                     </div>
-                    <div class="col-md-6">
-                        <label class="label-info">醫院資料</label>
-                        <div class="form-group row">
-                            <div class="col-xs-4">
-                                <label for="email">報告編號:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_website" readonly value="">
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="email">預約編號:</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="hospital_email" readonly value="">
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="email">健檢類別:</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="hospital_email" readonly value="">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-xs-4">
-                                <label for="email">醫院名稱:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updateuser" readonly value="">
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="email">健檢方案:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="email">健檢方案工種:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-xs-4">
-                                <label for="email">病歷號碼:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updateuser" readonly value="">
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="email">體檢時間:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="email">複檢方案:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-                        </div>
-
-                        <label class="label-info">醫院-報告資料</label>
-                        <div class="form-group row">
-                            <div class="col-xs-12">
-                                <label for="email">作業經歷:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updateuser" readonly value="">
-                            </div>
-
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-xs-12">
-                                <label for="email">既往病歷:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
 
 
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-xs-12">
-                                <label for="email">自覺症狀:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
 
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-xs-12">
-                                <label for="email">注意事項:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
 
-                        </div>
-                    </div>
 
                 </div>
 
 
-
-
             </div>
-
-
         </div>
-    </div>
+
+
+
+    }
+
+
 </div>
 
-@*明細檔-附件管理*@
+@*明細檔-健檢方案*@
 <div class="row">
-    <div class="col-md-4">
-        <div class="panel panel-success">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-
-                    明細檔-附件管理<a href="~/basicData/FileUpload" class="btn btn-info btn-xs pull-right">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </a>
 
 
-                </h3>
 
+    <div class="col-md-12">
 
-            </div>
-            <div class="panel-body" id="dev-table" style="overflow: auto;
-	                                        height: 300px;
-	                                        display: block;">
-
-                <table class="table table-hover" id="dev-table">
-                    <thead>
-                        <tr>
-
-                            @*<th>檔案名稱</th>
-                                <th>醫院編號</th>*@
-                            <th>檔案名稱</th>
-                            <th>描述</th>
-                            <th>編輯</th>
-                            <th>刪除</th>
-                        </tr>
-                    </thead>
-
-                </table>
-            </div>
-        </div>
-
-    </div>
-
-    @*明細檔-健檢方案*@
-    <div class="col-md-8">
-
-        <div class="panel panel-info">
+        <div class="panel panel-info" id="step-2">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     明細檔-健檢項目
@@ -280,54 +289,72 @@
 
                 </h3>
             </div>
+
             <div class="panel-body " id="description2">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Email</th>
+                            <th>項目名稱</th>
+                            <th>體檢值 </th>
+                            <th>合格註記</th>
+
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Default</td>
-                            <td>Defaultson</td>
-                            <td>def@somemail.com</td>
-                        </tr>
-                        <tr class="success">
-                            <td>Success</td>
-                            <td>Doe</td>
-                            <td>john@example.com</td>
-                        </tr>
-                        <tr class="danger">
-                            <td>Danger</td>
-                            <td>Moe</td>
-                            <td>mary@example.com</td>
-                        </tr>
-                        <tr class="info">
-                            <td>Info</td>
-                            <td>Dooley</td>
-                            <td>july@example.com</td>
-                        </tr>
-                        <tr class="warning">
-                            <td>Warning</td>
-                            <td>Refs</td>
-                            <td>bo@example.com</td>
-                        </tr>
-                        <tr class="active">
-                            <td>Active</td>
-                            <td>Activeson</td>
-                            <td>act@example.com</td>
-                        </tr>
-                    </tbody>
+                    @foreach (var row in Model.Report)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>身高</td>
+                                <td>@row.ReportCheckItem_HeightValue</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_HVIsPass=="Y")?"success":"danger")">
+                                <td>身高合格註記</td>
+                                <td>@row.ReportCheckItem_HVIsPass</td>
+                                <td>@if (row.ReportCheckItem_HVIsPass == "Y")
+                                { @pass }
+                                else
+                                {@fail}</td>
+
+                            </tr>
+                            <tr>
+                                <td>體重</td>
+                                <td>@row.ReportCheckItem_WaistValue</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_WVIsPass=="Y")?"success":"danger")">
+                                <td>體重合格註記</td>
+                                <td>@row.ReportCheckItem_WVIsPass</td>
+                                <td>@if (row.ReportCheckItem_WVIsPass == "Y")
+                                { @pass }
+                                else
+                                {@fail}</td>
+                            </tr>
+                            <tr>
+                                <td>腰圍</td>
+                                <td>@row.ReportCheckItem_WaistValue</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_WaistIsPass=="Y")?"success":"danger")">
+                                <td>腰圍合格註記</td>
+                                <td>@row.ReportCheckItem_WaistIsPass</td>
+                                <td>@if (row.ReportCheckItem_WaistIsPass == "Y")
+                                { @pass }
+                                else
+                                {@fail}</td>
+
+
+                            </tr>
+
+                        </tbody>
+                    }
                 </table>
             </div>
         </div>
-        <div class="panel panel-info">
+        <div class="panel panel-info" id="#step-3">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    明細檔-複檢項目
+                    明細檔-總評1~9
                     <button class="btn btn-default btn-xs pull-right" id="detal3">
                         <span class="glyphicon glyphicon-chevron-down"></span>
                     </button>
@@ -338,50 +365,68 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Email</th>
+                            <th>項目名稱</th>
+                            <th>項目描述</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Default</td>
-                            <td>Defaultson</td>
-                            <td>def@somemail.com</td>
-                        </tr>
-                        <tr class="success">
-                            <td>Success</td>
-                            <td>Doe</td>
-                            <td>john@example.com</td>
-                        </tr>
-                        <tr class="danger">
-                            <td>Danger</td>
-                            <td>Moe</td>
-                            <td>mary@example.com</td>
-                        </tr>
-                        <tr class="info">
-                            <td>Info</td>
-                            <td>Dooley</td>
-                            <td>july@example.com</td>
-                        </tr>
-                        <tr class="warning">
-                            <td>Warning</td>
-                            <td>Refs</td>
-                            <td>bo@example.com</td>
-                        </tr>
-                        <tr class="active">
-                            <td>Active</td>
-                            <td>Activeson</td>
-                            <td>act@example.com</td>
-                        </tr>
-                    </tbody>
+                    @foreach (var row in Model.Report)
+                    {
+                        <tbody>
+                            <tr class="@((row.ReportCheckItem_generalComment_1=="無異常狀況")?"success":"danger")">
+                                <td>總評1</td>
+                                <td>@row.ReportCheckItem_generalComment_1</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_generalComment_2=="無異常狀況")?"success":"danger")">
+                                <td>總評2</td>
+                                <td>@row.ReportCheckItem_generalComment_2</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_generalComment_3=="無異常狀況")?"success":"danger")">
+                                <td>總評3</td>
+                                <td>@row.ReportCheckItem_generalComment_3</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_generalComment_4=="無異常狀況")?"success":"danger")">
+                                <td>總評4</td>
+                                <td>@row.ReportCheckItem_generalComment_4</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_generalComment_5=="無異常狀況")?"success":"danger")">
+                                <td>總評5</td>
+                                <td>@row.ReportCheckItem_generalComment_5</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_generalComment_6=="無異常狀況")?"success":"danger")">
+                                <td>總評6</td>
+                                <td>@row.ReportCheckItem_generalComment_6</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_generalComment_7=="無異常狀況")?"success":"danger")">
+                                <td>總評7</td>
+                                <td>@row.ReportCheckItem_generalComment_7</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_generalComment_8=="無異常狀況")?"success":"danger")">
+                                <td>總評8</td>
+                                <td>@row.ReportCheckItem_generalComment_8</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_generalComment_9=="無異常狀況")?"success":"danger")">
+                                <td>總評9</td>
+                                <td>@row.ReportCheckItem_generalComment_9</td>
+
+                            </tr>
+                        </tbody>
+                    }
+
                 </table>
             </div>
         </div>
-        <div class="panel panel-info">
+        <div class="panel panel-info" id="step-4">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    明細檔-結果評核
+                    明細檔-明細檔-總評10~17
                     <button class="btn btn-default btn-xs pull-right" id="detal4">
                         <span class="glyphicon glyphicon-chevron-down"></span>
                     </button>
@@ -392,54 +437,58 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Email</th>
+                            <th>項目名稱</th>
+                            <th>項目描述</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Default</td>
-                            <td>Defaultson</td>
-                            <td>def@somemail.com</td>
-                        </tr>
-                        <tr class="success">
-                            <td>Success</td>
-                            <td>Doe</td>
-                            <td>john@example.com</td>
-                        </tr>
-                        <tr class="danger">
-                            <td>Danger</td>
-                            <td>Moe</td>
-                            <td>mary@example.com</td>
-                        </tr>
-                        <tr class="info">
-                            <td>Info</td>
-                            <td>Dooley</td>
-                            <td>july@example.com</td>
-                        </tr>
-                        <tr class="warning">
-                            <td>Warning</td>
-                            <td>Refs</td>
-                            <td>bo@example.com</td>
-                        </tr>
-                        <tr class="active">
-                            <td>Active</td>
-                            <td>Activeson</td>
-                            <td>act@example.com</td>
-                        </tr>
-                    </tbody>
+                    @foreach (var row in Model.Report)
+                    {
+                        <tbody>
+                            <tr class="@((row.ReportCheckItem_generalComment_10=="無異常狀況")?"success":"danger")">
+                                <td>總評10</td>
+                                <td>@row.ReportCheckItem_generalComment_10</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_generalComment_11=="無異常狀況")?"success":"danger")">
+                                <td>總評11</td>
+                                <td>@row.ReportCheckItem_generalComment_11</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_generalComment_12=="無異常狀況")?"success":"danger")">
+                                <td>總評12</td>
+                                <td>@row.ReportCheckItem_generalComment_12</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_generalComment_13=="無異常狀況")?"success":"danger")">
+                                <td>總評13</td>
+                                <td>@row.ReportCheckItem_generalComment_13</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_generalComment_14=="無異常狀況")?"success":"danger")">
+                                <td>總評14</td>
+                                <td>@row.ReportCheckItem_generalComment_14</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_generalComment_15=="無異常狀況")?"success":"danger")">
+                                <td>總評15</td>
+                                <td>@row.ReportCheckItem_generalComment_15</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_generalComment_16=="無異常狀況")?"success":"danger")">
+                                <td>總評16</td>
+                                <td>@row.ReportCheckItem_generalComment_16</td>
+
+                            </tr>
+                            <tr class="@((row.ReportCheckItem_generalComment_17=="無異常狀況")?"success":"danger")">
+                                <td>總評17</td>
+                                <td>@row.ReportCheckItem_generalComment_17</td>
+
+                            </tr>
+
+                        </tbody>
+                    }
                 </table>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-

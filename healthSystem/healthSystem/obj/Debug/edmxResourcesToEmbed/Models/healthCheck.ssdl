@@ -12,7 +12,7 @@
     <Property Name="authority_updateuser" Type="nvarchar" MaxLength="20" />
     <Property Name="authority_updateTime" Type="datetime" />
   </EntityType>
-  <EntityType Name="Book">
+  <EntityType Name="book">
     <Key>
       <PropertyRef Name="book_id" />
     </Key>
@@ -23,8 +23,10 @@
     <Property Name="book_Date" Type="date" />
     <Property Name="book_hospitalId" Type="int" Nullable="false" />
     <Property Name="book_ProgramId" Type="int" Nullable="false" />
-    <Property Name="book_special" Type="int" />
-    <Property Name="book_exceptDate" Type="nvarchar" MaxLength="50" />
+    <Property Name="book_special" Type="nvarchar" MaxLength="50" />
+    <Property Name="book_exceptDate1" Type="datetime" />
+    <Property Name="book_exceptDate2" Type="datetime" />
+    <Property Name="book_exceptDate3" Type="datetime" />
     <Property Name="book_healthDate" Type="date" />
     <Property Name="book_costDate" Type="date" />
     <Property Name="book_cost" Type="int" />
@@ -40,6 +42,9 @@
     <Property Name="book_host" Type="nvarchar" MaxLength="12" />
     <Property Name="book_hostTime" Type="datetime" />
     <Property Name="book_serialNumber" Type="int" />
+    <Property Name="book_noticeaddress" Type="nvarchar" MaxLength="50" />
+    <Property Name="book_cellphone" Type="nchar" MaxLength="15" />
+    <Property Name="book_year" Type="int" />
   </EntityType>
   <EntityType Name="CheckCollect">
     <Key>
@@ -209,8 +214,8 @@
     </Key>
     <Property Name="ReportCheckItem_reportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ReportCheckItem_employee_workNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
-    <Property Name="ReportCheckItem_checkDate" Type="varchar" MaxLength="10" />
-    <Property Name="ReportCheckItem_checkYear" Type="int" Nullable="false" />
+    <Property Name="ReportCheckItem_checkDate" Type="char" MaxLength="10" />
+    <Property Name="ReportCheckItem_checkYear" Type="int" />
     <Property Name="ReportCheckItem_generalComment_1" Type="nvarchar" MaxLength="100" />
     <Property Name="ReportCheckItem_generalComment_2" Type="nvarchar" MaxLength="100" />
     <Property Name="ReportCheckItem_generalComment_3" Type="nvarchar" MaxLength="100" />
@@ -257,7 +262,7 @@
     <Property Name="ReportManage_hospitalId" Type="int" />
     <Property Name="ReportManage_programId" Type="int" Nullable="false" />
     <Property Name="ReportManage_medicalRecord" Type="char" MaxLength="20" />
-    <Property Name="ReportManage_healthDate" Type="date" />
+    <Property Name="ReportManage_healthDate" Type="char" MaxLength="8" />
     <Property Name="ReportManage_corporation" Type="nvarchar" MaxLength="25" />
     <Property Name="ReportManage_IsdoubleCheck" Type="char" MaxLength="1" />
     <Property Name="ReportManage_hw" Type="nvarchar" MaxLength="50" />
@@ -285,7 +290,8 @@
     <Property Name="generalComment_15" Type="nvarchar" MaxLength="100" />
     <Property Name="generalComment_16" Type="nvarchar" MaxLength="100" />
     <Property Name="generalComment_17" Type="nvarchar" MaxLength="100" />
-    <Property Name="ReportManage_serialNumber" Type="int" />
+    <Property Name="ReportManage_serialNumber" Type="int" Nullable="false" />
+    <Property Name="report_id" Type="int" />
   </EntityType>
   <EntityType Name="StartCheck">
     <Key>
@@ -300,6 +306,7 @@
     <Property Name="start_note" Type="nvarchar" MaxLength="50" />
     <Property Name="start_updateUser" Type="nvarchar" MaxLength="10" />
     <Property Name="start_updateDate" Type="datetime" />
+    <Property Name="start_healthCheckDate" Type="date" Nullable="false" />
   </EntityType>
   <EntityType Name="StartFile">
     <Key>
@@ -322,6 +329,7 @@
     <Property Name="startHand_serialNumber" Type="int" Nullable="false" />
     <Property Name="standHand_updateUser" Type="nvarchar" MaxLength="10" />
     <Property Name="startHand_updateTime" Type="datetime" />
+    <Property Name="startHand_sendMailTime" Type="date" />
   </EntityType>
   <EntityType Name="StartPlace">
     <Key>
@@ -351,6 +359,56 @@
     <Property Name="work_IsDiabled" Type="char" MaxLength="1" />
     <Property Name="work_updateUser" Type="nvarchar" MaxLength="10" />
     <Property Name="work_updateTime" Type="datetime" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'HealthCheck.dbo.vReportCheck' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="vReportCheck">
+    <Key>
+      <PropertyRef Name="ReportManage_id" />
+      <PropertyRef Name="ReportManage_workNumber" />
+      <PropertyRef Name="ReportManage_programId" />
+      <PropertyRef Name="ReportCheckItem_employee_workNumber" />
+    </Key>
+    <Property Name="ReportManage_id" Type="char" MaxLength="15" Nullable="false" />
+    <Property Name="ReportManage_workNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="ReportManage_startId" Type="int" />
+    <Property Name="ReportManage_hospitalId" Type="int" />
+    <Property Name="ReportManage_programId" Type="int" Nullable="false" />
+    <Property Name="ReportManage_medicalRecord" Type="char" MaxLength="20" />
+    <Property Name="ReportManage_notes" Type="nvarchar" MaxLength="50" />
+    <Property Name="ReportManage_IsDisable" Type="char" MaxLength="1" />
+    <Property Name="ReportManage_updateUser" Type="nvarchar" MaxLength="10" />
+    <Property Name="ReportManage_updateTime" Type="datetime" />
+    <Property Name="report_id" Type="int" />
+    <Property Name="ReportCheckItem_employee_workNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="ReportCheckItem_checkDate" Type="char" MaxLength="10" />
+    <Property Name="checkYear" Type="char" MaxLength="5" />
+    <Property Name="ReportCheckItem_generalComment_1" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_generalComment_2" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_generalComment_3" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_generalComment_4" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_generalComment_5" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_generalComment_6" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_generalComment_7" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_generalComment_8" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_generalComment_9" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_generalComment_10" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_generalComment_11" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_generalComment_12" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_generalComment_13" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_generalComment_14" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_generalComment_15" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_generalComment_16" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_generalComment_17" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReportCheckItem_hw" Type="nvarchar" MaxLength="50" />
+    <Property Name="ReportCheckItem_pastHistory" Type="nvarchar" MaxLength="50" />
+    <Property Name="ReportCheckItem_symptoms" Type="nvarchar" MaxLength="20" />
+    <Property Name="ReportCheckItem_HeightValue" Type="float" />
+    <Property Name="ReportCheckItem_HVIsPass" Type="char" MaxLength="1" />
+    <Property Name="ReportCheckItem_WeightValue" Type="float" />
+    <Property Name="ReportCheckItem_WVIsPass" Type="char" MaxLength="1" />
+    <Property Name="ReportCheckItem_WaistValue" Type="float" />
+    <Property Name="ReportCheckItem_WaistIsPass" Type="char" MaxLength="1" />
   </EntityType>
   <!--產生期間發現錯誤:
 警告 6002: 資料表/檢視 'HealthCheck.dbo.VW_BookEmp' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
@@ -400,8 +458,10 @@
     <Property Name="book_cost" Type="int" />
     <Property Name="book_costDate" Type="date" />
     <Property Name="book_healthDate" Type="date" />
-    <Property Name="book_exceptDate" Type="nvarchar" MaxLength="50" />
-    <Property Name="book_special" Type="int" />
+    <Property Name="book_exceptDate1" Type="datetime" />
+    <Property Name="book_exceptDate2" Type="datetime" />
+    <Property Name="book_exceptDate3" Type="datetime" />
+    <Property Name="book_special" Type="nvarchar" MaxLength="50" />
     <Property Name="book_ProgramId" Type="int" Nullable="false" />
     <Property Name="book_hospitalId" Type="int" Nullable="false" />
     <Property Name="book_Date" Type="date" />
@@ -441,6 +501,9 @@
     <Property Name="employee_username" Type="varchar" MaxLength="20" />
     <Property Name="employee_password" Type="varchar" MaxLength="20" />
     <Property Name="employee_role" Type="char" MaxLength="1" />
+    <Property Name="book_cellphone" Type="nchar" MaxLength="15" />
+    <Property Name="book_noticeaddress" Type="nvarchar" MaxLength="50" />
+    <Property Name="book_year" Type="int" />
   </EntityType>
   <!--產生期間發現錯誤:
 警告 6002: 資料表/檢視 'HealthCheck.dbo.VW_EmpAuth' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
@@ -513,6 +576,27 @@
   </EntityType>
   <!--產生期間發現錯誤:
 警告 6002: 資料表/檢視 'HealthCheck.dbo.VW_EmpAuthFa' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="VW_EmpAuthFa">
+    <Key>
+      <PropertyRef Name="employee_workNumber" />
+      <PropertyRef Name="employee_name" />
+      <PropertyRef Name="employee_isDisabled" />
+      <PropertyRef Name="authority_factoryId" />
+      <PropertyRef Name="factory_id" />
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="employee_workNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="employee_role" Type="char" MaxLength="1" />
+    <Property Name="employee_name" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="employee_username" Type="varchar" MaxLength="20" />
+    <Property Name="employee_isDisabled" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="authority_factoryId" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="authority_IsDisable" Type="char" MaxLength="1" />
+    <Property Name="factory_area" Type="nvarchar" MaxLength="10" />
+    <Property Name="factory_name" Type="nvarchar" MaxLength="30" />
+    <Property Name="factory_id" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
   <!--產生期間發現錯誤:
 警告 6002: 資料表/檢視 'HealthCheck.dbo.VW_EmpWorkInfo' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
   <EntityType Name="VW_EmpWorkInfo">
@@ -594,6 +678,7 @@
       <PropertyRef Name="hospital_phone" />
       <PropertyRef Name="hospital_uniform" />
       <PropertyRef Name="work_name" />
+      <PropertyRef Name="hospital_hospitalId" />
     </Key>
     <Property Name="program_programId" Type="int" Nullable="false" />
     <Property Name="hospital_name" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -612,81 +697,52 @@
     <Property Name="program_state" Type="char" MaxLength="1" />
     <Property Name="program_updateuser" Type="nvarchar" MaxLength="7" />
     <Property Name="program_updatetime" Type="datetime" />
-  </EntityType>
-  <!--產生期間發現錯誤:
-警告 6002: 資料表/檢視 'HealthCheck.sys.database_firewall_rules' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
-  <EntityType Name="database_firewall_rules">
-    <Key>
-      <PropertyRef Name="id" />
-      <PropertyRef Name="name" />
-      <PropertyRef Name="start_ip_address" />
-      <PropertyRef Name="end_ip_address" />
-      <PropertyRef Name="create_date" />
-      <PropertyRef Name="modify_date" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="create_date" Type="datetime" Nullable="false" />
-    <Property Name="modify_date" Type="datetime" Nullable="false" />
+    <Property Name="hospital_hospitalId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK__book__book_hospi__178D7CA5">
     <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
-    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <End Role="book" Type="Self.book" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Hospital">
         <PropertyRef Name="hospital_hospitalId" />
       </Principal>
-      <Dependent Role="Book">
+      <Dependent Role="book">
         <PropertyRef Name="book_hospitalId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__book__book_Notic__1A69E950">
     <End Role="HealthNotice" Type="Self.HealthNotice" Multiplicity="0..1" />
-    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <End Role="book" Type="Self.book" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="HealthNotice">
         <PropertyRef Name="notice_id" />
       </Principal>
-      <Dependent Role="Book">
+      <Dependent Role="book">
         <PropertyRef Name="book_Notice" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__book__book_Progr__1881A0DE">
     <End Role="Program" Type="Self.Program" Multiplicity="1" />
-    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <End Role="book" Type="Self.book" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Program">
         <PropertyRef Name="program_programId" />
       </Principal>
-      <Dependent Role="Book">
+      <Dependent Role="book">
         <PropertyRef Name="book_ProgramId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__book__book_speci__1975C517">
-    <End Role="Program" Type="Self.Program" Multiplicity="0..1" />
-    <End Role="Book" Type="Self.Book" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Program">
-        <PropertyRef Name="program_programId" />
-      </Principal>
-      <Dependent Role="Book">
-        <PropertyRef Name="book_special" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__book__book_workN__1699586C">
     <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <End Role="book" Type="Self.book" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Employee">
         <PropertyRef Name="employee_workNumber" />
       </Principal>
-      <Dependent Role="Book">
+      <Dependent Role="book">
         <PropertyRef Name="book_workNumber" />
       </Dependent>
     </ReferentialConstraint>
@@ -967,6 +1023,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ReportManage_ReportCheckItem">
+    <End Role="ReportCheckItem" Type="Self.ReportCheckItem" Multiplicity="0..1" />
+    <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReportCheckItem">
+        <PropertyRef Name="ReportCheckItem_reportId" />
+      </Principal>
+      <Dependent Role="ReportManage">
+        <PropertyRef Name="report_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ReportManage_StartCheck">
     <End Role="StartCheck" Type="Self.StartCheck" Multiplicity="0..1" />
     <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="*" />
@@ -981,7 +1049,7 @@
   </Association>
   <EntityContainer Name="HealthCheckModelStoreContainer">
     <EntitySet Name="Authority" EntityType="Self.Authority" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="book" EntityType="Self.book" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CheckCollect" EntityType="Self.CheckCollect" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CheckItem" EntityType="Self.CheckItem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DoubleCheck" EntityType="Self.DoubleCheck" Schema="dbo" store:Type="Tables" />
@@ -1002,6 +1070,50 @@
     <EntitySet Name="StartPlace" EntityType="Self.StartPlace" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WorkInfo" EntityType="Self.WorkInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vReportCheck" EntityType="Self.vReportCheck" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vReportCheck].[ReportManage_id] AS [ReportManage_id], 
+    [vReportCheck].[ReportManage_workNumber] AS [ReportManage_workNumber], 
+    [vReportCheck].[ReportManage_startId] AS [ReportManage_startId], 
+    [vReportCheck].[ReportManage_hospitalId] AS [ReportManage_hospitalId], 
+    [vReportCheck].[ReportManage_programId] AS [ReportManage_programId], 
+    [vReportCheck].[ReportManage_medicalRecord] AS [ReportManage_medicalRecord], 
+    [vReportCheck].[ReportManage_notes] AS [ReportManage_notes], 
+    [vReportCheck].[ReportManage_IsDisable] AS [ReportManage_IsDisable], 
+    [vReportCheck].[ReportManage_updateUser] AS [ReportManage_updateUser], 
+    [vReportCheck].[ReportManage_updateTime] AS [ReportManage_updateTime], 
+    [vReportCheck].[report_id] AS [report_id], 
+    [vReportCheck].[ReportCheckItem_employee_workNumber] AS [ReportCheckItem_employee_workNumber], 
+    [vReportCheck].[ReportCheckItem_checkDate] AS [ReportCheckItem_checkDate], 
+    [vReportCheck].[checkYear] AS [checkYear], 
+    [vReportCheck].[ReportCheckItem_generalComment_1] AS [ReportCheckItem_generalComment_1], 
+    [vReportCheck].[ReportCheckItem_generalComment_2] AS [ReportCheckItem_generalComment_2], 
+    [vReportCheck].[ReportCheckItem_generalComment_3] AS [ReportCheckItem_generalComment_3], 
+    [vReportCheck].[ReportCheckItem_generalComment_4] AS [ReportCheckItem_generalComment_4], 
+    [vReportCheck].[ReportCheckItem_generalComment_5] AS [ReportCheckItem_generalComment_5], 
+    [vReportCheck].[ReportCheckItem_generalComment_6] AS [ReportCheckItem_generalComment_6], 
+    [vReportCheck].[ReportCheckItem_generalComment_7] AS [ReportCheckItem_generalComment_7], 
+    [vReportCheck].[ReportCheckItem_generalComment_8] AS [ReportCheckItem_generalComment_8], 
+    [vReportCheck].[ReportCheckItem_generalComment_9] AS [ReportCheckItem_generalComment_9], 
+    [vReportCheck].[ReportCheckItem_generalComment_10] AS [ReportCheckItem_generalComment_10], 
+    [vReportCheck].[ReportCheckItem_generalComment_11] AS [ReportCheckItem_generalComment_11], 
+    [vReportCheck].[ReportCheckItem_generalComment_12] AS [ReportCheckItem_generalComment_12], 
+    [vReportCheck].[ReportCheckItem_generalComment_13] AS [ReportCheckItem_generalComment_13], 
+    [vReportCheck].[ReportCheckItem_generalComment_14] AS [ReportCheckItem_generalComment_14], 
+    [vReportCheck].[ReportCheckItem_generalComment_15] AS [ReportCheckItem_generalComment_15], 
+    [vReportCheck].[ReportCheckItem_generalComment_16] AS [ReportCheckItem_generalComment_16], 
+    [vReportCheck].[ReportCheckItem_generalComment_17] AS [ReportCheckItem_generalComment_17], 
+    [vReportCheck].[ReportCheckItem_hw] AS [ReportCheckItem_hw], 
+    [vReportCheck].[ReportCheckItem_pastHistory] AS [ReportCheckItem_pastHistory], 
+    [vReportCheck].[ReportCheckItem_symptoms] AS [ReportCheckItem_symptoms], 
+    [vReportCheck].[ReportCheckItem_HeightValue] AS [ReportCheckItem_HeightValue], 
+    [vReportCheck].[ReportCheckItem_HVIsPass] AS [ReportCheckItem_HVIsPass], 
+    [vReportCheck].[ReportCheckItem_WeightValue] AS [ReportCheckItem_WeightValue], 
+    [vReportCheck].[ReportCheckItem_WVIsPass] AS [ReportCheckItem_WVIsPass], 
+    [vReportCheck].[ReportCheckItem_WaistValue] AS [ReportCheckItem_WaistValue], 
+    [vReportCheck].[ReportCheckItem_WaistIsPass] AS [ReportCheckItem_WaistIsPass]
+    FROM [dbo].[vReportCheck] AS [vReportCheck]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="VW_BookEmp" EntityType="Self.VW_BookEmp" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [VW_BookEmp].[book_Id] AS [book_Id], 
@@ -1020,7 +1132,9 @@
     [VW_BookEmp].[book_cost] AS [book_cost], 
     [VW_BookEmp].[book_costDate] AS [book_costDate], 
     [VW_BookEmp].[book_healthDate] AS [book_healthDate], 
-    [VW_BookEmp].[book_exceptDate] AS [book_exceptDate], 
+    [VW_BookEmp].[book_exceptDate1] AS [book_exceptDate1], 
+    [VW_BookEmp].[book_exceptDate2] AS [book_exceptDate2], 
+    [VW_BookEmp].[book_exceptDate3] AS [book_exceptDate3], 
     [VW_BookEmp].[book_special] AS [book_special], 
     [VW_BookEmp].[book_ProgramId] AS [book_ProgramId], 
     [VW_BookEmp].[book_hospitalId] AS [book_hospitalId], 
@@ -1060,7 +1174,10 @@
     [VW_BookEmp].[employee_isDisabled] AS [employee_isDisabled], 
     [VW_BookEmp].[employee_username] AS [employee_username], 
     [VW_BookEmp].[employee_password] AS [employee_password], 
-    [VW_BookEmp].[employee_role] AS [employee_role]
+    [VW_BookEmp].[employee_role] AS [employee_role], 
+    [VW_BookEmp].[book_cellphone] AS [book_cellphone], 
+    [VW_BookEmp].[book_noticeaddress] AS [book_noticeaddress], 
+    [VW_BookEmp].[book_year] AS [book_year]
     FROM [dbo].[VW_BookEmp] AS [VW_BookEmp]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="VW_EmpAuth" EntityType="Self.VW_EmpAuth" store:Type="Views" store:Schema="dbo">
@@ -1103,6 +1220,21 @@
     [VW_EmpAuth].[authority_factoryId] AS [authority_factoryId], 
     [VW_EmpAuth].[authority_IsDisable] AS [authority_IsDisable]
     FROM [dbo].[VW_EmpAuth] AS [VW_EmpAuth]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="VW_EmpAuthFa" EntityType="Self.VW_EmpAuthFa" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VW_EmpAuthFa].[employee_workNumber] AS [employee_workNumber], 
+    [VW_EmpAuthFa].[employee_role] AS [employee_role], 
+    [VW_EmpAuthFa].[employee_name] AS [employee_name], 
+    [VW_EmpAuthFa].[employee_username] AS [employee_username], 
+    [VW_EmpAuthFa].[employee_isDisabled] AS [employee_isDisabled], 
+    [VW_EmpAuthFa].[authority_factoryId] AS [authority_factoryId], 
+    [VW_EmpAuthFa].[authority_IsDisable] AS [authority_IsDisable], 
+    [VW_EmpAuthFa].[factory_area] AS [factory_area], 
+    [VW_EmpAuthFa].[factory_name] AS [factory_name], 
+    [VW_EmpAuthFa].[factory_id] AS [factory_id], 
+    [VW_EmpAuthFa].[Id] AS [Id]
+    FROM [dbo].[VW_EmpAuthFa] AS [VW_EmpAuthFa]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="VW_EmpWorkInfo" EntityType="Self.VW_EmpWorkInfo" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -1165,38 +1297,25 @@
     [VW_HospitalProgram].[work_name] AS [work_name], 
     [VW_HospitalProgram].[program_state] AS [program_state], 
     [VW_HospitalProgram].[program_updateuser] AS [program_updateuser], 
-    [VW_HospitalProgram].[program_updatetime] AS [program_updatetime]
+    [VW_HospitalProgram].[program_updatetime] AS [program_updatetime], 
+    [VW_HospitalProgram].[hospital_hospitalId] AS [hospital_hospitalId]
     FROM [dbo].[VW_HospitalProgram] AS [VW_HospitalProgram]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
-      <DefiningQuery>SELECT 
-    [database_firewall_rules].[id] AS [id], 
-    [database_firewall_rules].[name] AS [name], 
-    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
-    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
-    [database_firewall_rules].[create_date] AS [create_date], 
-    [database_firewall_rules].[modify_date] AS [modify_date]
-    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK__book__book_hospi__178D7CA5" Association="Self.FK__book__book_hospi__178D7CA5">
       <End Role="Hospital" EntitySet="Hospital" />
-      <End Role="Book" EntitySet="Book" />
+      <End Role="book" EntitySet="book" />
     </AssociationSet>
     <AssociationSet Name="FK__book__book_Notic__1A69E950" Association="Self.FK__book__book_Notic__1A69E950">
       <End Role="HealthNotice" EntitySet="HealthNotice" />
-      <End Role="Book" EntitySet="Book" />
+      <End Role="book" EntitySet="book" />
     </AssociationSet>
     <AssociationSet Name="FK__book__book_Progr__1881A0DE" Association="Self.FK__book__book_Progr__1881A0DE">
       <End Role="Program" EntitySet="Program" />
-      <End Role="Book" EntitySet="Book" />
-    </AssociationSet>
-    <AssociationSet Name="FK__book__book_speci__1975C517" Association="Self.FK__book__book_speci__1975C517">
-      <End Role="Program" EntitySet="Program" />
-      <End Role="Book" EntitySet="Book" />
+      <End Role="book" EntitySet="book" />
     </AssociationSet>
     <AssociationSet Name="FK__book__book_workN__1699586C" Association="Self.FK__book__book_workN__1699586C">
       <End Role="Employee" EntitySet="Employee" />
-      <End Role="Book" EntitySet="Book" />
+      <End Role="book" EntitySet="book" />
     </AssociationSet>
     <AssociationSet Name="FK__CheckColl__check__7DCDAAA2" Association="Self.FK__CheckColl__check__7DCDAAA2">
       <End Role="StartCheck" EntitySet="StartCheck" />
@@ -1288,6 +1407,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_ReportManage_Employee" Association="Self.FK_ReportManage_Employee">
       <End Role="Employee" EntitySet="Employee" />
+      <End Role="ReportManage" EntitySet="ReportManage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReportManage_ReportCheckItem" Association="Self.FK_ReportManage_ReportCheckItem">
+      <End Role="ReportCheckItem" EntitySet="ReportCheckItem" />
       <End Role="ReportManage" EntitySet="ReportManage" />
     </AssociationSet>
     <AssociationSet Name="FK_ReportManage_StartCheck" Association="Self.FK_ReportManage_StartCheck">

@@ -1,0 +1,19 @@
+﻿
+        .jumbotron {
+    margin-bottom: 10px;
+    margin-top:10px;
+    background-image: url(http://i.epochtimes.com/assets/uploads/2017/04/Untitled-1-4.jpg);
+    background-position: 0% 25%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: black;
+   
+}
+        .panel-default {
+             margin-bottom: 10px;
+    margin-top:10px;
+    background-position: 0% 25%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+        }

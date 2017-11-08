@@ -1,0 +1,278 @@
+﻿
+@{
+    ViewBag.Title = "bookMain";
+    
+}
+
+
+<div class="row shop-tracking-status">
+
+    <div class="col-md-12">
+        <div class="well">
+            <div class="order-status">
+                <div class="order-status-timeline">
+                    <!-- class names: c0 c1 c2 c3 and c4 -->
+                    <div class="order-status-timeline-completion c3"></div>
+                </div>
+                <div class="image-order-status image-order-status-new active img-circle">
+                    <span class="status">收集資料</span>
+                    <div class="icon"></div>
+                </div>
+                <div class="image-order-status image-order-status-active active img-circle">
+                    <span class="status">填寫資料</span>
+                    <div class="icon"></div>
+                </div>
+
+                <div class="image-order-status image-order-status-delivered active img-circle">
+                    <span class="status">確認資料</span>
+                    <div class="icon"></div>
+                </div>
+                <div class="image-order-status image-order-status-completed active img-circle">
+                    <span class="status">送出資料</span>
+                    <div class="icon"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*@using healthSystem.ViewModel;
+    @model basicDataHospitalMain
+    @{
+        ViewBag.Title = "hospitalSearch";
+        healthSystem.Models.WorkId workId = new healthSystem.Models.WorkId();
+        int hospitalID = 0;
+        foreach (var x in Model.hospital)
+        {
+            hospitalID = x.hospital_hospitalId;
+        }*@
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#description2').hide();
+        $('#description3').hide();
+        $('#description4').hide();
+
+        $("#detal2").click(function () {
+
+            $("#description2").slideToggle();
+
+        });
+        $("#detal3").click(function () {
+
+            $("#description3").slideToggle();
+
+        });
+        $("#detal4").click(function () {
+
+            $("#description4").slideToggle();
+
+        });
+    });
+
+</script>
+@*主檔*@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    主檔-預約作業
+
+                    <a href="~/healthSystem/bookMaster" class="btn btn-info btn-xs pull-right">
+                        <span class="glyphicon glyphicon-import">預約健檢</span>
+                    </a>
+                    <a href="~/healthSystem/edithospital" class="btn btn-danger btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+
+                    <a href="~/healthSystem/edithospital" class="btn btn-success btn-xs pull-right">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a href="~/basicData/newhospital" class="btn btn-info btn-xs pull-right">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+
+                    <a href="~/healthSystem/bookMaster" class="btn btn-warning btn-xs pull-right">
+                        <span class="glyphicon glyphicon-arrow-left"></span> 回上頁
+                    </a>
+                </h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="row ">
+                    <div class="col-md-6">
+                        <label class="label-info">公司資料</label>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="email">年度:</label>
+                                <select class="form-control" id="ex2" name="hospital_state">
+                                    <option></option>
+                                    <option>2016</option>
+                                    <option>2015</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="email">廠別</label>
+                                <select class="form-control" id="ex2" name="hospital_state">
+                                    <option></option>
+                                    <option>2016</option>
+                                    <option>2015</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="email">部門</label>
+                                <select class="form-control" id="ex2" name="hospital_state">
+                                    <option></option>
+                                    <option>2016</option>
+                                    <option>2015</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                <label for="email">公司:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_uniform" readonly value="">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="sel1">姓名:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_state" readonly value="">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="email">工號:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_address" readonly value="">
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                <label for="email">身分證字號:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_contact" readonly value="">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="email">集團ID:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_phone" readonly value="">
+                            </div>
+                        </div>
+                        <label class="label-info">其他資料</label>
+                        <div class="form-group row">
+                            <div class="col-xs-4">
+                                <label for="email">備註:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
+                            </div>
+                            <div class="col-xs-2">
+                                <label for="email">停用註記:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
+                            </div>
+                            <div class="col-xs-4">
+                                <label for="email">更新者:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
+                            </div>
+                            <div class="col-xs-4">
+                                <label for="email">更新時間:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label-info">醫院資料</label>
+                        <div class="form-group row">
+                            <div class="col-xs-4">
+                                <label for="email">報告編號:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_website" readonly value="">
+                            </div>
+                            <div class="col-xs-4">
+                                <label for="email">預約編號:</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="hospital_email" readonly value="">
+                            </div>
+                            <div class="col-xs-4">
+                                <label for="email">健檢類別:</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="hospital_email" readonly value="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-4">
+                                <label for="email">醫院名稱:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_updateuser" readonly value="">
+                            </div>
+                            <div class="col-xs-4">
+                                <label for="email">健檢方案:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
+                            </div>
+                            <div class="col-xs-4">
+                                <label for="email">健檢方案工種:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-4">
+                                <label for="email">病歷號碼:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_updateuser" readonly value="">
+                            </div>
+                            <div class="col-xs-4">
+                                <label for="email">體檢時間:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
+                            </div>
+                            <div class="col-xs-4">
+                                <label for="email">複檢方案:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
+                            </div>
+                        </div>
+
+                        <label class="label-info">醫院-報告資料</label>
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+                                <label for="email">作業經歷:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_updateuser" readonly value="">
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+                                <label for="email">既往病歷:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
+                            </div>
+
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+                                <label for="email">自覺症狀:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+                                <label for="email">注意事項:</label>
+                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

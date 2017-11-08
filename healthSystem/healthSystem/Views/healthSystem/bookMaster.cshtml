@@ -2,8 +2,10 @@
 @model ViewModel_BookEmp
 @{
     ViewBag.Title = "bookMaster";
+    employeeMainReportManage empMainReport = new employeeMainReportManage();
+    Emp emp = new Emp();
+    string employee_name = emp.Name(Session["employee_workNumber"].ToString());
 }
-
 <h3>主管預約健檢作業</h3>
 <div class="row shop-tracking-status">
 
@@ -44,9 +46,9 @@
             <div class="form-group row">
                 <div class="col-xs-4">
                     <label for="ex6">年度</label>
-                    <select class="form-control" id="ex6" name="year">
-                        <option>2015</option>
-                        <option>2016</option>
+                    <select class="form-control" id="ex6" name="book_year">
+                        @for (int i = -3; i < 1; i++) {
+                            <option value="@DateTime.Now.AddYears(i).Year" @((DateTime.Now.AddYears(i).Year == (DateTime.Now).Year) ? "selected" : "")>@DateTime.Now.AddYears(i).Year</option>}
                     </select>
                 </div>
                 <div class="col-xs-4">
@@ -75,23 +77,30 @@
                 </div>
 
                 <div class="col-xs-4">
-                    <label for="ex2" name="employee_name">姓名</label>
-                    <input class="form-control" id="ex2" type="text" name="employee_name">
+                    <label for="ex2">姓名</label>
+                    <input class="form-control" id="ex2" type="text" name="employeeName" @((Session["employee_role"].ToString() != "Y")?
+                            string.Format("value={0}", employee_name):"")
+                        @((Session["employee_role"].ToString()!="Y")?"readonly" :"")>
                 </div>
                 <div class="col-xs-4">
                     <label for="ex3">工號</label>
-                    <input type="text" class="form-control" id="ex3" name="employee_WorkNumber">
-                </div>
-                <div class="col-xs-4">
+                    <input type="text" class="form-control" id="ex3" name="employee_WorkNumber" @((Session["employee_role"].ToString() != "Y")?
+                            string.Format("value={0}", Session["employee_workNumber"]):"")
+                        @((Session["employee_role"].ToString()!="Y")?"readonly" :"")>
+
+                                        </div>
+
+
+                                        <div class="col-xs-4">
                     <label for="ex6">停用註記</label>
                     <select class="form-control" id="ex6" name="book_IsDisable">
-                        <option></option>
-                        <option>Y</option>
-                        <option>N</option>
+                        <option value=""></option>
+                        <option value="Y">Y</option>
+                        <option value="N">N</option>
                     </select>
                 </div>
             </div>
-            <input type="submit" class="btn btn-success  pull-right" value="送出查詢">
+            <input type="submit" class="btn btn-success btn-lg pull-right" value="送出查詢">
         </form>
     </div>
 </div>
@@ -104,21 +113,22 @@
         <table class="table" style="overflow: auto;
 	                                        height: 300px;
 	                                        display: block;">
-            <tr><th>預約單號</th><th>年度</th><th>姓名</th><th>預約日期</th><th>醫院名稱</th><th>預約狀況</th><th>停用註記</th></tr>
+            <tr><th>預約單號</th><th>年度</th><th>姓名</th><th>預約日期</th><th>醫院名稱</th><th>預約狀況</th><th>停用註記</th><th>查詢</th></tr>
             @foreach (var row in Model.BookView)
             {
                 <tr>
                     <td>@row.book_Id</td>
-                    <td>@Convert.ToDateTime(row.book_Date).Year</td>
+                    <td>@row.book_year</td>
                     <td>@row.employee_name</td>
-                    <td>@row.book_hospitalId</td>
+                    <td>@Convert.ToDateTime(row.book_Date).ToShortDateString()</td>
+                    <td>@empMainReport.GEThospitalName(row.book_hospitalId)</td>
                     <td>@row.book_state</td>
                     <td>@row.book_IsDisable</td>
                     <td>
-                        @*<form method="post" action="/basicData/hospitalMain">
-                                <input type="text" name="hospital_hospitalId" value="@row.hospital_hospitalId" hidden />
+                        <form method="get" action="/healthSystem/bookMain">
+                                <input type="text" name="book_Id" value="@row.book_Id" hidden />
                                 <button type="submit" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                            </form>*@
+                            </form>
                     </td>
                 </tr>
             }

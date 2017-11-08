@@ -36,7 +36,6 @@ namespace healthSystem.Models
         public virtual DbSet<InspectPerson> InspectPerson { get; set; }
         public virtual DbSet<Program> Program { get; set; }
         public virtual DbSet<ReportFile> ReportFile { get; set; }
-        public virtual DbSet<ReportManage> ReportManage { get; set; }
         public virtual DbSet<StartCheck> StartCheck { get; set; }
         public virtual DbSet<StartFile> StartFile { get; set; }
         public virtual DbSet<StartPlace> StartPlace { get; set; }
@@ -46,11 +45,13 @@ namespace healthSystem.Models
         public virtual DbSet<VW_EmpWorkInfo> VW_EmpWorkInfo { get; set; }
         public virtual DbSet<EmployeeWork> EmployeeWork { get; set; }
         public virtual DbSet<ReportCheckItem> ReportCheckItem { get; set; }
-        public virtual DbSet<Book> Book { get; set; }
         public virtual DbSet<StartHand> StartHand { get; set; }
-        public virtual DbSet<VW_BookEmp> VW_BookEmp { get; set; }
         public virtual DbSet<VW_EmpAuth> VW_EmpAuth { get; set; }
         public virtual DbSet<VW_HospitalProgram> VW_HospitalProgram { get; set; }
-        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
+        public virtual DbSet<ReportManage> ReportManage { get; set; }
+        public virtual DbSet<VW_EmpAuthFa> VW_EmpAuthFa { get; set; }
+        public virtual DbSet<Book> Book { get; set; }
+        public virtual DbSet<vReportCheck> vReportCheck { get; set; }
+        public virtual DbSet<VW_BookEmp> VW_BookEmp { get; set; }
     }
 }

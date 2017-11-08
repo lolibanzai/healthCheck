@@ -3,7 +3,31 @@
 @{
     ViewBag.Title = "checkCollectMaster";
 }
+<div class="row form-group">
+    <div class="col-xs-12">
+        <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+            <li class="active">
+                <a href="#step-1">
+                    <h4 class="list-group-item-heading">Step 1</h4>
+                    <p class="list-group-item-text">健檢作業處理</p>
+                </a>
+            </li>
+            <li>
+                <a href="#step-2">
+                    <h4 class="list-group-item-heading">Step 2</h4>
+                    <p class="list-group-item-text">收集作業處理</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <h4 class="list-group-item-heading">Step3 </h4>
+                    <p class="list-group-item-text">下一步處理結案</p>
+                </a>
+            </li>
 
+        </ul>
+    </div>
+</div>
 <div class="col-md-12">
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -26,7 +50,6 @@
                         <td>@row.start_state</td>
                         <td>
                             <form method="post" action="/healthSystem/stateChange">
-                                <input type="text" name="collectMark" value="進入健檢收集" hidden />
                                 <input type="text" name="StartID" value="@row.Start_id" hidden />
                                 <input type="text" name="startYear" value="@row.start_year" hidden />
                                 <button type="submit" class="btn btn-success btn-xs">進入健檢收集</button>
@@ -49,7 +72,7 @@
 
 
         </div>
-        <div class="panel-body">
+        <div class="panel-body" id="step-2">
             <table class="table" style="overflow: auto;
 	                                        height: 300px;
 	                                        display: block;">
@@ -70,10 +93,10 @@
                             </form>
                         </td>
                         <td>
-                            <form method="post" action="/healthSystem/stateChange">
-                                <input type="text" name="Start_id" value="@row.Start_id" hidden />
-                                <input type="text" name="collectMark" value="進入結案" hidden />
-                                <button type="submit" class="btn btn-success btn-xs">進入結案</button>
+                            <form method="post" action="/healthSystem/stateChangeAndMail">
+                                <input type="text" name="StartID" value="@row.Start_id" hidden />
+                                <input type="text" name="startYear" value="@row.start_year" hidden />
+                                <button type="submit" class="btn btn-success btn-xs">進入結案並寄送通知email</button>
                             </form>
                         </td>
                     </tr>

@@ -70,6 +70,7 @@ namespace healthSystem.Controllers
             //用員工編號ID查權限
             var q = from o in db.Authority
                     where o.authority_workNumber == employee_workNumber
+                    && o.authority_IsDisable=="N"
                     select o;
             //用員工編號查員工資料
             var q1 = from o in db.Employee

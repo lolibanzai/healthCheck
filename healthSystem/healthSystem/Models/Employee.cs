@@ -19,11 +19,11 @@ namespace healthSystem.Models
         {
             this.Authority = new HashSet<Authority>();
             this.InspectPerson = new HashSet<InspectPerson>();
-            this.ReportManage = new HashSet<ReportManage>();
             this.EmployeeWork = new HashSet<EmployeeWork>();
             this.ReportCheckItem = new HashSet<ReportCheckItem>();
-            this.Book = new HashSet<Book>();
             this.StartHand = new HashSet<StartHand>();
+            this.ReportManage = new HashSet<ReportManage>();
+            this.book = new HashSet<Book>();
         }
     
         public string employee_workNumber { get; set; }
@@ -69,14 +69,14 @@ namespace healthSystem.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InspectPerson> InspectPerson { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReportManage> ReportManage { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeWork> EmployeeWork { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReportCheckItem> ReportCheckItem { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Book> Book { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StartHand> StartHand { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReportManage> ReportManage { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Book> book { get; set; }
     }
 }

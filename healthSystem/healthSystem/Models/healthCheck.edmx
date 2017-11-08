@@ -17,7 +17,7 @@
           <Property Name="authority_updateuser" Type="nvarchar" MaxLength="20" />
           <Property Name="authority_updateTime" Type="datetime" />
         </EntityType>
-        <EntityType Name="Book">
+        <EntityType Name="book">
           <Key>
             <PropertyRef Name="book_id" />
           </Key>
@@ -28,8 +28,10 @@
           <Property Name="book_Date" Type="date" />
           <Property Name="book_hospitalId" Type="int" Nullable="false" />
           <Property Name="book_ProgramId" Type="int" Nullable="false" />
-          <Property Name="book_special" Type="int" />
-          <Property Name="book_exceptDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="book_special" Type="nvarchar" MaxLength="50" />
+          <Property Name="book_exceptDate1" Type="datetime" />
+          <Property Name="book_exceptDate2" Type="datetime" />
+          <Property Name="book_exceptDate3" Type="datetime" />
           <Property Name="book_healthDate" Type="date" />
           <Property Name="book_costDate" Type="date" />
           <Property Name="book_cost" Type="int" />
@@ -45,6 +47,9 @@
           <Property Name="book_host" Type="nvarchar" MaxLength="12" />
           <Property Name="book_hostTime" Type="datetime" />
           <Property Name="book_serialNumber" Type="int" />
+          <Property Name="book_noticeaddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="book_cellphone" Type="nchar" MaxLength="15" />
+          <Property Name="book_year" Type="int" />
         </EntityType>
         <EntityType Name="CheckCollect">
           <Key>
@@ -214,8 +219,8 @@
           </Key>
           <Property Name="ReportCheckItem_reportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ReportCheckItem_employee_workNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="ReportCheckItem_checkDate" Type="varchar" MaxLength="10" />
-          <Property Name="ReportCheckItem_checkYear" Type="int" Nullable="false" />
+          <Property Name="ReportCheckItem_checkDate" Type="char" MaxLength="10" />
+          <Property Name="ReportCheckItem_checkYear" Type="int" />
           <Property Name="ReportCheckItem_generalComment_1" Type="nvarchar" MaxLength="100" />
           <Property Name="ReportCheckItem_generalComment_2" Type="nvarchar" MaxLength="100" />
           <Property Name="ReportCheckItem_generalComment_3" Type="nvarchar" MaxLength="100" />
@@ -262,7 +267,7 @@
           <Property Name="ReportManage_hospitalId" Type="int" />
           <Property Name="ReportManage_programId" Type="int" Nullable="false" />
           <Property Name="ReportManage_medicalRecord" Type="char" MaxLength="20" />
-          <Property Name="ReportManage_healthDate" Type="date" />
+          <Property Name="ReportManage_healthDate" Type="char" MaxLength="8" />
           <Property Name="ReportManage_corporation" Type="nvarchar" MaxLength="25" />
           <Property Name="ReportManage_IsdoubleCheck" Type="char" MaxLength="1" />
           <Property Name="ReportManage_hw" Type="nvarchar" MaxLength="50" />
@@ -290,7 +295,8 @@
           <Property Name="generalComment_15" Type="nvarchar" MaxLength="100" />
           <Property Name="generalComment_16" Type="nvarchar" MaxLength="100" />
           <Property Name="generalComment_17" Type="nvarchar" MaxLength="100" />
-          <Property Name="ReportManage_serialNumber" Type="int" />
+          <Property Name="ReportManage_serialNumber" Type="int" Nullable="false" />
+          <Property Name="report_id" Type="int" />
         </EntityType>
         <EntityType Name="StartCheck">
           <Key>
@@ -305,6 +311,7 @@
           <Property Name="start_note" Type="nvarchar" MaxLength="50" />
           <Property Name="start_updateUser" Type="nvarchar" MaxLength="10" />
           <Property Name="start_updateDate" Type="datetime" />
+          <Property Name="start_healthCheckDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="StartFile">
           <Key>
@@ -327,6 +334,7 @@
           <Property Name="startHand_serialNumber" Type="int" Nullable="false" />
           <Property Name="standHand_updateUser" Type="nvarchar" MaxLength="10" />
           <Property Name="startHand_updateTime" Type="datetime" />
+          <Property Name="startHand_sendMailTime" Type="date" />
         </EntityType>
         <EntityType Name="StartPlace">
           <Key>
@@ -356,6 +364,56 @@
           <Property Name="work_IsDiabled" Type="char" MaxLength="1" />
           <Property Name="work_updateUser" Type="nvarchar" MaxLength="10" />
           <Property Name="work_updateTime" Type="datetime" />
+        </EntityType>
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'HealthCheck.dbo.vReportCheck' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="vReportCheck">
+          <Key>
+            <PropertyRef Name="ReportManage_id" />
+            <PropertyRef Name="ReportManage_workNumber" />
+            <PropertyRef Name="ReportManage_programId" />
+            <PropertyRef Name="ReportCheckItem_employee_workNumber" />
+          </Key>
+          <Property Name="ReportManage_id" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="ReportManage_workNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="ReportManage_startId" Type="int" />
+          <Property Name="ReportManage_hospitalId" Type="int" />
+          <Property Name="ReportManage_programId" Type="int" Nullable="false" />
+          <Property Name="ReportManage_medicalRecord" Type="char" MaxLength="20" />
+          <Property Name="ReportManage_notes" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReportManage_IsDisable" Type="char" MaxLength="1" />
+          <Property Name="ReportManage_updateUser" Type="nvarchar" MaxLength="10" />
+          <Property Name="ReportManage_updateTime" Type="datetime" />
+          <Property Name="report_id" Type="int" />
+          <Property Name="ReportCheckItem_employee_workNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="ReportCheckItem_checkDate" Type="char" MaxLength="10" />
+          <Property Name="checkYear" Type="char" MaxLength="5" />
+          <Property Name="ReportCheckItem_generalComment_1" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_generalComment_2" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_generalComment_3" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_generalComment_4" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_generalComment_5" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_generalComment_6" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_generalComment_7" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_generalComment_8" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_generalComment_9" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_generalComment_10" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_generalComment_11" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_generalComment_12" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_generalComment_13" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_generalComment_14" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_generalComment_15" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_generalComment_16" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_generalComment_17" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReportCheckItem_hw" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReportCheckItem_pastHistory" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReportCheckItem_symptoms" Type="nvarchar" MaxLength="20" />
+          <Property Name="ReportCheckItem_HeightValue" Type="float" />
+          <Property Name="ReportCheckItem_HVIsPass" Type="char" MaxLength="1" />
+          <Property Name="ReportCheckItem_WeightValue" Type="float" />
+          <Property Name="ReportCheckItem_WVIsPass" Type="char" MaxLength="1" />
+          <Property Name="ReportCheckItem_WaistValue" Type="float" />
+          <Property Name="ReportCheckItem_WaistIsPass" Type="char" MaxLength="1" />
         </EntityType>
         <!--產生期間發現錯誤:
 警告 6002: 資料表/檢視 'HealthCheck.dbo.VW_BookEmp' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
@@ -405,8 +463,10 @@
           <Property Name="book_cost" Type="int" />
           <Property Name="book_costDate" Type="date" />
           <Property Name="book_healthDate" Type="date" />
-          <Property Name="book_exceptDate" Type="nvarchar" MaxLength="50" />
-          <Property Name="book_special" Type="int" />
+          <Property Name="book_exceptDate1" Type="datetime" />
+          <Property Name="book_exceptDate2" Type="datetime" />
+          <Property Name="book_exceptDate3" Type="datetime" />
+          <Property Name="book_special" Type="nvarchar" MaxLength="50" />
           <Property Name="book_ProgramId" Type="int" Nullable="false" />
           <Property Name="book_hospitalId" Type="int" Nullable="false" />
           <Property Name="book_Date" Type="date" />
@@ -446,6 +506,9 @@
           <Property Name="employee_username" Type="varchar" MaxLength="20" />
           <Property Name="employee_password" Type="varchar" MaxLength="20" />
           <Property Name="employee_role" Type="char" MaxLength="1" />
+          <Property Name="book_cellphone" Type="nchar" MaxLength="15" />
+          <Property Name="book_noticeaddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="book_year" Type="int" />
         </EntityType>
         <!--產生期間發現錯誤:
 警告 6002: 資料表/檢視 'HealthCheck.dbo.VW_EmpAuth' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
@@ -518,6 +581,27 @@
         </EntityType>
         <!--產生期間發現錯誤:
 警告 6002: 資料表/檢視 'HealthCheck.dbo.VW_EmpAuthFa' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="VW_EmpAuthFa">
+          <Key>
+            <PropertyRef Name="employee_workNumber" />
+            <PropertyRef Name="employee_name" />
+            <PropertyRef Name="employee_isDisabled" />
+            <PropertyRef Name="authority_factoryId" />
+            <PropertyRef Name="factory_id" />
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="employee_workNumber" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="employee_role" Type="char" MaxLength="1" />
+          <Property Name="employee_name" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="employee_username" Type="varchar" MaxLength="20" />
+          <Property Name="employee_isDisabled" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="authority_factoryId" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="authority_IsDisable" Type="char" MaxLength="1" />
+          <Property Name="factory_area" Type="nvarchar" MaxLength="10" />
+          <Property Name="factory_name" Type="nvarchar" MaxLength="30" />
+          <Property Name="factory_id" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
         <!--產生期間發現錯誤:
 警告 6002: 資料表/檢視 'HealthCheck.dbo.VW_EmpWorkInfo' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
         <EntityType Name="VW_EmpWorkInfo">
@@ -599,6 +683,7 @@
             <PropertyRef Name="hospital_phone" />
             <PropertyRef Name="hospital_uniform" />
             <PropertyRef Name="work_name" />
+            <PropertyRef Name="hospital_hospitalId" />
           </Key>
           <Property Name="program_programId" Type="int" Nullable="false" />
           <Property Name="hospital_name" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -617,81 +702,52 @@
           <Property Name="program_state" Type="char" MaxLength="1" />
           <Property Name="program_updateuser" Type="nvarchar" MaxLength="7" />
           <Property Name="program_updatetime" Type="datetime" />
-        </EntityType>
-        <!--產生期間發現錯誤:
-警告 6002: 資料表/檢視 'HealthCheck.sys.database_firewall_rules' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
-        <EntityType Name="database_firewall_rules">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="start_ip_address" />
-            <PropertyRef Name="end_ip_address" />
-            <PropertyRef Name="create_date" />
-            <PropertyRef Name="modify_date" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="create_date" Type="datetime" Nullable="false" />
-          <Property Name="modify_date" Type="datetime" Nullable="false" />
+          <Property Name="hospital_hospitalId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK__book__book_hospi__178D7CA5">
           <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
-          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <End Role="book" Type="Self.book" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Hospital">
               <PropertyRef Name="hospital_hospitalId" />
             </Principal>
-            <Dependent Role="Book">
+            <Dependent Role="book">
               <PropertyRef Name="book_hospitalId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__book__book_Notic__1A69E950">
           <End Role="HealthNotice" Type="Self.HealthNotice" Multiplicity="0..1" />
-          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <End Role="book" Type="Self.book" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HealthNotice">
               <PropertyRef Name="notice_id" />
             </Principal>
-            <Dependent Role="Book">
+            <Dependent Role="book">
               <PropertyRef Name="book_Notice" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__book__book_Progr__1881A0DE">
           <End Role="Program" Type="Self.Program" Multiplicity="1" />
-          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <End Role="book" Type="Self.book" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Program">
               <PropertyRef Name="program_programId" />
             </Principal>
-            <Dependent Role="Book">
+            <Dependent Role="book">
               <PropertyRef Name="book_ProgramId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__book__book_speci__1975C517">
-          <End Role="Program" Type="Self.Program" Multiplicity="0..1" />
-          <End Role="Book" Type="Self.Book" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Program">
-              <PropertyRef Name="program_programId" />
-            </Principal>
-            <Dependent Role="Book">
-              <PropertyRef Name="book_special" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__book__book_workN__1699586C">
           <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
-          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <End Role="book" Type="Self.book" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="employee_workNumber" />
             </Principal>
-            <Dependent Role="Book">
+            <Dependent Role="book">
               <PropertyRef Name="book_workNumber" />
             </Dependent>
           </ReferentialConstraint>
@@ -972,6 +1028,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ReportManage_ReportCheckItem">
+          <End Role="ReportCheckItem" Type="Self.ReportCheckItem" Multiplicity="0..1" />
+          <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportCheckItem">
+              <PropertyRef Name="ReportCheckItem_reportId" />
+            </Principal>
+            <Dependent Role="ReportManage">
+              <PropertyRef Name="report_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ReportManage_StartCheck">
           <End Role="StartCheck" Type="Self.StartCheck" Multiplicity="0..1" />
           <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="*" />
@@ -986,7 +1054,7 @@
         </Association>
         <EntityContainer Name="HealthCheckModelStoreContainer">
           <EntitySet Name="Authority" EntityType="Self.Authority" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="book" EntityType="Self.book" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CheckCollect" EntityType="Self.CheckCollect" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CheckItem" EntityType="Self.CheckItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DoubleCheck" EntityType="Self.DoubleCheck" Schema="dbo" store:Type="Tables" />
@@ -1007,6 +1075,50 @@
           <EntitySet Name="StartPlace" EntityType="Self.StartPlace" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkInfo" EntityType="Self.WorkInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vReportCheck" EntityType="Self.vReportCheck" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vReportCheck].[ReportManage_id] AS [ReportManage_id], 
+    [vReportCheck].[ReportManage_workNumber] AS [ReportManage_workNumber], 
+    [vReportCheck].[ReportManage_startId] AS [ReportManage_startId], 
+    [vReportCheck].[ReportManage_hospitalId] AS [ReportManage_hospitalId], 
+    [vReportCheck].[ReportManage_programId] AS [ReportManage_programId], 
+    [vReportCheck].[ReportManage_medicalRecord] AS [ReportManage_medicalRecord], 
+    [vReportCheck].[ReportManage_notes] AS [ReportManage_notes], 
+    [vReportCheck].[ReportManage_IsDisable] AS [ReportManage_IsDisable], 
+    [vReportCheck].[ReportManage_updateUser] AS [ReportManage_updateUser], 
+    [vReportCheck].[ReportManage_updateTime] AS [ReportManage_updateTime], 
+    [vReportCheck].[report_id] AS [report_id], 
+    [vReportCheck].[ReportCheckItem_employee_workNumber] AS [ReportCheckItem_employee_workNumber], 
+    [vReportCheck].[ReportCheckItem_checkDate] AS [ReportCheckItem_checkDate], 
+    [vReportCheck].[checkYear] AS [checkYear], 
+    [vReportCheck].[ReportCheckItem_generalComment_1] AS [ReportCheckItem_generalComment_1], 
+    [vReportCheck].[ReportCheckItem_generalComment_2] AS [ReportCheckItem_generalComment_2], 
+    [vReportCheck].[ReportCheckItem_generalComment_3] AS [ReportCheckItem_generalComment_3], 
+    [vReportCheck].[ReportCheckItem_generalComment_4] AS [ReportCheckItem_generalComment_4], 
+    [vReportCheck].[ReportCheckItem_generalComment_5] AS [ReportCheckItem_generalComment_5], 
+    [vReportCheck].[ReportCheckItem_generalComment_6] AS [ReportCheckItem_generalComment_6], 
+    [vReportCheck].[ReportCheckItem_generalComment_7] AS [ReportCheckItem_generalComment_7], 
+    [vReportCheck].[ReportCheckItem_generalComment_8] AS [ReportCheckItem_generalComment_8], 
+    [vReportCheck].[ReportCheckItem_generalComment_9] AS [ReportCheckItem_generalComment_9], 
+    [vReportCheck].[ReportCheckItem_generalComment_10] AS [ReportCheckItem_generalComment_10], 
+    [vReportCheck].[ReportCheckItem_generalComment_11] AS [ReportCheckItem_generalComment_11], 
+    [vReportCheck].[ReportCheckItem_generalComment_12] AS [ReportCheckItem_generalComment_12], 
+    [vReportCheck].[ReportCheckItem_generalComment_13] AS [ReportCheckItem_generalComment_13], 
+    [vReportCheck].[ReportCheckItem_generalComment_14] AS [ReportCheckItem_generalComment_14], 
+    [vReportCheck].[ReportCheckItem_generalComment_15] AS [ReportCheckItem_generalComment_15], 
+    [vReportCheck].[ReportCheckItem_generalComment_16] AS [ReportCheckItem_generalComment_16], 
+    [vReportCheck].[ReportCheckItem_generalComment_17] AS [ReportCheckItem_generalComment_17], 
+    [vReportCheck].[ReportCheckItem_hw] AS [ReportCheckItem_hw], 
+    [vReportCheck].[ReportCheckItem_pastHistory] AS [ReportCheckItem_pastHistory], 
+    [vReportCheck].[ReportCheckItem_symptoms] AS [ReportCheckItem_symptoms], 
+    [vReportCheck].[ReportCheckItem_HeightValue] AS [ReportCheckItem_HeightValue], 
+    [vReportCheck].[ReportCheckItem_HVIsPass] AS [ReportCheckItem_HVIsPass], 
+    [vReportCheck].[ReportCheckItem_WeightValue] AS [ReportCheckItem_WeightValue], 
+    [vReportCheck].[ReportCheckItem_WVIsPass] AS [ReportCheckItem_WVIsPass], 
+    [vReportCheck].[ReportCheckItem_WaistValue] AS [ReportCheckItem_WaistValue], 
+    [vReportCheck].[ReportCheckItem_WaistIsPass] AS [ReportCheckItem_WaistIsPass]
+    FROM [dbo].[vReportCheck] AS [vReportCheck]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="VW_BookEmp" EntityType="Self.VW_BookEmp" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VW_BookEmp].[book_Id] AS [book_Id], 
@@ -1025,7 +1137,9 @@
     [VW_BookEmp].[book_cost] AS [book_cost], 
     [VW_BookEmp].[book_costDate] AS [book_costDate], 
     [VW_BookEmp].[book_healthDate] AS [book_healthDate], 
-    [VW_BookEmp].[book_exceptDate] AS [book_exceptDate], 
+    [VW_BookEmp].[book_exceptDate1] AS [book_exceptDate1], 
+    [VW_BookEmp].[book_exceptDate2] AS [book_exceptDate2], 
+    [VW_BookEmp].[book_exceptDate3] AS [book_exceptDate3], 
     [VW_BookEmp].[book_special] AS [book_special], 
     [VW_BookEmp].[book_ProgramId] AS [book_ProgramId], 
     [VW_BookEmp].[book_hospitalId] AS [book_hospitalId], 
@@ -1065,7 +1179,10 @@
     [VW_BookEmp].[employee_isDisabled] AS [employee_isDisabled], 
     [VW_BookEmp].[employee_username] AS [employee_username], 
     [VW_BookEmp].[employee_password] AS [employee_password], 
-    [VW_BookEmp].[employee_role] AS [employee_role]
+    [VW_BookEmp].[employee_role] AS [employee_role], 
+    [VW_BookEmp].[book_cellphone] AS [book_cellphone], 
+    [VW_BookEmp].[book_noticeaddress] AS [book_noticeaddress], 
+    [VW_BookEmp].[book_year] AS [book_year]
     FROM [dbo].[VW_BookEmp] AS [VW_BookEmp]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VW_EmpAuth" EntityType="Self.VW_EmpAuth" store:Type="Views" store:Schema="dbo">
@@ -1108,6 +1225,21 @@
     [VW_EmpAuth].[authority_factoryId] AS [authority_factoryId], 
     [VW_EmpAuth].[authority_IsDisable] AS [authority_IsDisable]
     FROM [dbo].[VW_EmpAuth] AS [VW_EmpAuth]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VW_EmpAuthFa" EntityType="Self.VW_EmpAuthFa" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_EmpAuthFa].[employee_workNumber] AS [employee_workNumber], 
+    [VW_EmpAuthFa].[employee_role] AS [employee_role], 
+    [VW_EmpAuthFa].[employee_name] AS [employee_name], 
+    [VW_EmpAuthFa].[employee_username] AS [employee_username], 
+    [VW_EmpAuthFa].[employee_isDisabled] AS [employee_isDisabled], 
+    [VW_EmpAuthFa].[authority_factoryId] AS [authority_factoryId], 
+    [VW_EmpAuthFa].[authority_IsDisable] AS [authority_IsDisable], 
+    [VW_EmpAuthFa].[factory_area] AS [factory_area], 
+    [VW_EmpAuthFa].[factory_name] AS [factory_name], 
+    [VW_EmpAuthFa].[factory_id] AS [factory_id], 
+    [VW_EmpAuthFa].[Id] AS [Id]
+    FROM [dbo].[VW_EmpAuthFa] AS [VW_EmpAuthFa]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VW_EmpWorkInfo" EntityType="Self.VW_EmpWorkInfo" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1170,38 +1302,25 @@
     [VW_HospitalProgram].[work_name] AS [work_name], 
     [VW_HospitalProgram].[program_state] AS [program_state], 
     [VW_HospitalProgram].[program_updateuser] AS [program_updateuser], 
-    [VW_HospitalProgram].[program_updatetime] AS [program_updatetime]
+    [VW_HospitalProgram].[program_updatetime] AS [program_updatetime], 
+    [VW_HospitalProgram].[hospital_hospitalId] AS [hospital_hospitalId]
     FROM [dbo].[VW_HospitalProgram] AS [VW_HospitalProgram]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
-            <DefiningQuery>SELECT 
-    [database_firewall_rules].[id] AS [id], 
-    [database_firewall_rules].[name] AS [name], 
-    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
-    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
-    [database_firewall_rules].[create_date] AS [create_date], 
-    [database_firewall_rules].[modify_date] AS [modify_date]
-    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__book__book_hospi__178D7CA5" Association="Self.FK__book__book_hospi__178D7CA5">
             <End Role="Hospital" EntitySet="Hospital" />
-            <End Role="Book" EntitySet="Book" />
+            <End Role="book" EntitySet="book" />
           </AssociationSet>
           <AssociationSet Name="FK__book__book_Notic__1A69E950" Association="Self.FK__book__book_Notic__1A69E950">
             <End Role="HealthNotice" EntitySet="HealthNotice" />
-            <End Role="Book" EntitySet="Book" />
+            <End Role="book" EntitySet="book" />
           </AssociationSet>
           <AssociationSet Name="FK__book__book_Progr__1881A0DE" Association="Self.FK__book__book_Progr__1881A0DE">
             <End Role="Program" EntitySet="Program" />
-            <End Role="Book" EntitySet="Book" />
-          </AssociationSet>
-          <AssociationSet Name="FK__book__book_speci__1975C517" Association="Self.FK__book__book_speci__1975C517">
-            <End Role="Program" EntitySet="Program" />
-            <End Role="Book" EntitySet="Book" />
+            <End Role="book" EntitySet="book" />
           </AssociationSet>
           <AssociationSet Name="FK__book__book_workN__1699586C" Association="Self.FK__book__book_workN__1699586C">
             <End Role="Employee" EntitySet="Employee" />
-            <End Role="Book" EntitySet="Book" />
+            <End Role="book" EntitySet="book" />
           </AssociationSet>
           <AssociationSet Name="FK__CheckColl__check__7DCDAAA2" Association="Self.FK__CheckColl__check__7DCDAAA2">
             <End Role="StartCheck" EntitySet="StartCheck" />
@@ -1295,6 +1414,10 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="ReportManage" EntitySet="ReportManage" />
           </AssociationSet>
+          <AssociationSet Name="FK_ReportManage_ReportCheckItem" Association="Self.FK_ReportManage_ReportCheckItem">
+            <End Role="ReportCheckItem" EntitySet="ReportCheckItem" />
+            <End Role="ReportManage" EntitySet="ReportManage" />
+          </AssociationSet>
           <AssociationSet Name="FK_ReportManage_StartCheck" Association="Self.FK_ReportManage_StartCheck">
             <End Role="StartCheck" EntitySet="StartCheck" />
             <End Role="ReportManage" EntitySet="ReportManage" />
@@ -1346,7 +1469,7 @@
           <Property Name="checkItem_description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="checkItem_updateUser" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="checkItem_updateDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="ReportManage" Relationship="Self.FK_CheckItem_ReportManage" FromRole="CheckItem" ToRole="ReportManage" />
+          <NavigationProperty Name="ReportManage" Relationship="HealthCheckModel.FK_CheckItem_ReportManage" FromRole="CheckItem" ToRole="ReportManage" />
         </EntityType>
         <EntityType Name="DoubleCheck">
           <Key>
@@ -1362,7 +1485,7 @@
           <Property Name="doubleCheck_date" Type="DateTime" Precision="3" />
           <Property Name="doubleCheck_updateUser" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="doubleCheck_updateDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="ReportManage" Relationship="Self.FK_DoubleCheck_ReportManage" FromRole="DoubleCheck" ToRole="ReportManage" />
+          <NavigationProperty Name="ReportManage" Relationship="HealthCheckModel.FK_DoubleCheck_ReportManage" FromRole="DoubleCheck" ToRole="ReportManage" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -1407,11 +1530,11 @@
           <NavigationProperty Name="Factory" Relationship="Self.FK__Employee__employ__6225902D" FromRole="Employee" ToRole="Factory" />
           <NavigationProperty Name="Factory1" Relationship="Self.FK__Employee__employ__6319B466" FromRole="Employee" ToRole="Factory" />
           <NavigationProperty Name="InspectPerson" Relationship="Self.FK__InspectPe__inspe__047AA831" FromRole="Employee" ToRole="InspectPerson" />
-          <NavigationProperty Name="ReportManage" Relationship="Self.FK_ReportManage_Employee" FromRole="Employee" ToRole="ReportManage" />
           <NavigationProperty Name="EmployeeWork" Relationship="HealthCheckModel.FK_EmployeeWork_Employee" FromRole="Employee" ToRole="EmployeeWork" />
           <NavigationProperty Name="ReportCheckItem" Relationship="HealthCheckModel.FK__ReportChe__Repor__2D47B39A" FromRole="Employee" ToRole="ReportCheckItem" />
-          <NavigationProperty Name="Book" Relationship="HealthCheckModel.FK__book__book_workN__1699586C" FromRole="Employee" ToRole="Book" />
           <NavigationProperty Name="StartHand" Relationship="HealthCheckModel.FK__StartHand__start__13BCEBC1" FromRole="Employee" ToRole="StartHand" />
+          <NavigationProperty Name="ReportManage" Relationship="HealthCheckModel.FK_ReportManage_Employee" FromRole="Employee" ToRole="ReportManage" />
+          <NavigationProperty Name="book" Relationship="HealthCheckModel.FK__book__book_workN__1699586C" FromRole="Employee" ToRole="book" />
         </EntityType>
         <EntityType Name="Factory">
           <Key>
@@ -1434,7 +1557,7 @@
           </Key>
           <Property Name="notice_id" Type="Int32" Nullable="false" />
           <Property Name="notice_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Book" Relationship="HealthCheckModel.FK__book__book_Notic__1A69E950" FromRole="HealthNotice" ToRole="Book" />
+          <NavigationProperty Name="book" Relationship="HealthCheckModel.FK__book__book_Notic__1A69E950" FromRole="HealthNotice" ToRole="book" />
         </EntityType>
         <EntityType Name="Hospital">
           <Key>
@@ -1453,7 +1576,7 @@
           <Property Name="hospital_updatetime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Program" Relationship="Self.FK__Program__program__6ABAD62E" FromRole="Hospital" ToRole="Program" />
           <NavigationProperty Name="HospitalProgramFile" Relationship="HealthCheckModel.FK__HospitalP__file___0FEC5ADD" FromRole="Hospital" ToRole="HospitalProgramFile" />
-          <NavigationProperty Name="Book" Relationship="HealthCheckModel.FK__book__book_hospi__178D7CA5" FromRole="Hospital" ToRole="Book" />
+          <NavigationProperty Name="book" Relationship="HealthCheckModel.FK__book__book_hospi__178D7CA5" FromRole="Hospital" ToRole="book" />
         </EntityType>
         <EntityType Name="InspectPerson">
           <Key>
@@ -1484,9 +1607,8 @@
           <Property Name="program_special" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Hospital" Relationship="Self.FK__Program__program__6ABAD62E" FromRole="Program" ToRole="Hospital" />
           <NavigationProperty Name="WorkInfo" Relationship="Self.FK__Program__program__6BAEFA67" FromRole="Program" ToRole="WorkInfo" />
-          <NavigationProperty Name="Book" Relationship="HealthCheckModel.FK__book__book_Progr__1881A0DE" FromRole="Program" ToRole="Book" />
-          <NavigationProperty Name="Book1" Relationship="HealthCheckModel.FK__book__book_speci__1975C517" FromRole="Program" ToRole="Book" />
-        </EntityType>
+          <NavigationProperty Name="book" Relationship="HealthCheckModel.FK__book__book_Progr__1881A0DE" FromRole="Program" ToRole="book" />
+          </EntityType>
         <EntityType Name="ReportFile">
           <Key>
             <PropertyRef Name="reportFile_fileId" />
@@ -1495,52 +1617,7 @@
           <Property Name="reportFile_reportId" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
           <Property Name="reportFile_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="reportFile_content" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ReportManage" Relationship="Self.FK_ReportFile_ReportManage" FromRole="ReportFile" ToRole="ReportManage" />
-        </EntityType>
-        <EntityType Name="ReportManage">
-          <Key>
-            <PropertyRef Name="ReportManage_id" />
-          </Key>
-          <Property Name="ReportManage_id" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="ReportManage_workNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ReportManage_startId" Type="Int32" />
-          <Property Name="ReportManage_hospitalId" Type="Int32" />
-          <Property Name="ReportManage_programId" Type="Int32" Nullable="false" />
-          <Property Name="ReportManage_medicalRecord" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
-          <Property Name="ReportManage_healthDate" Type="DateTime" Precision="0" />
-          <Property Name="ReportManage_corporation" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="ReportManage_IsdoubleCheck" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="ReportManage_hw" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ReportManage_pastHistory" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ReportManage_symptoms" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ReportManage_notes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ReportManage_IsDisable" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="ReportManage_doubleId" Type="Int32" />
-          <Property Name="ReportManage_updateUser" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="ReportManage_updateTime" Type="DateTime" Precision="3" />
-          <Property Name="generalComment_1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="generalComment_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="generalComment_3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="generalComment_4" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="generalComment_5" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="generalComment_6" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="generalComment_7" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="generalComment_8" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="generalComment_9" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="generalComment_10" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="generalComment_11" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="generalComment_12" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="generalComment_13" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="generalComment_14" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="generalComment_15" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="generalComment_16" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="generalComment_17" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ReportManage_serialNumber" Type="Int32" />
-          <NavigationProperty Name="CheckItem" Relationship="Self.FK_CheckItem_ReportManage" FromRole="ReportManage" ToRole="CheckItem" />
-          <NavigationProperty Name="DoubleCheck" Relationship="Self.FK_DoubleCheck_ReportManage" FromRole="ReportManage" ToRole="DoubleCheck" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_ReportManage_Employee" FromRole="ReportManage" ToRole="Employee" />
-          <NavigationProperty Name="ReportFile" Relationship="Self.FK_ReportFile_ReportManage" FromRole="ReportManage" ToRole="ReportFile" />
-          <NavigationProperty Name="StartCheck" Relationship="Self.FK_ReportManage_StartCheck" FromRole="ReportManage" ToRole="StartCheck" />
+          <NavigationProperty Name="ReportManage" Relationship="HealthCheckModel.FK_ReportFile_ReportManage" FromRole="ReportFile" ToRole="ReportManage" />
         </EntityType>
         <EntityType Name="StartCheck">
           <Key>
@@ -1556,10 +1633,11 @@
           <Property Name="start_updateUser" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="start_updateDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="CheckCollect" Relationship="Self.FK__CheckColl__check__7DCDAAA2" FromRole="StartCheck" ToRole="CheckCollect" />
-          <NavigationProperty Name="ReportManage" Relationship="Self.FK_ReportManage_StartCheck" FromRole="StartCheck" ToRole="ReportManage" />
           <NavigationProperty Name="StartFile" Relationship="Self.FK__StartFile__start__0D0FEE32" FromRole="StartCheck" ToRole="StartFile" />
           <NavigationProperty Name="StartPlace" Relationship="Self.FK__StartPlac__start__0A338187" FromRole="StartCheck" ToRole="StartPlace" />
           <NavigationProperty Name="StartHand" Relationship="HealthCheckModel.FK__StartHand__start__12C8C788" FromRole="StartCheck" ToRole="StartHand" />
+          <Property Name="start_healthCheckDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ReportManage" Relationship="HealthCheckModel.FK_ReportManage_StartCheck" FromRole="StartCheck" ToRole="ReportManage" />
         </EntityType>
         <EntityType Name="StartFile">
           <Key>
@@ -1641,30 +1719,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CheckItem_ReportManage">
-          <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="0..1" />
-          <End Role="CheckItem" Type="Self.CheckItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ReportManage">
-              <PropertyRef Name="ReportManage_id" />
-            </Principal>
-            <Dependent Role="CheckItem">
-              <PropertyRef Name="checkItem_reportId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DoubleCheck_ReportManage">
-          <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="0..1" />
-          <End Role="DoubleCheck" Type="Self.DoubleCheck" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ReportManage">
-              <PropertyRef Name="ReportManage_id" />
-            </Principal>
-            <Dependent Role="DoubleCheck">
-              <PropertyRef Name="doubleCheck_reportId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Employee__employ__61316BF4">
           <End Role="WorkInfo" Type="Self.WorkInfo" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
@@ -1713,18 +1767,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ReportManage_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="employee_workNumber" />
-            </Principal>
-            <Dependent Role="ReportManage">
-              <PropertyRef Name="ReportManage_workNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__StartPlac__start__093F5D4E">
           <End Role="Factory" Type="Self.Factory" Multiplicity="1" />
           <End Role="StartPlace" Type="Self.StartPlace" Multiplicity="*" />
@@ -1758,30 +1800,6 @@
             </Principal>
             <Dependent Role="Program">
               <PropertyRef Name="program_workid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ReportFile_ReportManage">
-          <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="0..1" />
-          <End Role="ReportFile" Type="Self.ReportFile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ReportManage">
-              <PropertyRef Name="ReportManage_id" />
-            </Principal>
-            <Dependent Role="ReportFile">
-              <PropertyRef Name="reportFile_reportId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ReportManage_StartCheck">
-          <End Role="StartCheck" Type="Self.StartCheck" Multiplicity="0..1" />
-          <End Role="ReportManage" Type="Self.ReportManage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StartCheck">
-              <PropertyRef Name="Start_id" />
-            </Principal>
-            <Dependent Role="ReportManage">
-              <PropertyRef Name="ReportManage_startId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1821,7 +1839,6 @@
           <EntitySet Name="InspectPerson" EntityType="Self.InspectPerson" />
           <EntitySet Name="Program" EntityType="Self.Program" />
           <EntitySet Name="ReportFile" EntityType="Self.ReportFile" />
-          <EntitySet Name="ReportManage" EntityType="Self.ReportManage" />
           <EntitySet Name="StartCheck" EntityType="Self.StartCheck" />
           <EntitySet Name="StartFile" EntityType="Self.StartFile" />
           <EntitySet Name="StartPlace" EntityType="Self.StartPlace" />
@@ -1839,14 +1856,6 @@
             <End Role="Factory" EntitySet="Factory" />
             <End Role="CheckCollect" EntitySet="CheckCollect" />
           </AssociationSet>
-          <AssociationSet Name="FK_CheckItem_ReportManage" Association="Self.FK_CheckItem_ReportManage">
-            <End Role="ReportManage" EntitySet="ReportManage" />
-            <End Role="CheckItem" EntitySet="CheckItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DoubleCheck_ReportManage" Association="Self.FK_DoubleCheck_ReportManage">
-            <End Role="ReportManage" EntitySet="ReportManage" />
-            <End Role="DoubleCheck" EntitySet="DoubleCheck" />
-          </AssociationSet>
           <AssociationSet Name="FK__Employee__employ__61316BF4" Association="Self.FK__Employee__employ__61316BF4">
             <End Role="WorkInfo" EntitySet="WorkInfo" />
             <End Role="Employee" EntitySet="Employee" />
@@ -1863,10 +1872,6 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="InspectPerson" EntitySet="InspectPerson" />
           </AssociationSet>
-          <AssociationSet Name="FK_ReportManage_Employee" Association="Self.FK_ReportManage_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="ReportManage" EntitySet="ReportManage" />
-          </AssociationSet>
           <AssociationSet Name="FK__StartPlac__start__093F5D4E" Association="Self.FK__StartPlac__start__093F5D4E">
             <End Role="Factory" EntitySet="Factory" />
             <End Role="StartPlace" EntitySet="StartPlace" />
@@ -1878,14 +1883,6 @@
           <AssociationSet Name="FK__Program__program__6BAEFA67" Association="Self.FK__Program__program__6BAEFA67">
             <End Role="WorkInfo" EntitySet="WorkInfo" />
             <End Role="Program" EntitySet="Program" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ReportFile_ReportManage" Association="Self.FK_ReportFile_ReportManage">
-            <End Role="ReportManage" EntitySet="ReportManage" />
-            <End Role="ReportFile" EntitySet="ReportFile" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ReportManage_StartCheck" Association="Self.FK_ReportManage_StartCheck">
-            <End Role="StartCheck" EntitySet="StartCheck" />
-            <End Role="ReportManage" EntitySet="ReportManage" />
           </AssociationSet>
           <AssociationSet Name="FK__StartFile__start__0D0FEE32" Association="Self.FK__StartFile__start__0D0FEE32">
             <End Role="StartCheck" EntitySet="StartCheck" />
@@ -1919,27 +1916,6 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="ReportCheckItem" EntitySet="ReportCheckItem" />
           </AssociationSet>
-          <EntitySet Name="Book" EntityType="HealthCheckModel.Book" />
-          <AssociationSet Name="FK__book__book_hospi__178D7CA5" Association="HealthCheckModel.FK__book__book_hospi__178D7CA5">
-            <End Role="Hospital" EntitySet="Hospital" />
-            <End Role="Book" EntitySet="Book" />
-          </AssociationSet>
-          <AssociationSet Name="FK__book__book_Notic__1A69E950" Association="HealthCheckModel.FK__book__book_Notic__1A69E950">
-            <End Role="HealthNotice" EntitySet="HealthNotice" />
-            <End Role="Book" EntitySet="Book" />
-          </AssociationSet>
-          <AssociationSet Name="FK__book__book_Progr__1881A0DE" Association="HealthCheckModel.FK__book__book_Progr__1881A0DE">
-            <End Role="Program" EntitySet="Program" />
-            <End Role="Book" EntitySet="Book" />
-          </AssociationSet>
-          <AssociationSet Name="FK__book__book_speci__1975C517" Association="HealthCheckModel.FK__book__book_speci__1975C517">
-            <End Role="Program" EntitySet="Program" />
-            <End Role="Book" EntitySet="Book" />
-          </AssociationSet>
-          <AssociationSet Name="FK__book__book_workN__1699586C" Association="HealthCheckModel.FK__book__book_workN__1699586C">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Book" EntitySet="Book" />
-          </AssociationSet>
           <EntitySet Name="StartHand" EntityType="HealthCheckModel.StartHand" />
           <AssociationSet Name="FK__StartHand__start__13BCEBC1" Association="HealthCheckModel.FK__StartHand__start__13BCEBC1">
             <End Role="Employee" EntitySet="Employee" />
@@ -1949,10 +1925,53 @@
             <End Role="StartCheck" EntitySet="StartCheck" />
             <End Role="StartHand" EntitySet="StartHand" />
           </AssociationSet>
-          <EntitySet Name="VW_BookEmp" EntityType="HealthCheckModel.VW_BookEmp" />
           <EntitySet Name="VW_EmpAuth" EntityType="HealthCheckModel.VW_EmpAuth" />
           <EntitySet Name="VW_HospitalProgram" EntityType="HealthCheckModel.VW_HospitalProgram" />
-          <EntitySet Name="database_firewall_rules" EntityType="HealthCheckModel.database_firewall_rules" />
+          <EntitySet Name="ReportManage" EntityType="HealthCheckModel.ReportManage" />
+          <AssociationSet Name="FK_CheckItem_ReportManage" Association="HealthCheckModel.FK_CheckItem_ReportManage">
+            <End Role="ReportManage" EntitySet="ReportManage" />
+            <End Role="CheckItem" EntitySet="CheckItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoubleCheck_ReportManage" Association="HealthCheckModel.FK_DoubleCheck_ReportManage">
+            <End Role="ReportManage" EntitySet="ReportManage" />
+            <End Role="DoubleCheck" EntitySet="DoubleCheck" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportManage_Employee" Association="HealthCheckModel.FK_ReportManage_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="ReportManage" EntitySet="ReportManage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportManage_ReportCheckItem" Association="HealthCheckModel.FK_ReportManage_ReportCheckItem">
+            <End Role="ReportCheckItem" EntitySet="ReportCheckItem" />
+            <End Role="ReportManage" EntitySet="ReportManage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportFile_ReportManage" Association="HealthCheckModel.FK_ReportFile_ReportManage">
+            <End Role="ReportManage" EntitySet="ReportManage" />
+            <End Role="ReportFile" EntitySet="ReportFile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportManage_StartCheck" Association="HealthCheckModel.FK_ReportManage_StartCheck">
+            <End Role="StartCheck" EntitySet="StartCheck" />
+            <End Role="ReportManage" EntitySet="ReportManage" />
+          </AssociationSet>
+          <EntitySet Name="VW_EmpAuthFa" EntityType="HealthCheckModel.VW_EmpAuthFa" />
+          <EntitySet Name="book" EntityType="HealthCheckModel.Book" />
+          <AssociationSet Name="FK__book__book_hospi__178D7CA5" Association="HealthCheckModel.FK__book__book_hospi__178D7CA5">
+            <End Role="Hospital" EntitySet="Hospital" />
+            <End Role="book" EntitySet="book" />
+          </AssociationSet>
+          <AssociationSet Name="FK__book__book_Notic__1A69E950" Association="HealthCheckModel.FK__book__book_Notic__1A69E950">
+            <End Role="HealthNotice" EntitySet="HealthNotice" />
+            <End Role="book" EntitySet="book" />
+          </AssociationSet>
+          <AssociationSet Name="FK__book__book_Progr__1881A0DE" Association="HealthCheckModel.FK__book__book_Progr__1881A0DE">
+            <End Role="Program" EntitySet="Program" />
+            <End Role="book" EntitySet="book" />
+          </AssociationSet>
+          <AssociationSet Name="FK__book__book_workN__1699586C" Association="HealthCheckModel.FK__book__book_workN__1699586C">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="book" EntitySet="book" />
+          </AssociationSet>
+          <EntitySet Name="vReportCheck" EntityType="HealthCheckModel.vReportCheck" />
+          <EntitySet Name="VW_BookEmp" EntityType="HealthCheckModel.VW_BookEmp" />
           </EntityContainer>
         <EntityType Name="HospitalProgramFile">
           <Key>
@@ -2100,8 +2119,8 @@
           </Key>
           <Property Name="ReportCheckItem_reportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ReportCheckItem_employee_workNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="ReportCheckItem_checkDate" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="ReportCheckItem_checkYear" Type="Int32" Nullable="false" />
+          <Property Name="ReportCheckItem_checkDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ReportCheckItem_checkYear" Type="Int32" />
           <Property Name="ReportCheckItem_generalComment_1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ReportCheckItem_generalComment_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ReportCheckItem_generalComment_3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -2129,6 +2148,7 @@
           <Property Name="ReportCheckItem_WaistValue" Type="Double" />
           <Property Name="ReportCheckItem_WaistIsPass" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Employee" Relationship="HealthCheckModel.FK__ReportChe__Repor__2D47B39A" FromRole="ReportCheckItem" ToRole="Employee" />
+          <NavigationProperty Name="ReportManage" Relationship="HealthCheckModel.FK_ReportManage_ReportCheckItem" FromRole="ReportCheckItem" ToRole="ReportManage" />
         </EntityType>
         <Association Name="FK__ReportChe__Repor__2D47B39A">
           <End Type="HealthCheckModel.Employee" Role="Employee" Multiplicity="1" />
@@ -2139,100 +2159,6 @@
             </Principal>
             <Dependent Role="ReportCheckItem">
               <PropertyRef Name="ReportCheckItem_employee_workNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Book">
-          <Key>
-            <PropertyRef Name="book_id" />
-          </Key>
-          <Property Name="book_id" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="book_workNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="book_mobile" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="book_state" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="book_Date" Type="DateTime" Precision="0" />
-          <Property Name="book_hospitalId" Type="Int32" Nullable="false" />
-          <Property Name="book_ProgramId" Type="Int32" Nullable="false" />
-          <Property Name="book_special" Type="Int32" />
-          <Property Name="book_exceptDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="book_healthDate" Type="DateTime" Precision="0" />
-          <Property Name="book_costDate" Type="DateTime" Precision="0" />
-          <Property Name="book_cost" Type="Int32" />
-          <Property Name="book_note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="book_Notice" Type="Int32" />
-          <Property Name="book_medicalHistory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="book_EatAspririn" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="book_IsAllergy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="book_IsDisable" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="book_updateUser" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
-          <Property Name="book_updateDate" Type="DateTime" Precision="0" />
-          <Property Name="book_welfare" Type="Int32" />
-          <Property Name="book_host" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
-          <Property Name="book_hostTime" Type="DateTime" Precision="3" />
-          <Property Name="book_serialNumber" Type="Int32" />
-          <NavigationProperty Name="Hospital" Relationship="HealthCheckModel.FK__book__book_hospi__178D7CA5" FromRole="Book" ToRole="Hospital" />
-          <NavigationProperty Name="HealthNotice" Relationship="HealthCheckModel.FK__book__book_Notic__1A69E950" FromRole="Book" ToRole="HealthNotice" />
-          <NavigationProperty Name="Program" Relationship="HealthCheckModel.FK__book__book_Progr__1881A0DE" FromRole="Book" ToRole="Program" />
-          <NavigationProperty Name="Program1" Relationship="HealthCheckModel.FK__book__book_speci__1975C517" FromRole="Book" ToRole="Program" />
-          <NavigationProperty Name="Employee" Relationship="HealthCheckModel.FK__book__book_workN__1699586C" FromRole="Book" ToRole="Employee" />
-        </EntityType>
-        <Association Name="FK__book__book_hospi__178D7CA5">
-          <End Type="HealthCheckModel.Hospital" Role="Hospital" Multiplicity="1" />
-          <End Type="HealthCheckModel.Book" Role="Book" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Hospital">
-              <PropertyRef Name="hospital_hospitalId" />
-            </Principal>
-            <Dependent Role="Book">
-              <PropertyRef Name="book_hospitalId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__book__book_Notic__1A69E950">
-          <End Type="HealthCheckModel.HealthNotice" Role="HealthNotice" Multiplicity="0..1" />
-          <End Type="HealthCheckModel.Book" Role="Book" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HealthNotice">
-              <PropertyRef Name="notice_id" />
-            </Principal>
-            <Dependent Role="Book">
-              <PropertyRef Name="book_Notice" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__book__book_Progr__1881A0DE">
-          <End Type="HealthCheckModel.Program" Role="Program" Multiplicity="1" />
-          <End Type="HealthCheckModel.Book" Role="Book" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Program">
-              <PropertyRef Name="program_programId" />
-            </Principal>
-            <Dependent Role="Book">
-              <PropertyRef Name="book_ProgramId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__book__book_speci__1975C517">
-          <End Type="HealthCheckModel.Program" Role="Program" Multiplicity="0..1" />
-          <End Type="HealthCheckModel.Book" Role="Book" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Program">
-              <PropertyRef Name="program_programId" />
-            </Principal>
-            <Dependent Role="Book">
-              <PropertyRef Name="book_special" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__book__book_workN__1699586C">
-          <End Type="HealthCheckModel.Employee" Role="Employee" Multiplicity="0..1" />
-          <End Type="HealthCheckModel.Book" Role="Book" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="employee_workNumber" />
-            </Principal>
-            <Dependent Role="Book">
-              <PropertyRef Name="book_workNumber" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2250,6 +2176,7 @@
           <Property Name="startHand_updateTime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Employee" Relationship="HealthCheckModel.FK__StartHand__start__13BCEBC1" FromRole="StartHand" ToRole="Employee" />
           <NavigationProperty Name="StartCheck" Relationship="HealthCheckModel.FK__StartHand__start__12C8C788" FromRole="StartHand" ToRole="StartCheck" />
+          <Property Name="startHand_sendMailTime" Type="DateTime" Precision="0" />
         </EntityType>
         <Association Name="FK__StartHand__start__13BCEBC1">
           <End Type="HealthCheckModel.Employee" Role="Employee" Multiplicity="0..1" />
@@ -2275,94 +2202,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="VW_BookEmp">
-          <Key>
-            <PropertyRef Name="book_Id" />
-            <PropertyRef Name="book_ProgramId" />
-            <PropertyRef Name="book_hospitalId" />
-            <PropertyRef Name="employee_workNumber" />
-            <PropertyRef Name="employee_workId" />
-            <PropertyRef Name="employee_name" />
-            <PropertyRef Name="employee_identityCard" />
-            <PropertyRef Name="employee_blood" />
-            <PropertyRef Name="employee_gender" />
-            <PropertyRef Name="employee_dateOfBirth" />
-            <PropertyRef Name="employee_age" />
-            <PropertyRef Name="employee_groupId" />
-            <PropertyRef Name="employee_corporation" />
-            <PropertyRef Name="employee_team" />
-            <PropertyRef Name="employee_factoryId" />
-            <PropertyRef Name="employee_jobTitle" />
-            <PropertyRef Name="employee_department" />
-            <PropertyRef Name="employee_homeSite" />
-            <PropertyRef Name="employee_IsAbroad" />
-            <PropertyRef Name="employee_IaborId" />
-            <PropertyRef Name="employee_laborInsurance" />
-            <PropertyRef Name="employee_comingDate" />
-            <PropertyRef Name="employee_accFactory" />
-            <PropertyRef Name="employee_mailingAddress" />
-            <PropertyRef Name="employee_cellphone" />
-            <PropertyRef Name="employee_email" />
-            <PropertyRef Name="employee_isDisabled" />
-          </Key>
-          <Property Name="book_Id" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="book_serialNumber" Type="Int32" />
-          <Property Name="book_hostTime" Type="DateTime" Precision="3" />
-          <Property Name="book_host" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
-          <Property Name="book_welfare" Type="Int32" />
-          <Property Name="book_updateDate" Type="DateTime" Precision="0" />
-          <Property Name="book_updateUser" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
-          <Property Name="book_IsDisable" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="book_IsAllergy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="book_EatAspririn" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="book_medicalHistory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="book_Notice" Type="Int32" />
-          <Property Name="book_note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="book_cost" Type="Int32" />
-          <Property Name="book_costDate" Type="DateTime" Precision="0" />
-          <Property Name="book_healthDate" Type="DateTime" Precision="0" />
-          <Property Name="book_exceptDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="book_special" Type="Int32" />
-          <Property Name="book_ProgramId" Type="Int32" Nullable="false" />
-          <Property Name="book_hospitalId" Type="Int32" Nullable="false" />
-          <Property Name="book_Date" Type="DateTime" Precision="0" />
-          <Property Name="book_state" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="book_mobile" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="employee_workNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="employee_workId" Type="Int32" Nullable="false" />
-          <Property Name="employee_name" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="employee_identityCard" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="employee_blood" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="employee_gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
-          <Property Name="employee_dateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="employee_age" Type="Int32" Nullable="false" />
-          <Property Name="employee_groupId" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
-          <Property Name="employee_corporation" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="employee_team" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="employee_factoryId" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="employee_jobTitle" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="employee_department" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="employee_managerDate" Type="DateTime" Precision="0" />
-          <Property Name="employee_homeSite" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="employee_IsAbroad" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="true" />
-          <Property Name="employee_IaborId" Type="String" Nullable="false" MaxLength="9" FixedLength="true" Unicode="false" />
-          <Property Name="employee_laborInsurance" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="employee_comingDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="employee_quitDate" Type="DateTime" Precision="0" />
-          <Property Name="employee_accFactory" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="employee_mailingAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="employee_cellphone" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
-          <Property Name="employee_home" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
-          <Property Name="employee_email" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="employee_reportAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="employee_reportMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="employee_note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="employee_changedDate" Type="DateTime" Precision="3" />
-          <Property Name="employee_isDisabled" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="employee_username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="employee_password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="employee_role" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-        </EntityType>
         <EntityType Name="VW_EmpAuth">
           <Key>
             <PropertyRef Name="employee_workNumber" />
@@ -2439,6 +2278,7 @@
             <PropertyRef Name="hospital_phone" />
             <PropertyRef Name="hospital_uniform" />
             <PropertyRef Name="work_name" />
+            <PropertyRef Name="hospital_hospitalId" />
           </Key>
           <Property Name="program_programId" Type="Int32" Nullable="false" />
           <Property Name="hospital_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -2457,22 +2297,374 @@
           <Property Name="program_state" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="program_updateuser" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
           <Property Name="program_updatetime" Type="DateTime" Precision="3" />
+          <Property Name="hospital_hospitalId" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="database_firewall_rules">
+        <EntityType Name="ReportManage">
           <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="start_ip_address" />
-            <PropertyRef Name="end_ip_address" />
-            <PropertyRef Name="create_date" />
-            <PropertyRef Name="modify_date" />
+            <PropertyRef Name="ReportManage_id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="start_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="end_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ReportManage_id" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="ReportManage_workNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ReportManage_startId" Type="Int32" />
+          <Property Name="ReportManage_hospitalId" Type="Int32" />
+          <Property Name="ReportManage_programId" Type="Int32" Nullable="false" />
+          <Property Name="ReportManage_medicalRecord" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="ReportManage_healthDate" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="ReportManage_corporation" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="ReportManage_IsdoubleCheck" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ReportManage_hw" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReportManage_pastHistory" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ReportManage_symptoms" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReportManage_notes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReportManage_IsDisable" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ReportManage_doubleId" Type="Int32" />
+          <Property Name="ReportManage_updateUser" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ReportManage_updateTime" Type="DateTime" Precision="3" />
+          <Property Name="generalComment_1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="generalComment_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="generalComment_3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="generalComment_4" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="generalComment_5" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="generalComment_6" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="generalComment_7" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="generalComment_8" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="generalComment_9" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="generalComment_10" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="generalComment_11" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="generalComment_12" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="generalComment_13" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="generalComment_14" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="generalComment_15" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="generalComment_16" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="generalComment_17" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportManage_serialNumber" Type="Int32" Nullable="false" />
+          <Property Name="report_id" Type="Int32" />
+          <NavigationProperty Name="CheckItem" Relationship="HealthCheckModel.FK_CheckItem_ReportManage" FromRole="ReportManage" ToRole="CheckItem" />
+          <NavigationProperty Name="DoubleCheck" Relationship="HealthCheckModel.FK_DoubleCheck_ReportManage" FromRole="ReportManage" ToRole="DoubleCheck" />
+          <NavigationProperty Name="Employee" Relationship="HealthCheckModel.FK_ReportManage_Employee" FromRole="ReportManage" ToRole="Employee" />
+          <NavigationProperty Name="ReportCheckItem" Relationship="HealthCheckModel.FK_ReportManage_ReportCheckItem" FromRole="ReportManage" ToRole="ReportCheckItem" />
+          <NavigationProperty Name="ReportFile" Relationship="HealthCheckModel.FK_ReportFile_ReportManage" FromRole="ReportManage" ToRole="ReportFile" />
+          <NavigationProperty Name="StartCheck" Relationship="HealthCheckModel.FK_ReportManage_StartCheck" FromRole="ReportManage" ToRole="StartCheck" />
+        </EntityType>
+        <Association Name="FK_CheckItem_ReportManage">
+          <End Type="HealthCheckModel.ReportManage" Role="ReportManage" Multiplicity="0..1" />
+          <End Type="HealthCheckModel.CheckItem" Role="CheckItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportManage">
+              <PropertyRef Name="ReportManage_id" />
+            </Principal>
+            <Dependent Role="CheckItem">
+              <PropertyRef Name="checkItem_reportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoubleCheck_ReportManage">
+          <End Type="HealthCheckModel.ReportManage" Role="ReportManage" Multiplicity="0..1" />
+          <End Type="HealthCheckModel.DoubleCheck" Role="DoubleCheck" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportManage">
+              <PropertyRef Name="ReportManage_id" />
+            </Principal>
+            <Dependent Role="DoubleCheck">
+              <PropertyRef Name="doubleCheck_reportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportManage_Employee">
+          <End Type="HealthCheckModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="HealthCheckModel.ReportManage" Role="ReportManage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="employee_workNumber" />
+            </Principal>
+            <Dependent Role="ReportManage">
+              <PropertyRef Name="ReportManage_workNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportManage_ReportCheckItem">
+          <End Type="HealthCheckModel.ReportCheckItem" Role="ReportCheckItem" Multiplicity="0..1" />
+          <End Type="HealthCheckModel.ReportManage" Role="ReportManage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportCheckItem">
+              <PropertyRef Name="ReportCheckItem_reportId" />
+            </Principal>
+            <Dependent Role="ReportManage">
+              <PropertyRef Name="report_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportFile_ReportManage">
+          <End Type="HealthCheckModel.ReportManage" Role="ReportManage" Multiplicity="0..1" />
+          <End Type="HealthCheckModel.ReportFile" Role="ReportFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReportManage">
+              <PropertyRef Name="ReportManage_id" />
+            </Principal>
+            <Dependent Role="ReportFile">
+              <PropertyRef Name="reportFile_reportId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportManage_StartCheck">
+          <End Type="HealthCheckModel.StartCheck" Role="StartCheck" Multiplicity="0..1" />
+          <End Type="HealthCheckModel.ReportManage" Role="ReportManage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StartCheck">
+              <PropertyRef Name="Start_id" />
+            </Principal>
+            <Dependent Role="ReportManage">
+              <PropertyRef Name="ReportManage_startId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="VW_EmpAuthFa">
+          <Key>
+            <PropertyRef Name="employee_workNumber" />
+            <PropertyRef Name="employee_name" />
+            <PropertyRef Name="employee_isDisabled" />
+            <PropertyRef Name="authority_factoryId" />
+            <PropertyRef Name="factory_id" />
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="employee_workNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="employee_role" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="employee_name" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="employee_username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="employee_isDisabled" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="authority_factoryId" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="authority_IsDisable" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="factory_area" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="factory_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="factory_id" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="book_id" />
+          </Key>
+          <Property Name="book_id" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="book_workNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="book_mobile" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="book_state" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="book_Date" Type="DateTime" Precision="0" />
+          <Property Name="book_hospitalId" Type="Int32" Nullable="false" />
+          <Property Name="book_ProgramId" Type="Int32" Nullable="false" />
+          <Property Name="book_special" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="book_exceptDate1" Type="DateTime" Precision="3" />
+          <Property Name="book_exceptDate2" Type="DateTime" Precision="3" />
+          <Property Name="book_exceptDate3" Type="DateTime" Precision="3" />
+          <Property Name="book_healthDate" Type="DateTime" Precision="0" />
+          <Property Name="book_costDate" Type="DateTime" Precision="0" />
+          <Property Name="book_cost" Type="Int32" />
+          <Property Name="book_note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="book_Notice" Type="Int32" />
+          <Property Name="book_medicalHistory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="book_EatAspririn" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="book_IsAllergy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="book_IsDisable" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="book_updateUser" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="book_updateDate" Type="DateTime" Precision="0" />
+          <Property Name="book_welfare" Type="Int32" />
+          <Property Name="book_host" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="book_hostTime" Type="DateTime" Precision="3" />
+          <Property Name="book_serialNumber" Type="Int32" />
+          <Property Name="book_noticeaddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="book_cellphone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="book_year" Type="Int32" />
+          <NavigationProperty Name="Hospital" Relationship="HealthCheckModel.FK__book__book_hospi__178D7CA5" FromRole="book" ToRole="Hospital" />
+          <NavigationProperty Name="HealthNotice" Relationship="HealthCheckModel.FK__book__book_Notic__1A69E950" FromRole="book" ToRole="HealthNotice" />
+          <NavigationProperty Name="Program" Relationship="HealthCheckModel.FK__book__book_Progr__1881A0DE" FromRole="book" ToRole="Program" />
+          <NavigationProperty Name="Employee" Relationship="HealthCheckModel.FK__book__book_workN__1699586C" FromRole="book" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK__book__book_hospi__178D7CA5">
+          <End Type="HealthCheckModel.Hospital" Role="Hospital" Multiplicity="1" />
+          <End Type="HealthCheckModel.Book" Role="book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospital">
+              <PropertyRef Name="hospital_hospitalId" />
+            </Principal>
+            <Dependent Role="book">
+              <PropertyRef Name="book_hospitalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__book__book_Notic__1A69E950">
+          <End Type="HealthCheckModel.HealthNotice" Role="HealthNotice" Multiplicity="0..1" />
+          <End Type="HealthCheckModel.Book" Role="book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HealthNotice">
+              <PropertyRef Name="notice_id" />
+            </Principal>
+            <Dependent Role="book">
+              <PropertyRef Name="book_Notice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__book__book_Progr__1881A0DE">
+          <End Type="HealthCheckModel.Program" Role="Program" Multiplicity="1" />
+          <End Type="HealthCheckModel.Book" Role="book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Program">
+              <PropertyRef Name="program_programId" />
+            </Principal>
+            <Dependent Role="book">
+              <PropertyRef Name="book_ProgramId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__book__book_workN__1699586C">
+          <End Type="HealthCheckModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="HealthCheckModel.Book" Role="book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="employee_workNumber" />
+            </Principal>
+            <Dependent Role="book">
+              <PropertyRef Name="book_workNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="vReportCheck">
+          <Key>
+            <PropertyRef Name="ReportManage_id" />
+            <PropertyRef Name="ReportManage_workNumber" />
+            <PropertyRef Name="ReportManage_programId" />
+            <PropertyRef Name="ReportCheckItem_employee_workNumber" />
+          </Key>
+          <Property Name="ReportManage_id" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="ReportManage_workNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ReportManage_startId" Type="Int32" />
+          <Property Name="ReportManage_hospitalId" Type="Int32" />
+          <Property Name="ReportManage_programId" Type="Int32" Nullable="false" />
+          <Property Name="ReportManage_medicalRecord" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="ReportManage_notes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReportManage_IsDisable" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ReportManage_updateUser" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ReportManage_updateTime" Type="DateTime" Precision="3" />
+          <Property Name="report_id" Type="Int32" />
+          <Property Name="ReportCheckItem_employee_workNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_checkDate" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="checkYear" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="ReportCheckItem_generalComment_1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_generalComment_2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_generalComment_3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_generalComment_4" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_generalComment_5" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_generalComment_6" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_generalComment_7" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_generalComment_8" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_generalComment_9" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_generalComment_10" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_generalComment_11" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_generalComment_12" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_generalComment_13" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_generalComment_14" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_generalComment_15" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_generalComment_16" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_generalComment_17" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_hw" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_pastHistory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_symptoms" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ReportCheckItem_HeightValue" Type="Double" />
+          <Property Name="ReportCheckItem_HVIsPass" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ReportCheckItem_WeightValue" Type="Double" />
+          <Property Name="ReportCheckItem_WVIsPass" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ReportCheckItem_WaistValue" Type="Double" />
+          <Property Name="ReportCheckItem_WaistIsPass" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VW_BookEmp">
+          <Key>
+            <PropertyRef Name="book_Id" />
+            <PropertyRef Name="book_ProgramId" />
+            <PropertyRef Name="book_hospitalId" />
+            <PropertyRef Name="employee_workNumber" />
+            <PropertyRef Name="employee_workId" />
+            <PropertyRef Name="employee_name" />
+            <PropertyRef Name="employee_identityCard" />
+            <PropertyRef Name="employee_blood" />
+            <PropertyRef Name="employee_gender" />
+            <PropertyRef Name="employee_dateOfBirth" />
+            <PropertyRef Name="employee_age" />
+            <PropertyRef Name="employee_groupId" />
+            <PropertyRef Name="employee_corporation" />
+            <PropertyRef Name="employee_team" />
+            <PropertyRef Name="employee_factoryId" />
+            <PropertyRef Name="employee_jobTitle" />
+            <PropertyRef Name="employee_department" />
+            <PropertyRef Name="employee_homeSite" />
+            <PropertyRef Name="employee_IsAbroad" />
+            <PropertyRef Name="employee_IaborId" />
+            <PropertyRef Name="employee_laborInsurance" />
+            <PropertyRef Name="employee_comingDate" />
+            <PropertyRef Name="employee_accFactory" />
+            <PropertyRef Name="employee_mailingAddress" />
+            <PropertyRef Name="employee_cellphone" />
+            <PropertyRef Name="employee_email" />
+            <PropertyRef Name="employee_isDisabled" />
+          </Key>
+          <Property Name="book_Id" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="book_serialNumber" Type="Int32" />
+          <Property Name="book_hostTime" Type="DateTime" Precision="3" />
+          <Property Name="book_host" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="book_welfare" Type="Int32" />
+          <Property Name="book_updateDate" Type="DateTime" Precision="0" />
+          <Property Name="book_updateUser" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="book_IsDisable" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="book_IsAllergy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="book_EatAspririn" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="book_medicalHistory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="book_Notice" Type="Int32" />
+          <Property Name="book_note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="book_cost" Type="Int32" />
+          <Property Name="book_costDate" Type="DateTime" Precision="0" />
+          <Property Name="book_healthDate" Type="DateTime" Precision="0" />
+          <Property Name="book_exceptDate1" Type="DateTime" Precision="3" />
+          <Property Name="book_exceptDate2" Type="DateTime" Precision="3" />
+          <Property Name="book_exceptDate3" Type="DateTime" Precision="3" />
+          <Property Name="book_special" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="book_ProgramId" Type="Int32" Nullable="false" />
+          <Property Name="book_hospitalId" Type="Int32" Nullable="false" />
+          <Property Name="book_Date" Type="DateTime" Precision="0" />
+          <Property Name="book_state" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="book_mobile" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="employee_workNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="employee_workId" Type="Int32" Nullable="false" />
+          <Property Name="employee_name" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="employee_identityCard" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="employee_blood" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="employee_gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="employee_dateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="employee_age" Type="Int32" Nullable="false" />
+          <Property Name="employee_groupId" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="employee_corporation" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="employee_team" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="employee_factoryId" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="employee_jobTitle" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="employee_department" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="employee_managerDate" Type="DateTime" Precision="0" />
+          <Property Name="employee_homeSite" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="employee_IsAbroad" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="true" />
+          <Property Name="employee_IaborId" Type="String" Nullable="false" MaxLength="9" FixedLength="true" Unicode="false" />
+          <Property Name="employee_laborInsurance" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="employee_comingDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="employee_quitDate" Type="DateTime" Precision="0" />
+          <Property Name="employee_accFactory" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="employee_mailingAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="employee_cellphone" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="employee_home" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="employee_email" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="employee_reportAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="employee_reportMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="employee_note" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="employee_changedDate" Type="DateTime" Precision="3" />
+          <Property Name="employee_isDisabled" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="employee_username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="employee_password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="employee_role" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="book_cellphone" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="book_noticeaddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="book_year" Type="Int32" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2653,50 +2845,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ReportManage">
-            <EntityTypeMapping TypeName="HealthCheckModel.ReportManage">
-              <MappingFragment StoreEntitySet="ReportManage">
-                <ScalarProperty Name="ReportManage_id" ColumnName="ReportManage_id" />
-                <ScalarProperty Name="ReportManage_workNumber" ColumnName="ReportManage_workNumber" />
-                <ScalarProperty Name="ReportManage_startId" ColumnName="ReportManage_startId" />
-                <ScalarProperty Name="ReportManage_hospitalId" ColumnName="ReportManage_hospitalId" />
-                <ScalarProperty Name="ReportManage_programId" ColumnName="ReportManage_programId" />
-                <ScalarProperty Name="ReportManage_medicalRecord" ColumnName="ReportManage_medicalRecord" />
-                <ScalarProperty Name="ReportManage_healthDate" ColumnName="ReportManage_healthDate" />
-                <ScalarProperty Name="ReportManage_corporation" ColumnName="ReportManage_corporation" />
-                <ScalarProperty Name="ReportManage_IsdoubleCheck" ColumnName="ReportManage_IsdoubleCheck" />
-                <ScalarProperty Name="ReportManage_hw" ColumnName="ReportManage_hw" />
-                <ScalarProperty Name="ReportManage_pastHistory" ColumnName="ReportManage_pastHistory" />
-                <ScalarProperty Name="ReportManage_symptoms" ColumnName="ReportManage_symptoms" />
-                <ScalarProperty Name="ReportManage_notes" ColumnName="ReportManage_notes" />
-                <ScalarProperty Name="ReportManage_IsDisable" ColumnName="ReportManage_IsDisable" />
-                <ScalarProperty Name="ReportManage_doubleId" ColumnName="ReportManage_doubleId" />
-                <ScalarProperty Name="ReportManage_updateUser" ColumnName="ReportManage_updateUser" />
-                <ScalarProperty Name="ReportManage_updateTime" ColumnName="ReportManage_updateTime" />
-                <ScalarProperty Name="generalComment_1" ColumnName="generalComment_1" />
-                <ScalarProperty Name="generalComment_2" ColumnName="generalComment_2" />
-                <ScalarProperty Name="generalComment_3" ColumnName="generalComment_3" />
-                <ScalarProperty Name="generalComment_4" ColumnName="generalComment_4" />
-                <ScalarProperty Name="generalComment_5" ColumnName="generalComment_5" />
-                <ScalarProperty Name="generalComment_6" ColumnName="generalComment_6" />
-                <ScalarProperty Name="generalComment_7" ColumnName="generalComment_7" />
-                <ScalarProperty Name="generalComment_8" ColumnName="generalComment_8" />
-                <ScalarProperty Name="generalComment_9" ColumnName="generalComment_9" />
-                <ScalarProperty Name="generalComment_10" ColumnName="generalComment_10" />
-                <ScalarProperty Name="generalComment_11" ColumnName="generalComment_11" />
-                <ScalarProperty Name="generalComment_12" ColumnName="generalComment_12" />
-                <ScalarProperty Name="generalComment_13" ColumnName="generalComment_13" />
-                <ScalarProperty Name="generalComment_14" ColumnName="generalComment_14" />
-                <ScalarProperty Name="generalComment_15" ColumnName="generalComment_15" />
-                <ScalarProperty Name="generalComment_16" ColumnName="generalComment_16" />
-                <ScalarProperty Name="generalComment_17" ColumnName="generalComment_17" />
-                <ScalarProperty Name="ReportManage_serialNumber" ColumnName="ReportManage_serialNumber" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="StartCheck">
             <EntityTypeMapping TypeName="HealthCheckModel.StartCheck">
               <MappingFragment StoreEntitySet="StartCheck">
+                <ScalarProperty Name="start_healthCheckDate" ColumnName="start_healthCheckDate" />
                 <ScalarProperty Name="Start_id" ColumnName="Start_id" />
                 <ScalarProperty Name="start_year" ColumnName="start_year" />
                 <ScalarProperty Name="start_startDate" ColumnName="start_startDate" />
@@ -2855,39 +3007,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Book">
-            <EntityTypeMapping TypeName="HealthCheckModel.Book">
-              <MappingFragment StoreEntitySet="Book">
-                <ScalarProperty Name="book_serialNumber" ColumnName="book_serialNumber" />
-                <ScalarProperty Name="book_hostTime" ColumnName="book_hostTime" />
-                <ScalarProperty Name="book_host" ColumnName="book_host" />
-                <ScalarProperty Name="book_welfare" ColumnName="book_welfare" />
-                <ScalarProperty Name="book_updateDate" ColumnName="book_updateDate" />
-                <ScalarProperty Name="book_updateUser" ColumnName="book_updateUser" />
-                <ScalarProperty Name="book_IsDisable" ColumnName="book_IsDisable" />
-                <ScalarProperty Name="book_IsAllergy" ColumnName="book_IsAllergy" />
-                <ScalarProperty Name="book_EatAspririn" ColumnName="book_EatAspririn" />
-                <ScalarProperty Name="book_medicalHistory" ColumnName="book_medicalHistory" />
-                <ScalarProperty Name="book_Notice" ColumnName="book_Notice" />
-                <ScalarProperty Name="book_note" ColumnName="book_note" />
-                <ScalarProperty Name="book_cost" ColumnName="book_cost" />
-                <ScalarProperty Name="book_costDate" ColumnName="book_costDate" />
-                <ScalarProperty Name="book_healthDate" ColumnName="book_healthDate" />
-                <ScalarProperty Name="book_exceptDate" ColumnName="book_exceptDate" />
-                <ScalarProperty Name="book_special" ColumnName="book_special" />
-                <ScalarProperty Name="book_ProgramId" ColumnName="book_ProgramId" />
-                <ScalarProperty Name="book_hospitalId" ColumnName="book_hospitalId" />
-                <ScalarProperty Name="book_Date" ColumnName="book_Date" />
-                <ScalarProperty Name="book_state" ColumnName="book_state" />
-                <ScalarProperty Name="book_mobile" ColumnName="book_mobile" />
-                <ScalarProperty Name="book_workNumber" ColumnName="book_workNumber" />
-                <ScalarProperty Name="book_id" ColumnName="book_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="StartHand">
             <EntityTypeMapping TypeName="HealthCheckModel.StartHand">
               <MappingFragment StoreEntitySet="StartHand">
+                <ScalarProperty Name="startHand_sendMailTime" ColumnName="startHand_sendMailTime" />
                 <ScalarProperty Name="startHand_updateTime" ColumnName="startHand_updateTime" />
                 <ScalarProperty Name="standHand_updateUser" ColumnName="standHand_updateUser" />
                 <ScalarProperty Name="startHand_serialNumber" ColumnName="startHand_serialNumber" />
@@ -2896,69 +3019,6 @@
                 <ScalarProperty Name="startHand_workNumber" ColumnName="startHand_workNumber" />
                 <ScalarProperty Name="startHand_checkId" ColumnName="startHand_checkId" />
                 <ScalarProperty Name="startHand_id" ColumnName="startHand_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VW_BookEmp">
-            <EntityTypeMapping TypeName="HealthCheckModel.VW_BookEmp">
-              <MappingFragment StoreEntitySet="VW_BookEmp">
-                <ScalarProperty Name="employee_role" ColumnName="employee_role" />
-                <ScalarProperty Name="employee_password" ColumnName="employee_password" />
-                <ScalarProperty Name="employee_username" ColumnName="employee_username" />
-                <ScalarProperty Name="employee_isDisabled" ColumnName="employee_isDisabled" />
-                <ScalarProperty Name="employee_changedDate" ColumnName="employee_changedDate" />
-                <ScalarProperty Name="employee_note" ColumnName="employee_note" />
-                <ScalarProperty Name="employee_reportMobile" ColumnName="employee_reportMobile" />
-                <ScalarProperty Name="employee_reportAddress" ColumnName="employee_reportAddress" />
-                <ScalarProperty Name="employee_email" ColumnName="employee_email" />
-                <ScalarProperty Name="employee_home" ColumnName="employee_home" />
-                <ScalarProperty Name="employee_cellphone" ColumnName="employee_cellphone" />
-                <ScalarProperty Name="employee_mailingAddress" ColumnName="employee_mailingAddress" />
-                <ScalarProperty Name="employee_accFactory" ColumnName="employee_accFactory" />
-                <ScalarProperty Name="employee_quitDate" ColumnName="employee_quitDate" />
-                <ScalarProperty Name="employee_comingDate" ColumnName="employee_comingDate" />
-                <ScalarProperty Name="employee_laborInsurance" ColumnName="employee_laborInsurance" />
-                <ScalarProperty Name="employee_IaborId" ColumnName="employee_IaborId" />
-                <ScalarProperty Name="employee_IsAbroad" ColumnName="employee_IsAbroad" />
-                <ScalarProperty Name="employee_homeSite" ColumnName="employee_homeSite" />
-                <ScalarProperty Name="employee_managerDate" ColumnName="employee_managerDate" />
-                <ScalarProperty Name="employee_department" ColumnName="employee_department" />
-                <ScalarProperty Name="employee_jobTitle" ColumnName="employee_jobTitle" />
-                <ScalarProperty Name="employee_factoryId" ColumnName="employee_factoryId" />
-                <ScalarProperty Name="employee_team" ColumnName="employee_team" />
-                <ScalarProperty Name="employee_corporation" ColumnName="employee_corporation" />
-                <ScalarProperty Name="employee_groupId" ColumnName="employee_groupId" />
-                <ScalarProperty Name="employee_age" ColumnName="employee_age" />
-                <ScalarProperty Name="employee_dateOfBirth" ColumnName="employee_dateOfBirth" />
-                <ScalarProperty Name="employee_gender" ColumnName="employee_gender" />
-                <ScalarProperty Name="employee_blood" ColumnName="employee_blood" />
-                <ScalarProperty Name="employee_identityCard" ColumnName="employee_identityCard" />
-                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
-                <ScalarProperty Name="employee_workId" ColumnName="employee_workId" />
-                <ScalarProperty Name="employee_workNumber" ColumnName="employee_workNumber" />
-                <ScalarProperty Name="book_mobile" ColumnName="book_mobile" />
-                <ScalarProperty Name="book_state" ColumnName="book_state" />
-                <ScalarProperty Name="book_Date" ColumnName="book_Date" />
-                <ScalarProperty Name="book_hospitalId" ColumnName="book_hospitalId" />
-                <ScalarProperty Name="book_ProgramId" ColumnName="book_ProgramId" />
-                <ScalarProperty Name="book_special" ColumnName="book_special" />
-                <ScalarProperty Name="book_exceptDate" ColumnName="book_exceptDate" />
-                <ScalarProperty Name="book_healthDate" ColumnName="book_healthDate" />
-                <ScalarProperty Name="book_costDate" ColumnName="book_costDate" />
-                <ScalarProperty Name="book_cost" ColumnName="book_cost" />
-                <ScalarProperty Name="book_note" ColumnName="book_note" />
-                <ScalarProperty Name="book_Notice" ColumnName="book_Notice" />
-                <ScalarProperty Name="book_medicalHistory" ColumnName="book_medicalHistory" />
-                <ScalarProperty Name="book_EatAspririn" ColumnName="book_EatAspririn" />
-                <ScalarProperty Name="book_IsAllergy" ColumnName="book_IsAllergy" />
-                <ScalarProperty Name="book_IsDisable" ColumnName="book_IsDisable" />
-                <ScalarProperty Name="book_updateUser" ColumnName="book_updateUser" />
-                <ScalarProperty Name="book_updateDate" ColumnName="book_updateDate" />
-                <ScalarProperty Name="book_welfare" ColumnName="book_welfare" />
-                <ScalarProperty Name="book_host" ColumnName="book_host" />
-                <ScalarProperty Name="book_hostTime" ColumnName="book_hostTime" />
-                <ScalarProperty Name="book_serialNumber" ColumnName="book_serialNumber" />
-                <ScalarProperty Name="book_Id" ColumnName="book_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3008,6 +3068,7 @@
           <EntitySetMapping Name="VW_HospitalProgram">
             <EntityTypeMapping TypeName="HealthCheckModel.VW_HospitalProgram">
               <MappingFragment StoreEntitySet="VW_HospitalProgram">
+                <ScalarProperty Name="hospital_hospitalId" ColumnName="hospital_hospitalId" />
                 <ScalarProperty Name="program_updatetime" ColumnName="program_updatetime" />
                 <ScalarProperty Name="program_updateuser" ColumnName="program_updateuser" />
                 <ScalarProperty Name="program_state" ColumnName="program_state" />
@@ -3028,15 +3089,211 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="database_firewall_rules">
-            <EntityTypeMapping TypeName="HealthCheckModel.database_firewall_rules">
-              <MappingFragment StoreEntitySet="database_firewall_rules">
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
-                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
+          <EntitySetMapping Name="ReportManage">
+            <EntityTypeMapping TypeName="HealthCheckModel.ReportManage">
+              <MappingFragment StoreEntitySet="ReportManage">
+                <ScalarProperty Name="report_id" ColumnName="report_id" />
+                <ScalarProperty Name="ReportManage_serialNumber" ColumnName="ReportManage_serialNumber" />
+                <ScalarProperty Name="generalComment_17" ColumnName="generalComment_17" />
+                <ScalarProperty Name="generalComment_16" ColumnName="generalComment_16" />
+                <ScalarProperty Name="generalComment_15" ColumnName="generalComment_15" />
+                <ScalarProperty Name="generalComment_14" ColumnName="generalComment_14" />
+                <ScalarProperty Name="generalComment_13" ColumnName="generalComment_13" />
+                <ScalarProperty Name="generalComment_12" ColumnName="generalComment_12" />
+                <ScalarProperty Name="generalComment_11" ColumnName="generalComment_11" />
+                <ScalarProperty Name="generalComment_10" ColumnName="generalComment_10" />
+                <ScalarProperty Name="generalComment_9" ColumnName="generalComment_9" />
+                <ScalarProperty Name="generalComment_8" ColumnName="generalComment_8" />
+                <ScalarProperty Name="generalComment_7" ColumnName="generalComment_7" />
+                <ScalarProperty Name="generalComment_6" ColumnName="generalComment_6" />
+                <ScalarProperty Name="generalComment_5" ColumnName="generalComment_5" />
+                <ScalarProperty Name="generalComment_4" ColumnName="generalComment_4" />
+                <ScalarProperty Name="generalComment_3" ColumnName="generalComment_3" />
+                <ScalarProperty Name="generalComment_2" ColumnName="generalComment_2" />
+                <ScalarProperty Name="generalComment_1" ColumnName="generalComment_1" />
+                <ScalarProperty Name="ReportManage_updateTime" ColumnName="ReportManage_updateTime" />
+                <ScalarProperty Name="ReportManage_updateUser" ColumnName="ReportManage_updateUser" />
+                <ScalarProperty Name="ReportManage_doubleId" ColumnName="ReportManage_doubleId" />
+                <ScalarProperty Name="ReportManage_IsDisable" ColumnName="ReportManage_IsDisable" />
+                <ScalarProperty Name="ReportManage_notes" ColumnName="ReportManage_notes" />
+                <ScalarProperty Name="ReportManage_symptoms" ColumnName="ReportManage_symptoms" />
+                <ScalarProperty Name="ReportManage_pastHistory" ColumnName="ReportManage_pastHistory" />
+                <ScalarProperty Name="ReportManage_hw" ColumnName="ReportManage_hw" />
+                <ScalarProperty Name="ReportManage_IsdoubleCheck" ColumnName="ReportManage_IsdoubleCheck" />
+                <ScalarProperty Name="ReportManage_corporation" ColumnName="ReportManage_corporation" />
+                <ScalarProperty Name="ReportManage_healthDate" ColumnName="ReportManage_healthDate" />
+                <ScalarProperty Name="ReportManage_medicalRecord" ColumnName="ReportManage_medicalRecord" />
+                <ScalarProperty Name="ReportManage_programId" ColumnName="ReportManage_programId" />
+                <ScalarProperty Name="ReportManage_hospitalId" ColumnName="ReportManage_hospitalId" />
+                <ScalarProperty Name="ReportManage_startId" ColumnName="ReportManage_startId" />
+                <ScalarProperty Name="ReportManage_workNumber" ColumnName="ReportManage_workNumber" />
+                <ScalarProperty Name="ReportManage_id" ColumnName="ReportManage_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_EmpAuthFa">
+            <EntityTypeMapping TypeName="HealthCheckModel.VW_EmpAuthFa">
+              <MappingFragment StoreEntitySet="VW_EmpAuthFa">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="factory_id" ColumnName="factory_id" />
+                <ScalarProperty Name="factory_name" ColumnName="factory_name" />
+                <ScalarProperty Name="factory_area" ColumnName="factory_area" />
+                <ScalarProperty Name="authority_IsDisable" ColumnName="authority_IsDisable" />
+                <ScalarProperty Name="authority_factoryId" ColumnName="authority_factoryId" />
+                <ScalarProperty Name="employee_isDisabled" ColumnName="employee_isDisabled" />
+                <ScalarProperty Name="employee_username" ColumnName="employee_username" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="employee_role" ColumnName="employee_role" />
+                <ScalarProperty Name="employee_workNumber" ColumnName="employee_workNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="book">
+            <EntityTypeMapping TypeName="HealthCheckModel.Book">
+              <MappingFragment StoreEntitySet="book">
+                <ScalarProperty Name="book_year" ColumnName="book_year" />
+                <ScalarProperty Name="book_cellphone" ColumnName="book_cellphone" />
+                <ScalarProperty Name="book_noticeaddress" ColumnName="book_noticeaddress" />
+                <ScalarProperty Name="book_serialNumber" ColumnName="book_serialNumber" />
+                <ScalarProperty Name="book_hostTime" ColumnName="book_hostTime" />
+                <ScalarProperty Name="book_host" ColumnName="book_host" />
+                <ScalarProperty Name="book_welfare" ColumnName="book_welfare" />
+                <ScalarProperty Name="book_updateDate" ColumnName="book_updateDate" />
+                <ScalarProperty Name="book_updateUser" ColumnName="book_updateUser" />
+                <ScalarProperty Name="book_IsDisable" ColumnName="book_IsDisable" />
+                <ScalarProperty Name="book_IsAllergy" ColumnName="book_IsAllergy" />
+                <ScalarProperty Name="book_EatAspririn" ColumnName="book_EatAspririn" />
+                <ScalarProperty Name="book_medicalHistory" ColumnName="book_medicalHistory" />
+                <ScalarProperty Name="book_Notice" ColumnName="book_Notice" />
+                <ScalarProperty Name="book_note" ColumnName="book_note" />
+                <ScalarProperty Name="book_cost" ColumnName="book_cost" />
+                <ScalarProperty Name="book_costDate" ColumnName="book_costDate" />
+                <ScalarProperty Name="book_healthDate" ColumnName="book_healthDate" />
+                <ScalarProperty Name="book_exceptDate3" ColumnName="book_exceptDate3" />
+                <ScalarProperty Name="book_exceptDate2" ColumnName="book_exceptDate2" />
+                <ScalarProperty Name="book_exceptDate1" ColumnName="book_exceptDate1" />
+                <ScalarProperty Name="book_special" ColumnName="book_special" />
+                <ScalarProperty Name="book_ProgramId" ColumnName="book_ProgramId" />
+                <ScalarProperty Name="book_hospitalId" ColumnName="book_hospitalId" />
+                <ScalarProperty Name="book_Date" ColumnName="book_Date" />
+                <ScalarProperty Name="book_state" ColumnName="book_state" />
+                <ScalarProperty Name="book_mobile" ColumnName="book_mobile" />
+                <ScalarProperty Name="book_workNumber" ColumnName="book_workNumber" />
+                <ScalarProperty Name="book_id" ColumnName="book_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vReportCheck">
+            <EntityTypeMapping TypeName="HealthCheckModel.vReportCheck">
+              <MappingFragment StoreEntitySet="vReportCheck">
+                <ScalarProperty Name="ReportCheckItem_WaistIsPass" ColumnName="ReportCheckItem_WaistIsPass" />
+                <ScalarProperty Name="ReportCheckItem_WaistValue" ColumnName="ReportCheckItem_WaistValue" />
+                <ScalarProperty Name="ReportCheckItem_WVIsPass" ColumnName="ReportCheckItem_WVIsPass" />
+                <ScalarProperty Name="ReportCheckItem_WeightValue" ColumnName="ReportCheckItem_WeightValue" />
+                <ScalarProperty Name="ReportCheckItem_HVIsPass" ColumnName="ReportCheckItem_HVIsPass" />
+                <ScalarProperty Name="ReportCheckItem_HeightValue" ColumnName="ReportCheckItem_HeightValue" />
+                <ScalarProperty Name="ReportCheckItem_symptoms" ColumnName="ReportCheckItem_symptoms" />
+                <ScalarProperty Name="ReportCheckItem_pastHistory" ColumnName="ReportCheckItem_pastHistory" />
+                <ScalarProperty Name="ReportCheckItem_hw" ColumnName="ReportCheckItem_hw" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_17" ColumnName="ReportCheckItem_generalComment_17" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_16" ColumnName="ReportCheckItem_generalComment_16" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_15" ColumnName="ReportCheckItem_generalComment_15" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_14" ColumnName="ReportCheckItem_generalComment_14" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_13" ColumnName="ReportCheckItem_generalComment_13" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_12" ColumnName="ReportCheckItem_generalComment_12" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_11" ColumnName="ReportCheckItem_generalComment_11" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_10" ColumnName="ReportCheckItem_generalComment_10" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_9" ColumnName="ReportCheckItem_generalComment_9" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_8" ColumnName="ReportCheckItem_generalComment_8" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_7" ColumnName="ReportCheckItem_generalComment_7" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_6" ColumnName="ReportCheckItem_generalComment_6" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_5" ColumnName="ReportCheckItem_generalComment_5" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_4" ColumnName="ReportCheckItem_generalComment_4" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_3" ColumnName="ReportCheckItem_generalComment_3" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_2" ColumnName="ReportCheckItem_generalComment_2" />
+                <ScalarProperty Name="ReportCheckItem_generalComment_1" ColumnName="ReportCheckItem_generalComment_1" />
+                <ScalarProperty Name="checkYear" ColumnName="checkYear" />
+                <ScalarProperty Name="ReportCheckItem_checkDate" ColumnName="ReportCheckItem_checkDate" />
+                <ScalarProperty Name="ReportCheckItem_employee_workNumber" ColumnName="ReportCheckItem_employee_workNumber" />
+                <ScalarProperty Name="report_id" ColumnName="report_id" />
+                <ScalarProperty Name="ReportManage_updateTime" ColumnName="ReportManage_updateTime" />
+                <ScalarProperty Name="ReportManage_updateUser" ColumnName="ReportManage_updateUser" />
+                <ScalarProperty Name="ReportManage_IsDisable" ColumnName="ReportManage_IsDisable" />
+                <ScalarProperty Name="ReportManage_notes" ColumnName="ReportManage_notes" />
+                <ScalarProperty Name="ReportManage_medicalRecord" ColumnName="ReportManage_medicalRecord" />
+                <ScalarProperty Name="ReportManage_programId" ColumnName="ReportManage_programId" />
+                <ScalarProperty Name="ReportManage_hospitalId" ColumnName="ReportManage_hospitalId" />
+                <ScalarProperty Name="ReportManage_startId" ColumnName="ReportManage_startId" />
+                <ScalarProperty Name="ReportManage_workNumber" ColumnName="ReportManage_workNumber" />
+                <ScalarProperty Name="ReportManage_id" ColumnName="ReportManage_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_BookEmp">
+            <EntityTypeMapping TypeName="HealthCheckModel.VW_BookEmp">
+              <MappingFragment StoreEntitySet="VW_BookEmp">
+                <ScalarProperty Name="book_year" ColumnName="book_year" />
+                <ScalarProperty Name="book_noticeaddress" ColumnName="book_noticeaddress" />
+                <ScalarProperty Name="book_cellphone" ColumnName="book_cellphone" />
+                <ScalarProperty Name="employee_role" ColumnName="employee_role" />
+                <ScalarProperty Name="employee_password" ColumnName="employee_password" />
+                <ScalarProperty Name="employee_username" ColumnName="employee_username" />
+                <ScalarProperty Name="employee_isDisabled" ColumnName="employee_isDisabled" />
+                <ScalarProperty Name="employee_changedDate" ColumnName="employee_changedDate" />
+                <ScalarProperty Name="employee_note" ColumnName="employee_note" />
+                <ScalarProperty Name="employee_reportMobile" ColumnName="employee_reportMobile" />
+                <ScalarProperty Name="employee_reportAddress" ColumnName="employee_reportAddress" />
+                <ScalarProperty Name="employee_email" ColumnName="employee_email" />
+                <ScalarProperty Name="employee_home" ColumnName="employee_home" />
+                <ScalarProperty Name="employee_cellphone" ColumnName="employee_cellphone" />
+                <ScalarProperty Name="employee_mailingAddress" ColumnName="employee_mailingAddress" />
+                <ScalarProperty Name="employee_accFactory" ColumnName="employee_accFactory" />
+                <ScalarProperty Name="employee_quitDate" ColumnName="employee_quitDate" />
+                <ScalarProperty Name="employee_comingDate" ColumnName="employee_comingDate" />
+                <ScalarProperty Name="employee_laborInsurance" ColumnName="employee_laborInsurance" />
+                <ScalarProperty Name="employee_IaborId" ColumnName="employee_IaborId" />
+                <ScalarProperty Name="employee_IsAbroad" ColumnName="employee_IsAbroad" />
+                <ScalarProperty Name="employee_homeSite" ColumnName="employee_homeSite" />
+                <ScalarProperty Name="employee_managerDate" ColumnName="employee_managerDate" />
+                <ScalarProperty Name="employee_department" ColumnName="employee_department" />
+                <ScalarProperty Name="employee_jobTitle" ColumnName="employee_jobTitle" />
+                <ScalarProperty Name="employee_factoryId" ColumnName="employee_factoryId" />
+                <ScalarProperty Name="employee_team" ColumnName="employee_team" />
+                <ScalarProperty Name="employee_corporation" ColumnName="employee_corporation" />
+                <ScalarProperty Name="employee_groupId" ColumnName="employee_groupId" />
+                <ScalarProperty Name="employee_age" ColumnName="employee_age" />
+                <ScalarProperty Name="employee_dateOfBirth" ColumnName="employee_dateOfBirth" />
+                <ScalarProperty Name="employee_gender" ColumnName="employee_gender" />
+                <ScalarProperty Name="employee_blood" ColumnName="employee_blood" />
+                <ScalarProperty Name="employee_identityCard" ColumnName="employee_identityCard" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="employee_workId" ColumnName="employee_workId" />
+                <ScalarProperty Name="employee_workNumber" ColumnName="employee_workNumber" />
+                <ScalarProperty Name="book_mobile" ColumnName="book_mobile" />
+                <ScalarProperty Name="book_state" ColumnName="book_state" />
+                <ScalarProperty Name="book_Date" ColumnName="book_Date" />
+                <ScalarProperty Name="book_hospitalId" ColumnName="book_hospitalId" />
+                <ScalarProperty Name="book_ProgramId" ColumnName="book_ProgramId" />
+                <ScalarProperty Name="book_special" ColumnName="book_special" />
+                <ScalarProperty Name="book_exceptDate3" ColumnName="book_exceptDate3" />
+                <ScalarProperty Name="book_exceptDate2" ColumnName="book_exceptDate2" />
+                <ScalarProperty Name="book_exceptDate1" ColumnName="book_exceptDate1" />
+                <ScalarProperty Name="book_healthDate" ColumnName="book_healthDate" />
+                <ScalarProperty Name="book_costDate" ColumnName="book_costDate" />
+                <ScalarProperty Name="book_cost" ColumnName="book_cost" />
+                <ScalarProperty Name="book_note" ColumnName="book_note" />
+                <ScalarProperty Name="book_Notice" ColumnName="book_Notice" />
+                <ScalarProperty Name="book_medicalHistory" ColumnName="book_medicalHistory" />
+                <ScalarProperty Name="book_EatAspririn" ColumnName="book_EatAspririn" />
+                <ScalarProperty Name="book_IsAllergy" ColumnName="book_IsAllergy" />
+                <ScalarProperty Name="book_IsDisable" ColumnName="book_IsDisable" />
+                <ScalarProperty Name="book_updateUser" ColumnName="book_updateUser" />
+                <ScalarProperty Name="book_updateDate" ColumnName="book_updateDate" />
+                <ScalarProperty Name="book_welfare" ColumnName="book_welfare" />
+                <ScalarProperty Name="book_host" ColumnName="book_host" />
+                <ScalarProperty Name="book_hostTime" ColumnName="book_hostTime" />
+                <ScalarProperty Name="book_serialNumber" ColumnName="book_serialNumber" />
+                <ScalarProperty Name="book_Id" ColumnName="book_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

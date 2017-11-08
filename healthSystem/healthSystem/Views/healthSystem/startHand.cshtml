@@ -67,6 +67,7 @@
                                     <input type="text" name="action" value="1" hidden />
                                     @if (st.StartHand_Emp(Model.StartId, item.employee_workNumber))
                                     {
+                                        <input type="text" name="factoryId" value="@item.employee_factoryId" hidden />
                                         <button type="submit" class="btn btn-info btn-xs editItem"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
                                     }
                                 </form>
@@ -78,6 +79,7 @@
                                     <input type="text" name="action" value="2" hidden />
                                     @if (!st.StartHand_Emp(Model.StartId, item.employee_workNumber))
                                     {
+                                        <input type="text" name="factoryId" value="@item.employee_factoryId" hidden />
                                         <button type="submit" class="btn btn-danger btn-xs editItem"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                                     }
                                 </form>

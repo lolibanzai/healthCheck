@@ -1,76 +1,185 @@
-﻿
+﻿@using healthSystem.ViewModel;
+@model healthSystemReportMange
+
+
 @{
     ViewBag.Title = "excelImport";
 }
+
+<script>
+
+
+    $(document).ready(function () {
+
+        $('#description2').hide();
+        $('#description3').hide();
+        $('#description4').hide();
+
+        $("#detal2").click(function () {
+
+            $("#description2").slideToggle();
+
+        });
+        $("#detal3").click(function () {
+
+            $("#description3").slideToggle();
+
+        });
+        $("#detal4").click(function () {
+
+            $("#description4").slideToggle();
+
+        });
+    });
+
+
+    function OpenFile() {
+        var fname = document.getElementById("myfile").value;
+        alert("是否要上傳");
+        //    //swal("是否要上傳 !");
+        function OpenData() {
+            var fname = document.getElementById("mydata").value;
+            alert("是否要匯入");
+            //    //swal("是否要上傳 !");
+
+            //}
+            $(function () {
+
+                $(".uploadBtn").click(function (e) {
+                    //whenever our button is clicked
+
+                    if ($('#myfile').val() === "") {
+                        swal("檔案不能是空的,請匯入Excel");
+
+                        return false;
+                    }
+
+
+
+
+
+
+
+
+
+                });
+
+            })
+        }
+    }
+</script>
+@*@using (Html.BeginForm("excelImport", "healthSystem", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="postedFile" />
+            <input type="submit" value="Import" />
+    }*@
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-success">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    批次匯入（一般健檢報告匯入）
-                    <a href="~/healthSystem/reportManageMain" class="btn btn-warning btn-xs pull-right">
+                    1.批次匯入（一般健檢報告匯入）
+                    <a href="~/healthSystem/reportManageMaster" class="btn btn-warning btn-xs pull-right">
                         <span class="glyphicon glyphicon-arrow-left"></span> 回上頁
                     </a>
                 </h3>
             </div>
 
             <div class="panel-body">
-                <form method="post" action="/basicData/hospitalMaster">
-                    <div class="form-group row">
-                        <div class="col-xs-4">
-                            <label for="ex1">年度</label>
-                            <select class="form-control" id="ex2" name="hospital_state">
-                                <option></option>
-                                <option>2016</option>
-                                <option>2015</option>
-                            </select>
-                        </div>
-                        <div class="col-xs-4">
-                            <label for="ex2">醫院名稱</label>
-                            <select class="form-control" id="ex2" name="hospital_state">
-                                <option>中山醫</option>
-                                <option>中國醫</option>
-                                <option>台北市立</option>
-                            </select>
-                        </div>
-                        <div class="col-xs-4">
-                            <label for="ex2">方案名稱</label>
-                            <select class="form-control" id="ex2" name="hospital_state">
-                                <option></option>
-                                <option>一般健檢</option>
-                                <option>N</option>
-                            </select>
-                        </div>
-
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-xs-4">
-                            <label for="ex1">工種:</label>
-                            <select class="form-control" id="ex2" name="hospital_state">
-                                <option>一般員工</option>
-                                <option>N</option>
-                            </select>
-                        </div>
-                        <div class="col-xs-4">
-                            <label for="ex1">健檢類別:</label>
-                            <select class="form-control" id="ex2" name="hospital_state">
-                                <option>一般健檢</option>
-                                <option>N</option>
-                            </select>
-                        </div>
 
 
-                    </div>
-                    <hr class="style-two " />
+
+
+                <hr class="style-two " />
+
+                <form id="uploadForm" method="post" action="/healthSystem/excelImport" enctype="multipart/form-data">
                     <div class="col-sm-pull-3">
                         <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                             <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
-                            <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
+
+                            <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input type="file" name="postedFile" id="myfile"></span>
                             <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-success  pull-right" value="送出查詢">
+
+
+                    <button type="submit" class="btn btn-success uploadBtn" onclick="OpenFile();">Submit</button>
+
+                </form>
+
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>@TempData["uploadExcelMessage"]</strong>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    2.匯入報告管理（健檢報告資料）
+
+                </h3>
+            </div>
+
+            <div class="panel-body">
+
+
+
+
+                <hr class="style-two " />
+
+                <form method="post" action="/healthSystem/ReportImport">
+                    <div class="form-group row">
+
+                        <div class="col-xs-5">
+                            <label for="email">醫院名稱:</label>
+                            <select class="form-control" id="ex2" name="ReportManage_hospitalId">
+                                <option value="1">台北市立聯合醫院_忠孝院區</option>
+                                <option value="2">中山醫學大學附設醫院</option>
+                                <option value="3">中國醫藥大學附設醫院</option>
+                                <option value="4">林新醫院</option>
+                                <option value="8">臺中榮民總醫院</option>
+                            </select>
+
+                        </div>
+                        <div class="col-xs-4">
+                            <label for="ReportManage_programId">健檢分類:</label>
+                            <select class="form-control" id="ex2" name="ReportManage_programId">
+                                <option value="1">一般員工健檢</option>
+                                <option value="2">全身健康檢查</option>
+                                <option value="3">全身健康檢查</option>
+
+                            </select>
+                        </div>
+                        <div class="col-xs-4">
+                            <label for="email">健檢啟動編號:</label>
+                            <select class="form-control" id="ex2" name="ReportManage_startId">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>6</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-3">
+                            <label for="ex1">病歷號</label>
+                            <input class="form-control" id="ex1" type="text" name="ReportManage_medicalRecord">
+
+                            <input type="text" name="report_id" value='Session["reportId"]' hidden />
+                            <input type="text" name="ReportManage_IsDisable" value='N' hidden />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success" id="mydata" onclick="OpenData();">Submit</button>
+
                 </form>
 
 
@@ -80,7 +189,40 @@
 
 
         </div>
+
+    </div>
+    <div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    3.匯入結果<button class="btn btn-default btn-xs pull-right" id="detal2">
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </button>
+                </h3>
+
+            </div>
+            <div class="panel-body" id="description2">
+                <table class="table" style="overflow: auto;
+	                                        height: 100px;
+	                                        display: block;">
+                    <tr><th>檢查年度</th><th>體檢時間</th><th>報告編號</th><th>員工工號</th><th>總評1</th></tr>
+                    @*@foreach (var row in Model)
+                        {
+
+                            <tr>
+                                <td>@row.ReportCheckItem_checkYear</td>
+                                <td>@row.ReportCheckItem_checkDate</td>
+                                <td>@row.ReportCheckItem_reportId</td>
+                                <td>@row.ReportCheckItem_employee_workNumber</td>
+                                <td>@row.ReportCheckItem_generalComment_1</td>
+
+                                <td></td>
+                            </tr>
+                        }*@
+                </table>
+            </div>
+        </div>
+
+
     </div>
 </div>
-
-

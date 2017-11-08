@@ -6,13 +6,39 @@
     startCheckMain find = new startCheckMain();
     checkCollectUse findd = new checkCollectUse();
 }
+<div class="row form-group">
+    <div class="col-xs-12">
+        <ul class="nav nav-pills nav-justified thumbnail setup-panel">
+            <li >
+                <a href="#step-1">
+                    <h4 class="list-group-item-heading">Step 1</h4>
+                    <p class="list-group-item-text">健檢作業處理</p>
+                </a>
+            </li>
+            <li class="active">
+                <a href="#step-2">
+                    <h4 class="list-group-item-heading">Step 2</h4>
+                    <p class="list-group-item-text">收集作業處理</p>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <h4 class="list-group-item-heading">Step3 </h4>
+                    <p class="list-group-item-text">下一步處理結案</p>
+                </a>
+            </li>
 
+        </ul>
+    </div>
+</div>
 <div class="col-md-12">
     <div class="panel panel-success">
         <div class="panel-heading">
             <form method="get" action="/healthSystem/newStartPlace">
                 <h3 class="panel-title">
-                    受檢單位
+                    受檢單位<a href="~/healthSystem/checkCollectMaster" class="btn btn-warning btn-xs pull-right">
+    <span class="glyphicon glyphicon-arrow-left"></span> 回上頁
+</a>
                 </h3>
             </form>
         </div>
@@ -84,7 +110,7 @@
         <div class="panel-heading">
             <form method="get" action="/healthSystem/startHand">
                 <h3 class="panel-title">
-                    待驗人員清單-以儲存人員
+                    待驗人員清單-已儲存人員
                     <input type="text" name="StartID" value="@Model.StartID" hidden />
                     <button type="submit" class="btn btn-info btn-xs">
                         <span class="glyphicon glyphicon-plus"></span>加入其他待驗人員

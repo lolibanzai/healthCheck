@@ -22,6 +22,7 @@ namespace healthSystem.Models
         public int startHand_serialNumber { get; set; }
         public string standHand_updateUser { get; set; }
         public Nullable<System.DateTime> startHand_updateTime { get; set; }
+        public Nullable<System.DateTime> startHand_sendMailTime { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual StartCheck StartCheck { get; set; }

@@ -14,10 +14,16 @@ namespace healthSystem.Models
     
     public partial class ReportCheckItem
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ReportCheckItem()
+        {
+            this.ReportManage = new HashSet<ReportManage>();
+        }
+    
         public int ReportCheckItem_reportId { get; set; }
         public string ReportCheckItem_employee_workNumber { get; set; }
         public string ReportCheckItem_checkDate { get; set; }
-        public int ReportCheckItem_checkYear { get; set; }
+        public Nullable<int> ReportCheckItem_checkYear { get; set; }
         public string ReportCheckItem_generalComment_1 { get; set; }
         public string ReportCheckItem_generalComment_2 { get; set; }
         public string ReportCheckItem_generalComment_3 { get; set; }
@@ -46,5 +52,7 @@ namespace healthSystem.Models
         public string ReportCheckItem_WaistIsPass { get; set; }
     
         public virtual Employee Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReportManage> ReportManage { get; set; }
     }
 }

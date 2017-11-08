@@ -19,7 +19,7 @@ namespace healthSystem.Models
         {
             this.Program = new HashSet<Program>();
             this.HospitalProgramFile = new HashSet<HospitalProgramFile>();
-            this.Book = new HashSet<Book>();
+            this.book = new HashSet<Book>();
         }
     
         public int hospital_hospitalId { get; set; }
@@ -39,6 +39,6 @@ namespace healthSystem.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HospitalProgramFile> HospitalProgramFile { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Book> Book { get; set; }
+        public virtual ICollection<Book> book { get; set; }
     }
 }

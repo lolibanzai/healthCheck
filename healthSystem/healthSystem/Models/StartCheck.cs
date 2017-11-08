@@ -18,10 +18,10 @@ namespace healthSystem.Models
         public StartCheck()
         {
             this.CheckCollect = new HashSet<CheckCollect>();
-            this.ReportManage = new HashSet<ReportManage>();
             this.StartFile = new HashSet<StartFile>();
             this.StartPlace = new HashSet<StartPlace>();
             this.StartHand = new HashSet<StartHand>();
+            this.ReportManage = new HashSet<ReportManage>();
         }
     
         public int Start_id { get; set; }
@@ -33,16 +33,17 @@ namespace healthSystem.Models
         public string start_note { get; set; }
         public string start_updateUser { get; set; }
         public Nullable<System.DateTime> start_updateDate { get; set; }
+        public System.DateTime start_healthCheckDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CheckCollect> CheckCollect { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReportManage> ReportManage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StartFile> StartFile { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StartPlace> StartPlace { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StartHand> StartHand { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReportManage> ReportManage { get; set; }
     }
 }

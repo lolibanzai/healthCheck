@@ -1,7 +1,12 @@
-﻿
+﻿@using healthSystem.Models
+@model ViewModel_BookAction
 @{
     ViewBag.Title = "bookMain";
-    
+    employeeMainReportManage empMainReport = new employeeMainReportManage();
+    string bookid = "";
+    foreach (var item in Model.GetW_BookEmp) {
+        bookid = item.book_Id;
+    }
 }
 
 
@@ -79,200 +84,246 @@
             <div class="panel-heading">
                 <h3 class="panel-title">
                     主檔-預約作業
-
-                    <a href="~/healthSystem/bookMaster" class="btn btn-info btn-xs pull-right">
-                        <span class="glyphicon glyphicon-import">預約健檢</span>
-                    </a>
-                    <a href="~/healthSystem/edithospital" class="btn btn-danger btn-xs pull-right">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </a>
-
-                    <a href="~/healthSystem/edithospital" class="btn btn-success btn-xs pull-right">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </a>
-                    <a href="~/basicData/newhospital" class="btn btn-info btn-xs pull-right">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </a>
-
+                        
+@foreach (var item in Model.GetW_BookEmp) {
+    if (item.book_state == "處理中") {
+        <form method="post" action="" style="display:inline">
+            <input type="text" name="book_Id" value="@bookid" hidden />
+            <input type="text" name="action" value="3" hidden />
+            <button type="submit" class="btn btn-default btn-xs pull-right">
+                <span class="glyphicon glyphicon-import">預約健檢</span>
+            </button>
+        </form>
+    }
+    if (Session["employee_role"].ToString() == "Y") {
+        if (item.book_IsDisable == "N") {
+            <form method="post" action="~/healthSystem/bookMain" style="display:inline">
+                <input type="text" name="book_Id" value="@bookid" hidden />
+                <input type="text" name="action" value="2" hidden />
+                <button type="submit" class="btn btn-danger btn-xs pull-right">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+            </form>
+        }
+    }
+    if (item.book_state != "結案" && item.book_state != "取消預約") {
+        <form method="get" action="~/healthSystem/EditBook" style="display:inline">
+            <input type="text" name="book_Id" value="@bookid" hidden />
+            <button type="submit" class="btn btn-success btn-xs pull-right">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+        </form>
+    }
+}
+                    <form method="get" action="~/healthSystem/newBook" style="display:inline">
+                        <input type="text" name="action" value="0" hidden />
+                        <button type="submit" class="btn btn-info btn-xs pull-right">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </form>
                     <a href="~/healthSystem/bookMaster" class="btn btn-warning btn-xs pull-right">
                         <span class="glyphicon glyphicon-arrow-left"></span> 回上頁
                     </a>
                 </h3>
             </div>
-
-            <div class="panel-body">
-                <div class="row ">
-                    <div class="col-md-6">
-                        <label class="label-info">公司資料</label>
-                        <div class="form-group row">
-                            <div class="col-md-3">
-                                <label for="email">年度:</label>
-                                <select class="form-control" id="ex2" name="hospital_state">
-                                    <option></option>
-                                    <option>2016</option>
-                                    <option>2015</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="email">廠別</label>
-                                <select class="form-control" id="ex2" name="hospital_state">
-                                    <option></option>
-                                    <option>2016</option>
-                                    <option>2015</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="email">部門</label>
-                                <select class="form-control" id="ex2" name="hospital_state">
-                                    <option></option>
-                                    <option>2016</option>
-                                    <option>2015</option>
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-4">
-                                <label for="email">公司:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_uniform" readonly value="">
-                            </div>
-                            <div class="col-md-3">
-                                <label for="sel1">姓名:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_state" readonly value="">
-                            </div>
-                            <div class="col-md-3">
-                                <label for="email">工號:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_address" readonly value="">
-                            </div>
-
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-4">
-                                <label for="email">身分證字號:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_contact" readonly value="">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="email">集團ID:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_phone" readonly value="">
-                            </div>
-                        </div>
-                        <label class="label-info">其他資料</label>
-                        <div class="form-group row">
-                            <div class="col-xs-4">
-                                <label for="email">備註:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-                            <div class="col-xs-2">
-                                <label for="email">停用註記:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="email">更新者:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="email">更新時間:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="label-info">醫院資料</label>
-                        <div class="form-group row">
-                            <div class="col-xs-4">
-                                <label for="email">報告編號:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_website" readonly value="">
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="email">預約編號:</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="hospital_email" readonly value="">
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="email">健檢類別:</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" name="hospital_email" readonly value="">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-xs-4">
-                                <label for="email">醫院名稱:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updateuser" readonly value="">
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="email">健檢方案:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="email">健檢方案工種:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-xs-4">
-                                <label for="email">病歷號碼:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updateuser" readonly value="">
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="email">體檢時間:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-                            <div class="col-xs-4">
-                                <label for="email">複檢方案:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-                        </div>
-
-                        <label class="label-info">醫院-報告資料</label>
-                        <div class="form-group row">
-                            <div class="col-xs-12">
-                                <label for="email">作業經歷:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updateuser" readonly value="">
-                            </div>
-
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-xs-12">
-                                <label for="email">既往病歷:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
+            @foreach (var item in Model.GetW_BookEmp) {
+                <div class="panel-body">
+                    
+                        <form>
 
 
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-xs-12">
-                                <label for="email">自覺症狀:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
+                            <div class="row ">
+                                <div class="col-md-6">
+
+                                    <label class="label-info">員工基本資料</label>
+                                    <div class="form-group row">
+                                        <div class="col-md-3">
+                                            <label for="year">年度:</label>
+                                            <input type="text" class="form-control" id="year" name="book_year" value="@item.book_year" readonly>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="employee_homesite">廠別</label>
+                                            <input type="text" class="form-control" id="employee_homesite" name="employee_homesite" value="@item.employee_homeSite" readonly>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="employee_department">部門</label>
+                                            <input type="text" class="form-control" id="employee_department" name="employee_department" value="@item.employee_department" readonly>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label for="employee_corporation">公司:</label>
+                                            <input type="text" class="form-control" id="employee_corporation" name="employee_corporation" value="@item.employee_corporation" readonly>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="employee_name">姓名:</label>
+                                            <input type="text" class="form-control" id="employee_name" name="employee_name" value="@item.employee_name" readonly>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-4">
+                                            <label for="employee_WorkNumber">工號:</label>
+                                            <input type="text" class="form-control" id="employee_WorkNumber" name="employee_WorkNumber" value="@item.employee_workNumber" readonly>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="employee_cellphone">手機:</label>
+                                            <input type="text" class="form-control" id="employee_cellphone" name="employee_cellphone" value="@item.employee_cellphone" @((Model.GetAction == 0) ? "readonly" : "")>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="book_Notice">健檢(藥劑)通知:</label>
+                                            @switch (item.book_Notice) {
+                                                case 1:
+                                                    <input type="text" class="form-control" id="book_Notice"
+                                                           name="book_Notice" value='自取' @((Model.GetAction == 0) ? "readonly" : "")>
+                                                    break;
+                                                case 2:
+                                                    <input type="text" class="form-control" id="book_Notice" name="book_Notice" value='廠內窗口寄送' @((Model.GetAction == 0) ? "readonly" : "")>
+                                                    break;
+                                                default:
+                                                    <input type="text" class="form-control" id="book_Notice" name="book_Notice" value='寄送' @((Model.GetAction == 0) ? "readonly" : "")>
+
+                                                    break;
+                                            }
+                                        </div>
+                                        @if (item.book_Notice == 3) {
+                                            <div class="col-md-12">
+                                                @foreach (var address in Model.GetW_BookEmp) {
+                                                    <label for="book_Notice">寄送地址:</label>
+                                                    <input type="text" class="form-control" id="employee_mailingAddress"
+                                                           name="employee_mailingAddress" value="@address.employee_mailingAddress" @((Model.GetAction == 0) ? "readonly" : "") />
+                                                }
+                                            </div>
+                                        }
+
+                                    </div>
+
+                                    <label class="label-info">其他資料</label>
+                                    <div class="form-group row">
+                                        <div class="col-xs-5">
+                                            <label for="book_note">備註:</label>
+                                            <input type="text" class="form-control" id="book_note" name="book_note" value="@item.book_note" readonly>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <label for="book_IsDisable">停用註記:</label>
+                                            <input type="text" class="form-control" id="book_IsDisable" name="book_IsDisable" value="@item.book_IsDisable" readonly>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <label for="book_updateUser">更新者:</label>
+                                            <input type="text" class="form-control" id="book_updateUser" name="book_updateUser" value="@item.book_updateUser" readonly>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <label for="book_updateDate">更新時間:</label>
+                                            <input type="text" class="form-control" id="book_updateDate" name="book_updateDate" value='@(item.book_updateDate.HasValue ? Convert.ToDateTime(item.book_updateDate).ToShortDateString() :"")' readonly>
+                                        </div>
+
+
+
+
+                                        <div class="col-xs-3">
+                                            <label for="book_welfare">今年可補助金額:</label>
+                                            <input type="text" class="form-control" id="book_welfare" name="book_welfare" value="@item.book_welfare" readonly>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <label for="book_host">承辦人:</label>
+                                            <input type="text" class="form-control" id="book_host" name="book_host" value="@item.book_host" readonly>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <label for="book_hostTime">承辦時間:</label>
+                                            <input type="text" class="form-control" id="book_hostTime" name="book_hostTime" value='@(item.book_hostTime.HasValue ? Convert.ToDateTime(item.book_hostTime).ToShortDateString() :"")' readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="label-info">預約資料</label>
+                                    <div class="form-group row">
+                                        <div class="col-xs-5">
+                                            <label for="book_Id">預約編號:</label>
+                                            <input type="text" class="form-control" id="book_Id" name="book_Id" value="@item.book_Id" readonly>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <label for="book_state">處理狀態:</label>
+                                            <input type="text" class="form-control" id="book_state" name="book_state" value="@item.book_state" readonly>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xs-5">
+                                            <label for="hospitalName">醫院名稱:</label>
+                                            <input type="text" class="form-control" id="hospitalName" name="book_hospitalId" value="@empMainReport.GEThospitalName(item.book_hospitalId)" readonly>
+                                        </div>
+                                        <div class="col-xs-7">
+                                            <label for="book_ProgramName">健檢方案:</label>
+                                            <input type="text" class="form-control" id="book_ProgramName" name="book_ProgramId" value="@empMainReport.GETprogramName(item.book_ProgramId)" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xs-12">
+                                            <label for="book_special">特殊檢查:</label>
+                                            <input type="text" class="form-control" id="book_special" name="book_special" value="@item.book_special" @((Model.GetAction == 0) ? "readonly" : "")>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xs-3">
+                                            <label for="book_exceptDate">期望體檢日:</label>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <table>
+                                                <tr>
+                                                    <td><input type="date" class="form-control" id="book_exceptDate" name="book_exceptDate1" value='@(item.book_exceptDate1.HasValue ? Convert.ToDateTime(item.book_exceptDate1).ToString("yyyy-MM-dd"): "")' @((Model.GetAction == 0) ? "readonly" : "") /></td>
+                                                    <td><input type="date" class="form-control" id="book_exceptDate" name="book_exceptDate2" value='@(item.book_exceptDate2.HasValue ? Convert.ToDateTime(item.book_exceptDate2).ToString("yyyy-MM-dd"):"")' @((Model.GetAction == 0) ? "readonly" : "") /></td>
+                                                    <td><input type="date" class="form-control" id="book_exceptDate" name="book_exceptDate3" value='@(item.book_exceptDate3.HasValue ? Convert.ToDateTime(item.book_exceptDate3).ToString("yyyy-MM-dd") :"")' @((Model.GetAction == 0) ? "readonly" : "") /></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xs-4">
+                                            <label for="book_Date">體檢日期:</label>
+                                            <input type="date" class="form-control" id="book_Date" name="book_Date" value='@(item.book_Date.HasValue ? Convert.ToDateTime(item.book_Date).ToString("yyyy-MM-dd"): "")' readonly>
+                                        </div>
+
+
+
+                                        <div class="col-xs-4">
+                                            <label for="book_costDate">費用日期:</label>
+                                            <input type="date" class="form-control" id="book_costDate" name="book_costDate" value='@(item.book_costDate.HasValue ? Convert.ToDateTime(item.book_costDate).ToString("yyyy-MM-dd") :"")' @((Model.GetAction == 0 && Session["employee_role"].ToString() != "Y") ? "readonly" : "readonly")>
+                                        </div>
+
+                                        <div class="col-xs-4">
+                                            <label for="book_cost">體檢費用:</label>
+                                            <input type="number" class="form-control" id="book_cost" name="book_cost" value="@item.book_cost" readonly>
+                                        </div>
+                                    </div>
+
+                                    <label class="label-info">預約-病史資料</label>
+                                    <div class="form-group row">
+                                        <div class="col-xs-12">
+                                            <label for="book_medicalHistory">遺傳疾病史或慢性疾病:</label>
+                                            <input type="text" class="form-control" id="book_medicalHistory" name="book_medicalHistory" value="@item.book_medicalHistory" @((Model.GetAction == 0) ? "readonly" : "")>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xs-12">
+                                            <label for="book_EatAspirin">服用阿斯匹靈/紅麴/銀杏:</label>
+                                            <input type="text" class="form-control" id="book_EatAspirin" name="book_EatAspririn" value="@item.book_EatAspririn" @((Model.GetAction == 0) ? "readonly" : "")>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-xs-12">
+                                            <label for="book_IsAllergy">藥物過敏:</label>
+                                            <input type="text" class="form-control" id="book_IsAllergy" name="book_IsAllergy" value="@item.book_IsAllergy" @((Model.GetAction == 0) ? "readonly" : "")>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
-
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-xs-12">
-                                <label for="email">注意事項:</label>
-                                <input type="text" class="form-control" id="email" name="hospital_updatetime" readonly value="">
-                            </div>
-
-                        </div>
-                    </div>
-
+                        </form>
                 </div>
-
-
-
-
-            </div>
-
-
+            }
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-

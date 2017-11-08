@@ -4,7 +4,7 @@
     ViewBag.Title = "newhospital";
 }
 
-<h2>newhospital</h2>
+
 
 <div class="alert alert-success" role="alert">@TempData["hospitalMessage"]</div>
 
@@ -72,12 +72,15 @@
                         </div>
                     </div>*@
                     <button type="submit" class="btn btn-success btn-default">新增</button>
+                    <a href="~/basicData/hospitalMaster" class="btn btn-warning btn">
+                        <span class="glyphicon glyphicon-arrow-left"></span> 回上頁
+                    </a>
                 </form>
-                <div class="form-group row">
-                    <form method="get" action="/basicData/hospitalMaster">
-                        <button type="submit" class="btn btn-success btn-default">回查詢頁</button>
-                    </form>
-                </div>
+
+                @*<form method="get" action="/basicData/hospitalMaster">
+                    <button type="submit" class="btn btn-success btn-default">回查詢頁</button>
+                </form>*@
+                
             </div>
         </div>
     </div>

@@ -21,8 +21,10 @@ namespace healthSystem.Models
         public Nullable<System.DateTime> book_Date { get; set; }
         public int book_hospitalId { get; set; }
         public int book_ProgramId { get; set; }
-        public Nullable<int> book_special { get; set; }
-        public string book_exceptDate { get; set; }
+        public string book_special { get; set; }
+        public Nullable<System.DateTime> book_exceptDate1 { get; set; }
+        public Nullable<System.DateTime> book_exceptDate2 { get; set; }
+        public Nullable<System.DateTime> book_exceptDate3 { get; set; }
         public Nullable<System.DateTime> book_healthDate { get; set; }
         public Nullable<System.DateTime> book_costDate { get; set; }
         public Nullable<int> book_cost { get; set; }
@@ -38,11 +40,13 @@ namespace healthSystem.Models
         public string book_host { get; set; }
         public Nullable<System.DateTime> book_hostTime { get; set; }
         public Nullable<int> book_serialNumber { get; set; }
+        public string book_noticeaddress { get; set; }
+        public string book_cellphone { get; set; }
+        public Nullable<int> book_year { get; set; }
     
         public virtual Hospital Hospital { get; set; }
         public virtual HealthNotice HealthNotice { get; set; }
         public virtual Program Program { get; set; }
-        public virtual Program Program1 { get; set; }
         public virtual Employee Employee { get; set; }
     }
 }

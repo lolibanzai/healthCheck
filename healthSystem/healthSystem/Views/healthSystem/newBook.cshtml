@@ -1,0 +1,268 @@
+﻿
+@{
+    ViewBag.Title = "newBook";
+}
+
+<h2> 新增預約</h2>
+
+@using healthSystem.Models
+@model VWModel_BookEmp
+@{
+    ViewBag.Title = "bookMain";
+    employeeMainReportManage empMainReport = new employeeMainReportManage();
+    string bookid = "";
+    foreach (var item in Model.BookRow) {
+        bookid = item.book_id;
+    }
+}
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            主管-新增預約
+            <a href="~/healthSystem/bookMaster" class="btn btn-warning btn-xs pull-right">
+                <span class="glyphicon glyphicon-arrow-left"></span> 回預約查詢
+            </a>
+        </h3>
+    </div>
+    
+        <div class="panel-body">
+            @foreach (var item1 in Model.EmpRow) {
+               foreach (var item in Model.BookRow) {
+    
+            <form method="post" action="">
+
+                <div class="row ">
+                    <div class="col-md-6">
+
+                        <label class="label-info">員工基本資料</label>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="year">年度:</label>
+                                <select class="form-control" id="year" name="book_year">
+                                    @for (int i = -3; i <= 1; i++) {
+                                        <option value="@DateTime.Now.AddYears(i).Year"
+                                                @((DateTime.Now.AddYears(i).Year == DateTime.Now.Year) ? "selected" : "")>
+                                            @DateTime.Now.AddYears(i).Year
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="employee_homesite">廠別</label>
+                                <input type="text" class="form-control" id="employee_homesite" name="employee_homesite" value="@item1.employee_homeSite" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="employee_department">部門</label>
+                                <input type="text" class="form-control" id="employee_department" name="employee_department" value="@item1.employee_department" readonly>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="employee_corporation">公司:</label>
+                                <input type="text" class="form-control" id="employee_corporation" name="employee_corporation" value="@item1.employee_corporation" readonly>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="employee_name">姓名:</label>
+                                <input type="text" class="form-control" id="employee_name" name="employee_name" value="@item1.employee_name" readonly>
+                            </div>
+
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                <label for="employee_WorkNumber">工號:</label>
+                                <input type="text" class="form-control" id="employee_WorkNumber" name="employee_WorkNumber" value="@item1.employee_workNumber" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="employee_cellphone">手機:</label>
+                                <input type="text" class="form-control" id="employee_cellphone" name="employee_cellphone" value="@item1.employee_cellphone">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="mySelect">健檢(藥劑)通知:</label>
+                                <select class="form-control" id="mySelect" name="book_Notice" onchange="sumit()">
+                                    <option value="1" @((item.book_Notice == 1) ? "selected" : "")>自取</option>
+                                    <option value="2" @((item.book_Notice == 2) ? "selected" : "")>廠內窗口寄送</option>
+                                    <option value="3" @((item.book_Notice == 3) ? "selected" : "")>寄送</option>
+                                </select>
+                            </div>
+                            <script>
+                                function sumit() {
+                                    if (document.getElementById("mySelect").value != "3") {
+                                        var x = document.getElementById("employee_mailingAddress");
+                                        x.setAttribute("type", "hidden");
+                                    }
+                                    if (document.getElementById("mySelect").value == "3") {
+                                        var x = document.getElementById("employee_mailingAddress");
+                                        x.setAttribute("type", "text");
+                                    }
+                                }
+                            </script>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                    @*<label for="book_Notice">寄送地址:</label>*@
+                                    <input type="hidden" class="form-control" id="employee_mailingAddress"
+                                           name="employee_mailingAddress" value="@item1.employee_mailingAddress">
+                            </div>
+                        </div>
+
+
+
+                        <label class="label-info">其他資料</label>
+                        <div class="form-group row">
+                            <div class="col-xs-5">
+                                <label for="book_note">備註:</label>
+                                <input type="text" class="form-control" id="book_note" name="book_note" value="@item.book_note" @((Session["employee_role"].ToString() != "Y" ) ? "readonly" : "")>
+                            </div>
+                            <div class="col-xs-2">
+                                <label for="book_IsDisable">停用註記:</label>
+                                <input type="text" class="form-control" id="book_IsDisable" name="book_IsDisable" value="@item.book_IsDisable" readonly>
+                            </div>
+                            <div class="col-xs-4">
+                                <label for="book_updateUser">更新者:</label>
+                                <input type="text" class="form-control" id="book_updateUser" name="book_updateUser" value="@item.book_updateUser" readonly>
+                            </div>
+                            <div class="col-xs-4">
+                                <label for="book_updateDate">更新時間:</label>
+                                <input type="text" class="form-control" id="book_updateDate" name="book_updateDate" value='@(item.book_updateDate.HasValue ? Convert.ToDateTime(item.book_updateDate).ToString("yyyy-MM-dd") : "")' readonly>
+                            </div>
+
+
+
+
+                            <div class="col-xs-3">
+                                <label for="book_welfare">今年可補助金額:</label>
+                                <input type="text" class="form-control" id="book_welfare" name="book_welfare" value="@item.book_welfare" readonly>
+                            </div>
+                            <div class="col-xs-3">
+                                <label for="book_host">承辦人:</label>
+                                <input type="text" class="form-control" id="book_host" name="book_host" value="@item.book_host" readonly>
+                            </div>
+                            <div class="col-xs-6">
+                                <label for="book_hostTime">承辦時間:</label>
+                                <input type="text" class="form-control" id="book_hostTime" name="book_hostTime" value='@(item.book_hostTime.HasValue ? Convert.ToDateTime(item.book_hostTime).ToString("yyyy-MM-dd") : "")' readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label-info">預約資料</label>
+                        <div class="form-group row" hidden>
+                            <div class="col-xs-12">
+                                <input type="text" class="form-control" id="book_serialNumber" name="book_serialNumber" value="@item.book_serialNumber" hidden />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+
+                            <div class="col-xs-5">
+                                <label for="book_Id">預約編號:</label>
+                                <input type="text" class="form-control" id="book_Id" name="book_Id" value="@item.book_id" readonly>
+                                
+                            </div>
+                            <div class="col-xs-3">
+                                <label for="book_state">處理狀態:</label>
+                                <input type="text" class="form-control" id="book_state" name="book_state" value="@item.book_state" readonly>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label for="hospital">醫院名稱-醫院方案：</label><br />
+                            @*<div class="col-xs-5">
+                                    <label for="hospitalName">醫院名稱:</label>
+                                    <input type="text" class="form-control" id="hospitalName" name="book_hospitalId" value="@empMainReport.GEThospitalName(item.book_hospitalId)">
+                                </div>
+                                <div class="col-xs-4">
+                                    <label for="book_ProgramName">健檢方案:</label>
+                                    <input type="text" class="form-control" id="book_ProgramName" name="book_ProgramId" value="@empMainReport.GETprogramName(item.book_ProgramId)">
+                                </div>*@
+                            <select id="hosptial" name="hospitalProgram" class="form-control" style="max-width:90%;">
+                                @foreach (var itemPro in Model.HosProg) {
+                                    <option value="@itemPro.program_programId">@itemPro.hospital_name-@itemPro.program_programName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+                                <label for="book_special">特殊檢查:</label>
+                                <input type="text" class="form-control" id="book_special" name="book_special" value="@item.book_special">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-3">
+                                <label for="book_exceptDate">期望體檢日1:</label>
+                            </div>
+                            <div class="col-xs-10">
+                                @*<table sytle="width: auto;">
+                                    <tr>*@
+                                @*<td>*@<input type="date" class="form-control" id="book_exceptDate" name="book_exceptDate1" value='@(item.book_exceptDate1.HasValue ? Convert.ToDateTime(item.book_exceptDate1).ToString("yyyy-MM-dd") : "")' style="width:50%;">@*</td>*@
+                                @*<td>*@<label for="book_exceptDate2">期望體檢日2:</label><input type="date" class="form-control" id="book_exceptDate1" name="book_exceptDate2" value='@(item.book_exceptDate2.HasValue ? Convert.ToDateTime(item.book_exceptDate2).ToString("yyyy-MM-dd") : "")' style="width:50%;">@*</td>*@
+                                @*<td>*@<label for="book_exceptDate3">期望體檢日3:</label><input type="date" class="form-control" id="book_exceptDate2" name="book_exceptDate3" value='@(item.book_exceptDate3.HasValue ? Convert.ToDateTime(item.book_exceptDate3).ToString("yyyy-MM-dd") : "")' style="width:50%;">@*</td>*@
+                                @*</tr>
+                                    </table>*@
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-4">
+                                <label for="book_Date">體檢日期:</label>
+                                <input type="date" class="form-control" id="book_Date" name="book_Date" value='@(item.book_Date.HasValue ? Convert.ToDateTime(item.book_Date).ToString("yyyy-MM-dd") : "")' @((Session["employee_role"].ToString() != "Y") ? "readonly" : "")>
+                            </div>
+
+
+
+                            <div class="col-xs-4">
+                                <label for="book_costDate">費用日期:</label>
+                                <input type="date" class="form-control" id="book_costDate" name="book_costDate" value='@(item.book_costDate.HasValue ? Convert.ToDateTime(item.book_costDate).ToString("yyyy/MM/dd") : "")' @((Session["employee_role"].ToString() != "Y") ? "readonly" : "")>
+                            </div>
+
+                            <div class="col-xs-4">
+                                <label for="book_cost">體檢費用:</label>
+                                <input type="number" class="form-control" id="book_cost" name="book_cost" value="@item.book_cost" @((Session["employee_role"].ToString() != "Y") ? "readonly" : "")>
+                            </div>
+                        </div>
+
+                        <label class="label-info">預約-病史資料</label>
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+                                <label for="book_medicalHistory">遺傳疾病史或慢性疾病:</label>
+                                <input type="text" class="form-control" id="book_medicalHistory" name="book_medicalHistory" value="@item.book_medicalHistory">
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+                                <label for="book_EatAspirin">服用阿斯匹靈/紅麴/銀杏:</label>
+                                <input type="text" class="form-control" id="book_EatAspirin" name="book_EatAspririn" value="@item.book_EatAspririn">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+                                <label for="book_IsAllergy">藥物過敏:</label>
+                                <input type="text" class="form-control" id="book_IsAllergy" name="book_IsAllergy" value="@item.book_IsAllergy" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div align="center">
+                    <button class="btn btn-success" type="submit">送出</button>
+                    <a href="~/member/welcomePage" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-arrow-left"></span> 回上頁
+                    </a>
+                </div>
+            </form>
+            @*<div align="center">
+                <form method="get" action="~/healthSystem/bookMain?book_Id=@bookid">
+                    <input type="text" name="book_Id" value="@bookid" hidden />
+                    <button class="btn btn-danger" href='~/healthSystem/bookMain?book_Id=@bookid'>
+                        取消
+                    </button>
+                </form>
+            </div>*@
+
+
+            }}
+        </div>
+
+</div>

@@ -174,50 +174,10 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ReportManage">
-      <EntityTypeMapping TypeName="HealthCheckModel.ReportManage">
-        <MappingFragment StoreEntitySet="ReportManage">
-          <ScalarProperty Name="ReportManage_id" ColumnName="ReportManage_id" />
-          <ScalarProperty Name="ReportManage_workNumber" ColumnName="ReportManage_workNumber" />
-          <ScalarProperty Name="ReportManage_startId" ColumnName="ReportManage_startId" />
-          <ScalarProperty Name="ReportManage_hospitalId" ColumnName="ReportManage_hospitalId" />
-          <ScalarProperty Name="ReportManage_programId" ColumnName="ReportManage_programId" />
-          <ScalarProperty Name="ReportManage_medicalRecord" ColumnName="ReportManage_medicalRecord" />
-          <ScalarProperty Name="ReportManage_healthDate" ColumnName="ReportManage_healthDate" />
-          <ScalarProperty Name="ReportManage_corporation" ColumnName="ReportManage_corporation" />
-          <ScalarProperty Name="ReportManage_IsdoubleCheck" ColumnName="ReportManage_IsdoubleCheck" />
-          <ScalarProperty Name="ReportManage_hw" ColumnName="ReportManage_hw" />
-          <ScalarProperty Name="ReportManage_pastHistory" ColumnName="ReportManage_pastHistory" />
-          <ScalarProperty Name="ReportManage_symptoms" ColumnName="ReportManage_symptoms" />
-          <ScalarProperty Name="ReportManage_notes" ColumnName="ReportManage_notes" />
-          <ScalarProperty Name="ReportManage_IsDisable" ColumnName="ReportManage_IsDisable" />
-          <ScalarProperty Name="ReportManage_doubleId" ColumnName="ReportManage_doubleId" />
-          <ScalarProperty Name="ReportManage_updateUser" ColumnName="ReportManage_updateUser" />
-          <ScalarProperty Name="ReportManage_updateTime" ColumnName="ReportManage_updateTime" />
-          <ScalarProperty Name="generalComment_1" ColumnName="generalComment_1" />
-          <ScalarProperty Name="generalComment_2" ColumnName="generalComment_2" />
-          <ScalarProperty Name="generalComment_3" ColumnName="generalComment_3" />
-          <ScalarProperty Name="generalComment_4" ColumnName="generalComment_4" />
-          <ScalarProperty Name="generalComment_5" ColumnName="generalComment_5" />
-          <ScalarProperty Name="generalComment_6" ColumnName="generalComment_6" />
-          <ScalarProperty Name="generalComment_7" ColumnName="generalComment_7" />
-          <ScalarProperty Name="generalComment_8" ColumnName="generalComment_8" />
-          <ScalarProperty Name="generalComment_9" ColumnName="generalComment_9" />
-          <ScalarProperty Name="generalComment_10" ColumnName="generalComment_10" />
-          <ScalarProperty Name="generalComment_11" ColumnName="generalComment_11" />
-          <ScalarProperty Name="generalComment_12" ColumnName="generalComment_12" />
-          <ScalarProperty Name="generalComment_13" ColumnName="generalComment_13" />
-          <ScalarProperty Name="generalComment_14" ColumnName="generalComment_14" />
-          <ScalarProperty Name="generalComment_15" ColumnName="generalComment_15" />
-          <ScalarProperty Name="generalComment_16" ColumnName="generalComment_16" />
-          <ScalarProperty Name="generalComment_17" ColumnName="generalComment_17" />
-          <ScalarProperty Name="ReportManage_serialNumber" ColumnName="ReportManage_serialNumber" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="StartCheck">
       <EntityTypeMapping TypeName="HealthCheckModel.StartCheck">
         <MappingFragment StoreEntitySet="StartCheck">
+          <ScalarProperty Name="start_healthCheckDate" ColumnName="start_healthCheckDate" />
           <ScalarProperty Name="Start_id" ColumnName="Start_id" />
           <ScalarProperty Name="start_year" ColumnName="start_year" />
           <ScalarProperty Name="start_startDate" ColumnName="start_startDate" />
@@ -376,39 +336,10 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Book">
-      <EntityTypeMapping TypeName="HealthCheckModel.Book">
-        <MappingFragment StoreEntitySet="Book">
-          <ScalarProperty Name="book_serialNumber" ColumnName="book_serialNumber" />
-          <ScalarProperty Name="book_hostTime" ColumnName="book_hostTime" />
-          <ScalarProperty Name="book_host" ColumnName="book_host" />
-          <ScalarProperty Name="book_welfare" ColumnName="book_welfare" />
-          <ScalarProperty Name="book_updateDate" ColumnName="book_updateDate" />
-          <ScalarProperty Name="book_updateUser" ColumnName="book_updateUser" />
-          <ScalarProperty Name="book_IsDisable" ColumnName="book_IsDisable" />
-          <ScalarProperty Name="book_IsAllergy" ColumnName="book_IsAllergy" />
-          <ScalarProperty Name="book_EatAspririn" ColumnName="book_EatAspririn" />
-          <ScalarProperty Name="book_medicalHistory" ColumnName="book_medicalHistory" />
-          <ScalarProperty Name="book_Notice" ColumnName="book_Notice" />
-          <ScalarProperty Name="book_note" ColumnName="book_note" />
-          <ScalarProperty Name="book_cost" ColumnName="book_cost" />
-          <ScalarProperty Name="book_costDate" ColumnName="book_costDate" />
-          <ScalarProperty Name="book_healthDate" ColumnName="book_healthDate" />
-          <ScalarProperty Name="book_exceptDate" ColumnName="book_exceptDate" />
-          <ScalarProperty Name="book_special" ColumnName="book_special" />
-          <ScalarProperty Name="book_ProgramId" ColumnName="book_ProgramId" />
-          <ScalarProperty Name="book_hospitalId" ColumnName="book_hospitalId" />
-          <ScalarProperty Name="book_Date" ColumnName="book_Date" />
-          <ScalarProperty Name="book_state" ColumnName="book_state" />
-          <ScalarProperty Name="book_mobile" ColumnName="book_mobile" />
-          <ScalarProperty Name="book_workNumber" ColumnName="book_workNumber" />
-          <ScalarProperty Name="book_id" ColumnName="book_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="StartHand">
       <EntityTypeMapping TypeName="HealthCheckModel.StartHand">
         <MappingFragment StoreEntitySet="StartHand">
+          <ScalarProperty Name="startHand_sendMailTime" ColumnName="startHand_sendMailTime" />
           <ScalarProperty Name="startHand_updateTime" ColumnName="startHand_updateTime" />
           <ScalarProperty Name="standHand_updateUser" ColumnName="standHand_updateUser" />
           <ScalarProperty Name="startHand_serialNumber" ColumnName="startHand_serialNumber" />
@@ -417,69 +348,6 @@
           <ScalarProperty Name="startHand_workNumber" ColumnName="startHand_workNumber" />
           <ScalarProperty Name="startHand_checkId" ColumnName="startHand_checkId" />
           <ScalarProperty Name="startHand_id" ColumnName="startHand_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="VW_BookEmp">
-      <EntityTypeMapping TypeName="HealthCheckModel.VW_BookEmp">
-        <MappingFragment StoreEntitySet="VW_BookEmp">
-          <ScalarProperty Name="employee_role" ColumnName="employee_role" />
-          <ScalarProperty Name="employee_password" ColumnName="employee_password" />
-          <ScalarProperty Name="employee_username" ColumnName="employee_username" />
-          <ScalarProperty Name="employee_isDisabled" ColumnName="employee_isDisabled" />
-          <ScalarProperty Name="employee_changedDate" ColumnName="employee_changedDate" />
-          <ScalarProperty Name="employee_note" ColumnName="employee_note" />
-          <ScalarProperty Name="employee_reportMobile" ColumnName="employee_reportMobile" />
-          <ScalarProperty Name="employee_reportAddress" ColumnName="employee_reportAddress" />
-          <ScalarProperty Name="employee_email" ColumnName="employee_email" />
-          <ScalarProperty Name="employee_home" ColumnName="employee_home" />
-          <ScalarProperty Name="employee_cellphone" ColumnName="employee_cellphone" />
-          <ScalarProperty Name="employee_mailingAddress" ColumnName="employee_mailingAddress" />
-          <ScalarProperty Name="employee_accFactory" ColumnName="employee_accFactory" />
-          <ScalarProperty Name="employee_quitDate" ColumnName="employee_quitDate" />
-          <ScalarProperty Name="employee_comingDate" ColumnName="employee_comingDate" />
-          <ScalarProperty Name="employee_laborInsurance" ColumnName="employee_laborInsurance" />
-          <ScalarProperty Name="employee_IaborId" ColumnName="employee_IaborId" />
-          <ScalarProperty Name="employee_IsAbroad" ColumnName="employee_IsAbroad" />
-          <ScalarProperty Name="employee_homeSite" ColumnName="employee_homeSite" />
-          <ScalarProperty Name="employee_managerDate" ColumnName="employee_managerDate" />
-          <ScalarProperty Name="employee_department" ColumnName="employee_department" />
-          <ScalarProperty Name="employee_jobTitle" ColumnName="employee_jobTitle" />
-          <ScalarProperty Name="employee_factoryId" ColumnName="employee_factoryId" />
-          <ScalarProperty Name="employee_team" ColumnName="employee_team" />
-          <ScalarProperty Name="employee_corporation" ColumnName="employee_corporation" />
-          <ScalarProperty Name="employee_groupId" ColumnName="employee_groupId" />
-          <ScalarProperty Name="employee_age" ColumnName="employee_age" />
-          <ScalarProperty Name="employee_dateOfBirth" ColumnName="employee_dateOfBirth" />
-          <ScalarProperty Name="employee_gender" ColumnName="employee_gender" />
-          <ScalarProperty Name="employee_blood" ColumnName="employee_blood" />
-          <ScalarProperty Name="employee_identityCard" ColumnName="employee_identityCard" />
-          <ScalarProperty Name="employee_name" ColumnName="employee_name" />
-          <ScalarProperty Name="employee_workId" ColumnName="employee_workId" />
-          <ScalarProperty Name="employee_workNumber" ColumnName="employee_workNumber" />
-          <ScalarProperty Name="book_mobile" ColumnName="book_mobile" />
-          <ScalarProperty Name="book_state" ColumnName="book_state" />
-          <ScalarProperty Name="book_Date" ColumnName="book_Date" />
-          <ScalarProperty Name="book_hospitalId" ColumnName="book_hospitalId" />
-          <ScalarProperty Name="book_ProgramId" ColumnName="book_ProgramId" />
-          <ScalarProperty Name="book_special" ColumnName="book_special" />
-          <ScalarProperty Name="book_exceptDate" ColumnName="book_exceptDate" />
-          <ScalarProperty Name="book_healthDate" ColumnName="book_healthDate" />
-          <ScalarProperty Name="book_costDate" ColumnName="book_costDate" />
-          <ScalarProperty Name="book_cost" ColumnName="book_cost" />
-          <ScalarProperty Name="book_note" ColumnName="book_note" />
-          <ScalarProperty Name="book_Notice" ColumnName="book_Notice" />
-          <ScalarProperty Name="book_medicalHistory" ColumnName="book_medicalHistory" />
-          <ScalarProperty Name="book_EatAspririn" ColumnName="book_EatAspririn" />
-          <ScalarProperty Name="book_IsAllergy" ColumnName="book_IsAllergy" />
-          <ScalarProperty Name="book_IsDisable" ColumnName="book_IsDisable" />
-          <ScalarProperty Name="book_updateUser" ColumnName="book_updateUser" />
-          <ScalarProperty Name="book_updateDate" ColumnName="book_updateDate" />
-          <ScalarProperty Name="book_welfare" ColumnName="book_welfare" />
-          <ScalarProperty Name="book_host" ColumnName="book_host" />
-          <ScalarProperty Name="book_hostTime" ColumnName="book_hostTime" />
-          <ScalarProperty Name="book_serialNumber" ColumnName="book_serialNumber" />
-          <ScalarProperty Name="book_Id" ColumnName="book_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -529,6 +397,7 @@
     <EntitySetMapping Name="VW_HospitalProgram">
       <EntityTypeMapping TypeName="HealthCheckModel.VW_HospitalProgram">
         <MappingFragment StoreEntitySet="VW_HospitalProgram">
+          <ScalarProperty Name="hospital_hospitalId" ColumnName="hospital_hospitalId" />
           <ScalarProperty Name="program_updatetime" ColumnName="program_updatetime" />
           <ScalarProperty Name="program_updateuser" ColumnName="program_updateuser" />
           <ScalarProperty Name="program_state" ColumnName="program_state" />
@@ -549,15 +418,211 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="database_firewall_rules">
-      <EntityTypeMapping TypeName="HealthCheckModel.database_firewall_rules">
-        <MappingFragment StoreEntitySet="database_firewall_rules">
-          <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-          <ScalarProperty Name="create_date" ColumnName="create_date" />
-          <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
-          <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="id" ColumnName="id" />
+    <EntitySetMapping Name="ReportManage">
+      <EntityTypeMapping TypeName="HealthCheckModel.ReportManage">
+        <MappingFragment StoreEntitySet="ReportManage">
+          <ScalarProperty Name="report_id" ColumnName="report_id" />
+          <ScalarProperty Name="ReportManage_serialNumber" ColumnName="ReportManage_serialNumber" />
+          <ScalarProperty Name="generalComment_17" ColumnName="generalComment_17" />
+          <ScalarProperty Name="generalComment_16" ColumnName="generalComment_16" />
+          <ScalarProperty Name="generalComment_15" ColumnName="generalComment_15" />
+          <ScalarProperty Name="generalComment_14" ColumnName="generalComment_14" />
+          <ScalarProperty Name="generalComment_13" ColumnName="generalComment_13" />
+          <ScalarProperty Name="generalComment_12" ColumnName="generalComment_12" />
+          <ScalarProperty Name="generalComment_11" ColumnName="generalComment_11" />
+          <ScalarProperty Name="generalComment_10" ColumnName="generalComment_10" />
+          <ScalarProperty Name="generalComment_9" ColumnName="generalComment_9" />
+          <ScalarProperty Name="generalComment_8" ColumnName="generalComment_8" />
+          <ScalarProperty Name="generalComment_7" ColumnName="generalComment_7" />
+          <ScalarProperty Name="generalComment_6" ColumnName="generalComment_6" />
+          <ScalarProperty Name="generalComment_5" ColumnName="generalComment_5" />
+          <ScalarProperty Name="generalComment_4" ColumnName="generalComment_4" />
+          <ScalarProperty Name="generalComment_3" ColumnName="generalComment_3" />
+          <ScalarProperty Name="generalComment_2" ColumnName="generalComment_2" />
+          <ScalarProperty Name="generalComment_1" ColumnName="generalComment_1" />
+          <ScalarProperty Name="ReportManage_updateTime" ColumnName="ReportManage_updateTime" />
+          <ScalarProperty Name="ReportManage_updateUser" ColumnName="ReportManage_updateUser" />
+          <ScalarProperty Name="ReportManage_doubleId" ColumnName="ReportManage_doubleId" />
+          <ScalarProperty Name="ReportManage_IsDisable" ColumnName="ReportManage_IsDisable" />
+          <ScalarProperty Name="ReportManage_notes" ColumnName="ReportManage_notes" />
+          <ScalarProperty Name="ReportManage_symptoms" ColumnName="ReportManage_symptoms" />
+          <ScalarProperty Name="ReportManage_pastHistory" ColumnName="ReportManage_pastHistory" />
+          <ScalarProperty Name="ReportManage_hw" ColumnName="ReportManage_hw" />
+          <ScalarProperty Name="ReportManage_IsdoubleCheck" ColumnName="ReportManage_IsdoubleCheck" />
+          <ScalarProperty Name="ReportManage_corporation" ColumnName="ReportManage_corporation" />
+          <ScalarProperty Name="ReportManage_healthDate" ColumnName="ReportManage_healthDate" />
+          <ScalarProperty Name="ReportManage_medicalRecord" ColumnName="ReportManage_medicalRecord" />
+          <ScalarProperty Name="ReportManage_programId" ColumnName="ReportManage_programId" />
+          <ScalarProperty Name="ReportManage_hospitalId" ColumnName="ReportManage_hospitalId" />
+          <ScalarProperty Name="ReportManage_startId" ColumnName="ReportManage_startId" />
+          <ScalarProperty Name="ReportManage_workNumber" ColumnName="ReportManage_workNumber" />
+          <ScalarProperty Name="ReportManage_id" ColumnName="ReportManage_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VW_EmpAuthFa">
+      <EntityTypeMapping TypeName="HealthCheckModel.VW_EmpAuthFa">
+        <MappingFragment StoreEntitySet="VW_EmpAuthFa">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="factory_id" ColumnName="factory_id" />
+          <ScalarProperty Name="factory_name" ColumnName="factory_name" />
+          <ScalarProperty Name="factory_area" ColumnName="factory_area" />
+          <ScalarProperty Name="authority_IsDisable" ColumnName="authority_IsDisable" />
+          <ScalarProperty Name="authority_factoryId" ColumnName="authority_factoryId" />
+          <ScalarProperty Name="employee_isDisabled" ColumnName="employee_isDisabled" />
+          <ScalarProperty Name="employee_username" ColumnName="employee_username" />
+          <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+          <ScalarProperty Name="employee_role" ColumnName="employee_role" />
+          <ScalarProperty Name="employee_workNumber" ColumnName="employee_workNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="book">
+      <EntityTypeMapping TypeName="HealthCheckModel.Book">
+        <MappingFragment StoreEntitySet="book">
+          <ScalarProperty Name="book_year" ColumnName="book_year" />
+          <ScalarProperty Name="book_cellphone" ColumnName="book_cellphone" />
+          <ScalarProperty Name="book_noticeaddress" ColumnName="book_noticeaddress" />
+          <ScalarProperty Name="book_serialNumber" ColumnName="book_serialNumber" />
+          <ScalarProperty Name="book_hostTime" ColumnName="book_hostTime" />
+          <ScalarProperty Name="book_host" ColumnName="book_host" />
+          <ScalarProperty Name="book_welfare" ColumnName="book_welfare" />
+          <ScalarProperty Name="book_updateDate" ColumnName="book_updateDate" />
+          <ScalarProperty Name="book_updateUser" ColumnName="book_updateUser" />
+          <ScalarProperty Name="book_IsDisable" ColumnName="book_IsDisable" />
+          <ScalarProperty Name="book_IsAllergy" ColumnName="book_IsAllergy" />
+          <ScalarProperty Name="book_EatAspririn" ColumnName="book_EatAspririn" />
+          <ScalarProperty Name="book_medicalHistory" ColumnName="book_medicalHistory" />
+          <ScalarProperty Name="book_Notice" ColumnName="book_Notice" />
+          <ScalarProperty Name="book_note" ColumnName="book_note" />
+          <ScalarProperty Name="book_cost" ColumnName="book_cost" />
+          <ScalarProperty Name="book_costDate" ColumnName="book_costDate" />
+          <ScalarProperty Name="book_healthDate" ColumnName="book_healthDate" />
+          <ScalarProperty Name="book_exceptDate3" ColumnName="book_exceptDate3" />
+          <ScalarProperty Name="book_exceptDate2" ColumnName="book_exceptDate2" />
+          <ScalarProperty Name="book_exceptDate1" ColumnName="book_exceptDate1" />
+          <ScalarProperty Name="book_special" ColumnName="book_special" />
+          <ScalarProperty Name="book_ProgramId" ColumnName="book_ProgramId" />
+          <ScalarProperty Name="book_hospitalId" ColumnName="book_hospitalId" />
+          <ScalarProperty Name="book_Date" ColumnName="book_Date" />
+          <ScalarProperty Name="book_state" ColumnName="book_state" />
+          <ScalarProperty Name="book_mobile" ColumnName="book_mobile" />
+          <ScalarProperty Name="book_workNumber" ColumnName="book_workNumber" />
+          <ScalarProperty Name="book_id" ColumnName="book_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vReportCheck">
+      <EntityTypeMapping TypeName="HealthCheckModel.vReportCheck">
+        <MappingFragment StoreEntitySet="vReportCheck">
+          <ScalarProperty Name="ReportCheckItem_WaistIsPass" ColumnName="ReportCheckItem_WaistIsPass" />
+          <ScalarProperty Name="ReportCheckItem_WaistValue" ColumnName="ReportCheckItem_WaistValue" />
+          <ScalarProperty Name="ReportCheckItem_WVIsPass" ColumnName="ReportCheckItem_WVIsPass" />
+          <ScalarProperty Name="ReportCheckItem_WeightValue" ColumnName="ReportCheckItem_WeightValue" />
+          <ScalarProperty Name="ReportCheckItem_HVIsPass" ColumnName="ReportCheckItem_HVIsPass" />
+          <ScalarProperty Name="ReportCheckItem_HeightValue" ColumnName="ReportCheckItem_HeightValue" />
+          <ScalarProperty Name="ReportCheckItem_symptoms" ColumnName="ReportCheckItem_symptoms" />
+          <ScalarProperty Name="ReportCheckItem_pastHistory" ColumnName="ReportCheckItem_pastHistory" />
+          <ScalarProperty Name="ReportCheckItem_hw" ColumnName="ReportCheckItem_hw" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_17" ColumnName="ReportCheckItem_generalComment_17" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_16" ColumnName="ReportCheckItem_generalComment_16" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_15" ColumnName="ReportCheckItem_generalComment_15" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_14" ColumnName="ReportCheckItem_generalComment_14" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_13" ColumnName="ReportCheckItem_generalComment_13" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_12" ColumnName="ReportCheckItem_generalComment_12" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_11" ColumnName="ReportCheckItem_generalComment_11" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_10" ColumnName="ReportCheckItem_generalComment_10" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_9" ColumnName="ReportCheckItem_generalComment_9" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_8" ColumnName="ReportCheckItem_generalComment_8" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_7" ColumnName="ReportCheckItem_generalComment_7" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_6" ColumnName="ReportCheckItem_generalComment_6" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_5" ColumnName="ReportCheckItem_generalComment_5" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_4" ColumnName="ReportCheckItem_generalComment_4" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_3" ColumnName="ReportCheckItem_generalComment_3" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_2" ColumnName="ReportCheckItem_generalComment_2" />
+          <ScalarProperty Name="ReportCheckItem_generalComment_1" ColumnName="ReportCheckItem_generalComment_1" />
+          <ScalarProperty Name="checkYear" ColumnName="checkYear" />
+          <ScalarProperty Name="ReportCheckItem_checkDate" ColumnName="ReportCheckItem_checkDate" />
+          <ScalarProperty Name="ReportCheckItem_employee_workNumber" ColumnName="ReportCheckItem_employee_workNumber" />
+          <ScalarProperty Name="report_id" ColumnName="report_id" />
+          <ScalarProperty Name="ReportManage_updateTime" ColumnName="ReportManage_updateTime" />
+          <ScalarProperty Name="ReportManage_updateUser" ColumnName="ReportManage_updateUser" />
+          <ScalarProperty Name="ReportManage_IsDisable" ColumnName="ReportManage_IsDisable" />
+          <ScalarProperty Name="ReportManage_notes" ColumnName="ReportManage_notes" />
+          <ScalarProperty Name="ReportManage_medicalRecord" ColumnName="ReportManage_medicalRecord" />
+          <ScalarProperty Name="ReportManage_programId" ColumnName="ReportManage_programId" />
+          <ScalarProperty Name="ReportManage_hospitalId" ColumnName="ReportManage_hospitalId" />
+          <ScalarProperty Name="ReportManage_startId" ColumnName="ReportManage_startId" />
+          <ScalarProperty Name="ReportManage_workNumber" ColumnName="ReportManage_workNumber" />
+          <ScalarProperty Name="ReportManage_id" ColumnName="ReportManage_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VW_BookEmp">
+      <EntityTypeMapping TypeName="HealthCheckModel.VW_BookEmp">
+        <MappingFragment StoreEntitySet="VW_BookEmp">
+          <ScalarProperty Name="book_year" ColumnName="book_year" />
+          <ScalarProperty Name="book_noticeaddress" ColumnName="book_noticeaddress" />
+          <ScalarProperty Name="book_cellphone" ColumnName="book_cellphone" />
+          <ScalarProperty Name="employee_role" ColumnName="employee_role" />
+          <ScalarProperty Name="employee_password" ColumnName="employee_password" />
+          <ScalarProperty Name="employee_username" ColumnName="employee_username" />
+          <ScalarProperty Name="employee_isDisabled" ColumnName="employee_isDisabled" />
+          <ScalarProperty Name="employee_changedDate" ColumnName="employee_changedDate" />
+          <ScalarProperty Name="employee_note" ColumnName="employee_note" />
+          <ScalarProperty Name="employee_reportMobile" ColumnName="employee_reportMobile" />
+          <ScalarProperty Name="employee_reportAddress" ColumnName="employee_reportAddress" />
+          <ScalarProperty Name="employee_email" ColumnName="employee_email" />
+          <ScalarProperty Name="employee_home" ColumnName="employee_home" />
+          <ScalarProperty Name="employee_cellphone" ColumnName="employee_cellphone" />
+          <ScalarProperty Name="employee_mailingAddress" ColumnName="employee_mailingAddress" />
+          <ScalarProperty Name="employee_accFactory" ColumnName="employee_accFactory" />
+          <ScalarProperty Name="employee_quitDate" ColumnName="employee_quitDate" />
+          <ScalarProperty Name="employee_comingDate" ColumnName="employee_comingDate" />
+          <ScalarProperty Name="employee_laborInsurance" ColumnName="employee_laborInsurance" />
+          <ScalarProperty Name="employee_IaborId" ColumnName="employee_IaborId" />
+          <ScalarProperty Name="employee_IsAbroad" ColumnName="employee_IsAbroad" />
+          <ScalarProperty Name="employee_homeSite" ColumnName="employee_homeSite" />
+          <ScalarProperty Name="employee_managerDate" ColumnName="employee_managerDate" />
+          <ScalarProperty Name="employee_department" ColumnName="employee_department" />
+          <ScalarProperty Name="employee_jobTitle" ColumnName="employee_jobTitle" />
+          <ScalarProperty Name="employee_factoryId" ColumnName="employee_factoryId" />
+          <ScalarProperty Name="employee_team" ColumnName="employee_team" />
+          <ScalarProperty Name="employee_corporation" ColumnName="employee_corporation" />
+          <ScalarProperty Name="employee_groupId" ColumnName="employee_groupId" />
+          <ScalarProperty Name="employee_age" ColumnName="employee_age" />
+          <ScalarProperty Name="employee_dateOfBirth" ColumnName="employee_dateOfBirth" />
+          <ScalarProperty Name="employee_gender" ColumnName="employee_gender" />
+          <ScalarProperty Name="employee_blood" ColumnName="employee_blood" />
+          <ScalarProperty Name="employee_identityCard" ColumnName="employee_identityCard" />
+          <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+          <ScalarProperty Name="employee_workId" ColumnName="employee_workId" />
+          <ScalarProperty Name="employee_workNumber" ColumnName="employee_workNumber" />
+          <ScalarProperty Name="book_mobile" ColumnName="book_mobile" />
+          <ScalarProperty Name="book_state" ColumnName="book_state" />
+          <ScalarProperty Name="book_Date" ColumnName="book_Date" />
+          <ScalarProperty Name="book_hospitalId" ColumnName="book_hospitalId" />
+          <ScalarProperty Name="book_ProgramId" ColumnName="book_ProgramId" />
+          <ScalarProperty Name="book_special" ColumnName="book_special" />
+          <ScalarProperty Name="book_exceptDate3" ColumnName="book_exceptDate3" />
+          <ScalarProperty Name="book_exceptDate2" ColumnName="book_exceptDate2" />
+          <ScalarProperty Name="book_exceptDate1" ColumnName="book_exceptDate1" />
+          <ScalarProperty Name="book_healthDate" ColumnName="book_healthDate" />
+          <ScalarProperty Name="book_costDate" ColumnName="book_costDate" />
+          <ScalarProperty Name="book_cost" ColumnName="book_cost" />
+          <ScalarProperty Name="book_note" ColumnName="book_note" />
+          <ScalarProperty Name="book_Notice" ColumnName="book_Notice" />
+          <ScalarProperty Name="book_medicalHistory" ColumnName="book_medicalHistory" />
+          <ScalarProperty Name="book_EatAspririn" ColumnName="book_EatAspririn" />
+          <ScalarProperty Name="book_IsAllergy" ColumnName="book_IsAllergy" />
+          <ScalarProperty Name="book_IsDisable" ColumnName="book_IsDisable" />
+          <ScalarProperty Name="book_updateUser" ColumnName="book_updateUser" />
+          <ScalarProperty Name="book_updateDate" ColumnName="book_updateDate" />
+          <ScalarProperty Name="book_welfare" ColumnName="book_welfare" />
+          <ScalarProperty Name="book_host" ColumnName="book_host" />
+          <ScalarProperty Name="book_hostTime" ColumnName="book_hostTime" />
+          <ScalarProperty Name="book_serialNumber" ColumnName="book_serialNumber" />
+          <ScalarProperty Name="book_Id" ColumnName="book_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

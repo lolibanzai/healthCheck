@@ -17,8 +17,7 @@ namespace healthSystem.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Program()
         {
-            this.Book = new HashSet<Book>();
-            this.Book1 = new HashSet<Book>();
+            this.book = new HashSet<Book>();
         }
     
         public int program_programId { get; set; }
@@ -34,8 +33,6 @@ namespace healthSystem.Models
         public virtual Hospital Hospital { get; set; }
         public virtual WorkInfo WorkInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Book> Book { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Book> Book1 { get; set; }
+        public virtual ICollection<Book> book { get; set; }
     }
 }

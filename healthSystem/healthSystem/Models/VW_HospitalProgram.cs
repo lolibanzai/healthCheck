@@ -31,5 +31,6 @@ namespace healthSystem.Models
         public string program_state { get; set; }
         public string program_updateuser { get; set; }
         public Nullable<System.DateTime> program_updatetime { get; set; }
+        public int hospital_hospitalId { get; set; }
     }
 }
