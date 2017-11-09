@@ -98,10 +98,11 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12">
+                                
                                 @foreach (var address in Model.GetW_BookEmp) {
                                     @*<label for="book_Notice">寄送地址:</label>*@
-                                    <input type="hidden" class="form-control" id="employee_mailingAddress"
-                                           name="employee_mailingAddress" value="@address.employee_mailingAddress">
+                                    <input type='@((item.book_Notice != 3) ? "hidden" : "text")' class="form-control" id="employee_mailingAddress"
+                                           name="employee_mailingAddress" value="@address.employee_mailingAddress" >
                                 }
                             </div>
                         </div>
