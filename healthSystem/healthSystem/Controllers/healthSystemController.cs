@@ -409,7 +409,8 @@ namespace healthSystem.Controllers
             int portNumber = 587;
             bool enableSSL = true;
             //填入寄送方email和密碼
-
+            string emailFrom = "";
+            string password = "";
             //收信方email
             string emailTo = email;
             //主旨
