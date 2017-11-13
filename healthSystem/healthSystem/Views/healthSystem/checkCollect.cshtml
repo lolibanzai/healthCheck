@@ -71,9 +71,12 @@
                     <input type="text" name="StartID" value="@Session["checkCollectStartID"]" hidden />
                     <input type="text" name="startYear" value="@Session["checkCollectstartYear"]" hidden />
                     <input type="text" name="saveSignal" value="0" hidden />
-                    <button type="submit" class="btn btn-info btn-xs">
-                        <span class="glyphicon glyphicon-plus"></span>儲存系統收集人員
-                    </button>
+                    @if (findd.systemCollect(Convert.ToInt32(Session["StartID"])) == true)
+                    {
+                        <button type="submit" class="btn btn-info btn-xs">
+                            <span class="glyphicon glyphicon-plus"></span>儲存系統收集人員
+                        </button>
+                    }
                 </h3>
             </form>
         </div>

@@ -86,6 +86,7 @@
                         <td>
                             <form method="post" action="/healthSystem/checkCollect">
                                 <input type="text" name="collectMark" value="編輯待驗人員" hidden />
+                                @{Session["StartID"] = row.Start_id;}
                                 <input type="text" name="StartID" value="@row.Start_id" hidden />
                                 <input type="text" name="startYear" value="@row.start_year" hidden />
                                 <input type="text" name="saveSignal" value="1" hidden />

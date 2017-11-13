@@ -110,5 +110,17 @@ namespace healthSystem.Models
             string employeeComingDate = query1.FirstOrDefault();
             return employeeComingDate;
         }
+        //判斷是否系統收集過
+        public bool systemCollect(int StartID)
+        {
+            var query = (from o in db.StartHand
+                         where o.startHand_checkId == StartID && o.startHand_type == "系統收集"
+                         select o.startHand_id).ToList();
+            if (query.Count() > 0)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
